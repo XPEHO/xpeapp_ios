@@ -1,0 +1,10 @@
+on: [
+  pull_request,
+  workflow_dispatch
+]
+
+name: Add labels when pull request is opened
+
+jobs:
+  xpeho_workflows_labels:
+    uses: XPEHO/Xpeho-Workflows/.github/workflows/labels.yaml@main
