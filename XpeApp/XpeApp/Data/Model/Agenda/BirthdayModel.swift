@@ -27,7 +27,7 @@ public struct BirthdayModel: Codable {
         
         // Decode `birthdate` as a String and convert it to a Date
         let birthdateString = try container.decode(String.self, forKey: .birthdate)
-        guard let parsedDate = DateFormatters.dateFormatter.date(from: birthdateString) else {
+        guard let parsedDate = dateFormatterForBirthday.date(from: birthdateString) else {
             throw DecodingError.dataCorruptedError(forKey: .birthdate, in: container, debugDescription: "Date string does not match format expected by formatter.")
         }
         birthdate = parsedDate

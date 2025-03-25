@@ -36,25 +36,31 @@ struct EventCard: View {
 
         var result: [TagPill] = []
 
+        // Add the event date
         result.append(TagPill(label: event.date.formatted(date: .numeric, time: .omitted), backgroundColor: tagColor))
 
+        // Add the start time if it exists
         if let startTime = event.startTime {
-            result.append(TagPill(label: startTime.formatted(date: .omitted, time: .shortened), backgroundColor: tagColor))
+            result.append(TagPill(label: timeFormatter.string(from: startTime), backgroundColor: tagColor))
         }
-
+        
+        // Add the end time if it exists
         if let endTime = event.endTime {
-            result.append(TagPill(label: endTime.formatted(date: .omitted, time: .shortened), backgroundColor: tagColor))
+            result.append(TagPill(label: timeFormatter.string(from: endTime), backgroundColor: tagColor))
         }
 
-        if let eventType = eventTypes.first(where: { $0.id == event.typeId }) {
+        // Add the event type if it exists
+        if let eventType = eventTypes.first(where: { $0.id == event.typeId }), !eventType.label.isEmpty {
             result.append(TagPill(label: eventType.label, backgroundColor: tagColor))
         }
 
-        if let location = event.location {
+        // Add the location if it exists and is not empty
+        if let location = event.location, !location.isEmpty {
             result.append(TagPill(label: location, backgroundColor: tagColor))
         }
 
-        if let topic = event.topic {
+        // Add the topic if it exists and is not empty
+        if let topic = event.topic, !topic.isEmpty {
             result.append(TagPill(label: topic, backgroundColor: tagColor))
         }
 

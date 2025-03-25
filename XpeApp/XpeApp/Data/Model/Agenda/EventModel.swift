@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public struct EventModel: Codable {
     var id: String?
@@ -34,19 +35,19 @@ public struct EventModel: Codable {
         
         // Decode `date` as a String and convert it to a Date
         let dateString = try container.decode(String.self, forKey: .date)
-        guard let parsedDate = DateFormatters.dateTimeFormatter.date(from: dateString) else {
+        guard let parsedDate = fullDateTimeFormatter.date(from: dateString) else {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "Date string does not match format expected by formatter.")
         }
         date = parsedDate
         
         if let startTimeString = try container.decodeIfPresent(String.self, forKey: .startTime) {
-            startTime = DateFormatters.timeFormatter.date(from: startTimeString)
+            startTime = timeFormatter.date(from: startTimeString)
         } else {
             startTime = nil
         }
         
         if let endTimeString = try container.decodeIfPresent(String.self, forKey: .endTime) {
-            endTime = DateFormatters.timeFormatter.date(from: endTimeString)
+            endTime = timeFormatter.date(from: endTimeString)
         } else {
             endTime = nil
         }
