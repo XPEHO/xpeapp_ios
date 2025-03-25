@@ -10,6 +10,7 @@ import xpeho_ui
 
 struct HomePage: View {
     @Bindable private var homePageViewModel = HomePageViewModel.instance
+    @Bindable private var agendaViewModel = AgendaPageViewModel.instance
     private var featureManager = FeatureManager.instance
     private var userInfosViewModel = UserInfosPageViewModel.instance
     
@@ -24,7 +25,9 @@ struct HomePage: View {
                     )
                     Spacer().frame(height: 32)
                 }
-                if toNotMissSectionIsEnabled(), let activeCampaigns = Binding($homePageViewModel.activeCampaigns) {
+                if toNotMissSectionIsEnabled(),
+                   let activeCampaigns = Binding($homePageViewModel.activeCampaigns)
+                    {
                     PageTitleSection(title: "À ne pas manquer !")
                     Spacer().frame(height: 16)
                     CampaignsList(
@@ -33,19 +36,33 @@ struct HomePage: View {
                         defaultOpen: true
                     )
                 }
+                if lastWeeklyEventsSectionIsEnabled(),
+                    let allWeeklyEvents = Binding($agendaViewModel.events),
+                    let allWeeklyBirthdays = Binding($agendaViewModel.birthdays),
+                    let allEventsTypes = Binding($agendaViewModel.eventsTypes)
+                     {
+                     Spacer().frame(height: 16)
+                     EventsList(
+                         events: allWeeklyEvents,
+                         eventTypes: allEventsTypes,
+                         birthdays: allWeeklyBirthdays
+                     )
+                 }
                 
                 if !lastNewsletterSectionIsEnabled()
-                    && !toNotMissSectionIsEnabled() {
+                    && !toNotMissSectionIsEnabled() && lastWeeklyEventsSectionIsEnabled() {
                     NoContentPlaceHolder()
                 }
             }
         }
         .onAppear {
-            homePageViewModel.update();
+            homePageViewModel.update()
+            agendaViewModel.update()
             sendAnalyticsEvent(page: "home_page")
         }
         .refreshable {
             homePageViewModel.update()
+            agendaViewModel.update()
             featureManager.update()
             userInfosViewModel.update()
         }
@@ -60,6 +77,12 @@ struct HomePage: View {
     private func toNotMissSectionIsEnabled() -> Bool {
         // Check that the campaigns are a feature enabled
         return featureManager.isEnabled(item: .campaign)
-        
     }
+
+    private func lastWeeklyEventsSectionIsEnabled() -> Bool {
+        // Check that the events are a feature enabled
+        return featureManager.isEnabled(item: .agenda)
+    }
+
+
 }

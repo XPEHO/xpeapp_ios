@@ -107,6 +107,18 @@
 		D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */; };
+		D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5A92D915E09005C28F3 /* EventModel.swift */; };
+		D7BCA5AF2D916A60005C28F3 /* AgendaRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */; };
+		D7BCA5B32D916B23005C28F3 /* AgendaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */; };
+		D7BCA5B52D916F56005C28F3 /* AgendaPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B42D916F4A005C28F3 /* AgendaPageViewModel.swift */; };
+		D7BCA5B82D917286005C28F3 /* EventEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B72D917282005C28F3 /* EventEntity.swift */; };
+		D7BCA5BC2D91A42E005C28F3 /* EventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5BB2D91A42E005C28F3 /* EventsListView.swift */; };
+		D7BCA5BE2D91A488005C28F3 /* EventsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5BD2D91A488005C28F3 /* EventsCardView.swift */; };
+		D7BCA5C02D92AC0E005C28F3 /* EventTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5BF2D92AC0E005C28F3 /* EventTypeModel.swift */; };
+		D7BCA5C32D92AE53005C28F3 /* EventTypeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C22D92AE4E005C28F3 /* EventTypeEntity.swift */; };
+		D7BCA5C52D92B602005C28F3 /* BirthdayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C42D92B5FD005C28F3 /* BirthdayModel.swift */; };
+		D7BCA5C72D92B889005C28F3 /* BirthdayEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C62D92B883005C28F3 /* BirthdayEntity.swift */; };
+		D7BCA5C92D930B91005C28F3 /* BirthdaysCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */; };
 		D7C9A5462D2C138000D9E763 /* SidebarItemProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9A5452D2C138000D9E763 /* SidebarItemProfileView.swift */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +225,18 @@
 		D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosPageViewModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsMenuItem.swift; sourceTree = "<group>"; };
+		D7BCA5A92D915E09005C28F3 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryImpl.swift; sourceTree = "<group>"; };
+		D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepository.swift; sourceTree = "<group>"; };
+		D7BCA5B42D916F4A005C28F3 /* AgendaPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageViewModel.swift; sourceTree = "<group>"; };
+		D7BCA5B72D917282005C28F3 /* EventEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEntity.swift; sourceTree = "<group>"; };
+		D7BCA5BB2D91A42E005C28F3 /* EventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListView.swift; sourceTree = "<group>"; };
+		D7BCA5BD2D91A488005C28F3 /* EventsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCardView.swift; sourceTree = "<group>"; };
+		D7BCA5BF2D92AC0E005C28F3 /* EventTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeModel.swift; sourceTree = "<group>"; };
+		D7BCA5C22D92AE4E005C28F3 /* EventTypeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeEntity.swift; sourceTree = "<group>"; };
+		D7BCA5C42D92B5FD005C28F3 /* BirthdayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayModel.swift; sourceTree = "<group>"; };
+		D7BCA5C62D92B883005C28F3 /* BirthdayEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayEntity.swift; sourceTree = "<group>"; };
+		D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdaysCardView.swift; sourceTree = "<group>"; };
 		D7C9A5452D2C138000D9E763 /* SidebarItemProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItemProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -392,6 +416,7 @@
 		0EF0F8E42C91E15B00AF5966 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5A62D915D04005C28F3 /* Agenda */,
 				D72C13322D2D3DF9002F6A14 /* User-Infos */,
 				0EF0F8EC2C91E31400AF5966 /* Qvst */,
 				0E61D2B82C78A20F00050F7C /* NewsletterModel.swift */,
@@ -404,6 +429,7 @@
 		0EF0F8E52C91E16400AF5966 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */,
 				0EEE15052C9C6ACD0066CCB7 /* Mocks */,
 				0EF0F8D62C8AE69300AF5966 /* UserRepositoryImpl.swift */,
 				0E61D2B62C78A1EA00050F7C /* NewsletterRepositoryImpl.swift */,
@@ -428,6 +454,7 @@
 		0EF0F8E72C91E19700AF5966 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5C12D92AE3F005C28F3 /* Agenda */,
 				D72C13352D2D3F07002F6A14 /* UserInfosEntity.swift */,
 				0EF0F9032C932F1000AF5966 /* NewsletterEntity.swift */,
 				0EF0F9052C93324B00AF5966 /* QvstCampaignEntity.swift */,
@@ -440,6 +467,7 @@
 		0EF0F8E82C91E19D00AF5966 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */,
 				0EF0F8F52C92CEA100AF5966 /* NewsletterRepository.swift */,
 				0EF0F8F72C92CED700AF5966 /* QvstRepository.swift */,
 				0EF0F8F92C92CEFA00AF5966 /* UserRepository.swift */,
@@ -451,6 +479,7 @@
 		0EF0F8E92C91E1BE00AF5966 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5B62D917039005C28F3 /* Agenda */,
 				D7056B932D367B9500D7D8CA /* Profile */,
 				0E6277AB2C94900700F26E55 /* Qvst */,
 				0E6277A82C94894900F26E55 /* Newsletter */,
@@ -465,6 +494,7 @@
 		0EF0F8EA2C91E1C300AF5966 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5B42D916F4A005C28F3 /* AgendaPageViewModel.swift */,
 				D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */,
 				0EF0F8FF2C931EE100AF5966 /* HomePageViewModel.swift */,
 				0E6277A62C9484D900F26E55 /* NewsletterPageViewModel.swift */,
@@ -584,6 +614,36 @@
 				D7504B742D49303C0072E9C3 /* AboutView.swift */,
 			);
 			path = About;
+			sourceTree = "<group>";
+		};
+		D7BCA5A62D915D04005C28F3 /* Agenda */ = {
+			isa = PBXGroup;
+			children = (
+				D7BCA5C42D92B5FD005C28F3 /* BirthdayModel.swift */,
+				D7BCA5BF2D92AC0E005C28F3 /* EventTypeModel.swift */,
+				D7BCA5A92D915E09005C28F3 /* EventModel.swift */,
+			);
+			path = Agenda;
+			sourceTree = "<group>";
+		};
+		D7BCA5B62D917039005C28F3 /* Agenda */ = {
+			isa = PBXGroup;
+			children = (
+				D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */,
+				D7BCA5BD2D91A488005C28F3 /* EventsCardView.swift */,
+				D7BCA5BB2D91A42E005C28F3 /* EventsListView.swift */,
+			);
+			path = Agenda;
+			sourceTree = "<group>";
+		};
+		D7BCA5C12D92AE3F005C28F3 /* Agenda */ = {
+			isa = PBXGroup;
+			children = (
+				D7BCA5C62D92B883005C28F3 /* BirthdayEntity.swift */,
+				D7BCA5C22D92AE4E005C28F3 /* EventTypeEntity.swift */,
+				D7BCA5B72D917282005C28F3 /* EventEntity.swift */,
+			);
+			path = Agenda;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -719,6 +779,8 @@
 				0E6277AA2C94897100F26E55 /* NewsletterCardView.swift in Sources */,
 				0E6ACF802C8710B100735E1E /* FeatureRepositoryImpl.swift in Sources */,
 				0E6277A72C9484D900F26E55 /* NewsletterPageViewModel.swift in Sources */,
+				D7BCA5B82D917286005C28F3 /* EventEntity.swift in Sources */,
+				D7BCA5BE2D91A488005C28F3 /* EventsCardView.swift in Sources */,
 				D7056B992D367C9F00D7D8CA /* ProfileUserInfosView.swift in Sources */,
 				0EF0F9022C931F2D00AF5966 /* LoginManager.swift in Sources */,
 				0EF0F9042C932F1000AF5966 /* NewsletterEntity.swift in Sources */,
@@ -728,20 +790,28 @@
 				0E6277A22C943FC600F26E55 /* CampaignCardView.swift in Sources */,
 				0E6277AD2C94907500F26E55 /* CampaignsPageViewModel.swift in Sources */,
 				0EF0F8F82C92CED700AF5966 /* QvstRepository.swift in Sources */,
+				D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */,
+				D7BCA5AF2D916A60005C28F3 /* AgendaRepositoryImpl.swift in Sources */,
 				0E5C6EFC2C6A1A4500AA2127 /* HomePageView.swift in Sources */,
+				D7BCA5C72D92B889005C28F3 /* BirthdayEntity.swift in Sources */,
 				0E61D2CB2C78D47700050F7C /* Config.swift in Sources */,
 				0EF0F9062C93324B00AF5966 /* QvstCampaignEntity.swift in Sources */,
 				0EF0F8F62C92CEA100AF5966 /* NewsletterRepository.swift in Sources */,
 				D7056B972D367BD000D7D8CA /* ProfileEditPasswordView.swift in Sources */,
 				0EF0F90B2C94350B00AF5966 /* FeatureManager.swift in Sources */,
 				0EF0F8FC2C92CF1800AF5966 /* FeatureRepository.swift in Sources */,
+				D7BCA5C92D930B91005C28F3 /* BirthdaysCardView.swift in Sources */,
 				D70CC9EC2D355D63005B8916 /* UserPasswordEditResponseModel.swift in Sources */,
 				BDE1B5162C183AE200E8513F /* DebugPageView.swift in Sources */,
+				D7BCA5B32D916B23005C28F3 /* AgendaRepository.swift in Sources */,
 				0E61D2B72C78A1EA00050F7C /* NewsletterRepositoryImpl.swift in Sources */,
 				0EF0F8F22C91E7FD00AF5966 /* FirebaseAPI.swift in Sources */,
 				0E6277A42C94462100F26E55 /* CampaignsListView.swift in Sources */,
+				D7BCA5B52D916F56005C28F3 /* AgendaPageViewModel.swift in Sources */,
 				D70CC9EE2D35620A005B8916 /* UserPasswordEditModel.swift in Sources */,
 				0E7C7CAB2C9B2C6A00660E75 /* MockWordpressAPI.swift in Sources */,
+				D7BCA5C02D92AC0E005C28F3 /* EventTypeModel.swift in Sources */,
+				D7BCA5C32D92AE53005C28F3 /* EventTypeEntity.swift in Sources */,
 				0E5C6EFA2C69EDD100AA2127 /* TitleView.swift in Sources */,
 				BDACECE12C109309007B5262 /* ContentView.swift in Sources */,
 				0E61D2B12C78A0C600050F7C /* QvstCampaignModel.swift in Sources */,
@@ -763,6 +833,7 @@
 				0E61D2C42C78A4F200050F7C /* QvstProgressModel.swift in Sources */,
 				0EF0F8DE2C90863E00AF5966 /* TokenValidityModel.swift in Sources */,
 				0E61D2C62C78A53100050F7C /* QvstFormResponseModel.swift in Sources */,
+				D7BCA5BC2D91A42E005C28F3 /* EventsListView.swift in Sources */,
 				0E6ACF7C2C870FC700735E1E /* FeatureModel.swift in Sources */,
 				BDACED0B2C10A690007B5262 /* NewsletterPageView.swift in Sources */,
 				0E7C7CA42C9B084800660E75 /* SidebarItemView.swift in Sources */,
@@ -780,6 +851,7 @@
 				D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */,
 				0E61D2C02C78A4DA00050F7C /* QvstQuestionModel.swift in Sources */,
 				0E260DBF2CD90DAA00F8EF0C /* ListFilterView.swift in Sources */,
+				D7BCA5C52D92B602005C28F3 /* BirthdayModel.swift in Sources */,
 				0EF0F8FA2C92CEFA00AF5966 /* UserRepository.swift in Sources */,
 				0EF0F9092C9431E100AF5966 /* FeatureEntity.swift in Sources */,
 				0E61D2C82C78A55400050F7C /* QvstRepositoryImpl.swift in Sources */,

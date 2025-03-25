@@ -11,7 +11,7 @@ struct QvstProgressModel: Decodable {
     let userId: String
     let campaignId: String
     let answeredQuestionsCount: String
-    let totalQuestionsCount: String
+    let totalQuestionsCount: String?
 
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"

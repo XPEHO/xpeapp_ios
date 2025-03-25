@@ -24,6 +24,9 @@ protocol WordpressAPIProtocol {
     func fetchCampaignsProgress(userId: String) async -> [QvstProgressModel]?
     func fetchUserInfos() async -> UserInfosModel?
     func updatePassword(userPasswordCandidate: UserPasswordEditModel) async -> UserPasswordEditReturnEnum?
+    func fetchAllEvents(page: String?) async -> [EventModel]?
+    func fetchAllEventsTypes() async -> [EventTypeModel]?
+    func fetchAllBirthdays(page: String?) async -> [BirthdayModel]?
 }
 
 class WordpressAPI: WordpressAPIProtocol {
@@ -324,5 +327,92 @@ class WordpressAPI: WordpressAPIProtocol {
             return nil
             }
     }
+    
+    // Agenda
+    
+    // fetchAllEvents
+    func fetchAllEvents(page: String? = nil) async -> [EventModel]? {
+        var endpoint = "xpeho/v1/agenda/events"
+        if let page = page {
+            endpoint += "?page=\(page)"
+        }
+
+        if let (data, statusCode) = await fetchWordpressAPI<[EventModel]>(
+            endpoint: endpoint,
+            method: .get,
+            headers: [:]
+        ) {
+            if statusCode == 403 {
+                debugPrint("Unauthorized access in fetchAllEvents")
+                return []
+            }
+            
+            do {
+                return try JSONDecoder().decode([EventModel].self, from: data)
+            } catch {
+                debugPrint("Failed to decode data in fetchAllEvents : \(error)")
+                let dataString = String(data: data, encoding: .utf8) ?? ""
+                debugPrint("Data got : \(dataString)")
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    // fetchAllEventsTypes
+    func fetchAllEventsTypes() async -> [EventTypeModel]? {
+        if let (data, statusCode) = await fetchWordpressAPI<[EventTypeModel]>(
+            endpoint: "xpeho/v1/agenda/events-types",
+            method: .get,
+            headers: [:]
+        ) {
+            if statusCode == 403 {
+                debugPrint("Unauthorized access in fetchAllEventsTypes")
+                return []
+            }
+            
+            do {
+                return try JSONDecoder().decode([EventTypeModel].self, from: data)
+            } catch {
+                debugPrint("Failed to decode data in fetchAllEventsType : \(error)")
+                let dataString = String(data: data, encoding: .utf8) ?? ""
+                debugPrint("Data got : \(dataString)")
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    // fetchAllBirthday
+    func fetchAllBirthdays(page: String? = nil) async -> [BirthdayModel]? {
+        var endpoint = "xpeho/v1/agenda/birthday"
+        if let page = page {
+            endpoint += "?page=\(page)"
+        }
+        if let (data, statusCode) = await fetchWordpressAPI<[BirthdayModel]>(
+            endpoint: endpoint,
+            method: .get,
+            headers: [:]
+        ) {
+            if statusCode == 403 {
+                debugPrint("Unauthorized access in fetchAllBirthday")
+                return []
+            }
+            
+            do {
+                return try JSONDecoder().decode([BirthdayModel].self, from: data)
+            } catch {
+                debugPrint("Failed to decode data in fetchAllBirthday : \(error)")
+                let dataString = String(data: data, encoding: .utf8) ?? ""
+                debugPrint("Data got : \(dataString)")
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
 
 }
