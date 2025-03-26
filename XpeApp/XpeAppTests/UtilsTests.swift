@@ -82,6 +82,7 @@ final class UtilsTests: XCTestCase{
 
     func test_fullDateTimeFormatter() throws {
         // GIVEN
+        _ = fullDateTimeFormatter
         var dateComponents = DateComponents(year: 2025, month: 3, day: 26, hour: 0, minute: 0, second: 0)
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let date = Calendar.current.date(from: dateComponents)!
@@ -96,6 +97,7 @@ final class UtilsTests: XCTestCase{
     
     func test_dateFormatterForBirthday() throws {
         // GIVEN
+        _ = dateFormatterForBirthday
         var dateComponents = DateComponents(year: 2025, month: 3, day: 25)
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let date = Calendar.current.date(from: dateComponents)!
@@ -110,6 +112,7 @@ final class UtilsTests: XCTestCase{
     
     func test_timeFormatter() throws {
         // GIVEN
+        _ = timeFormatter
         var dateComponents = DateComponents(year: 2025, month: 3, day: 26, hour: 15, minute: 30)
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         let date = Calendar.current.date(from: dateComponents)!
