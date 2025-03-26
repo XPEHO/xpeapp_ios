@@ -21,12 +21,9 @@ class MockWordpressAPI: WordpressAPIProtocol {
     var fetchCampaignsProgressReturnData: [QvstProgressModel]?
     var fetchUserInfosReturnData: UserInfosModel?
     var updatePasswordData: UserPasswordEditReturnEnum?
-    var submitOpenAnswersReturnData: Bool?
-    
-    private init() {
-        // This initializer is intentionally left empty to make private
-        // to prevent use without shared instance
-    }
+    var fetchAllEventsReturnData: [EventModel]?
+    var fetchAllEventsTypesReturnData: [EventTypeModel]?
+    var fetchAllBirthdayReturnData: [BirthdayModel]?
     
     // Mocked Methods
     func fetchUserId(email: String) async -> String? {
@@ -65,16 +62,24 @@ class MockWordpressAPI: WordpressAPIProtocol {
     func fetchCampaignsProgress(userId: String) async -> [QvstProgressModel]? {
         return fetchCampaignsProgressReturnData
     }
-
+    
     func fetchUserInfos() async -> UserInfosModel? {
         return fetchUserInfosReturnData
     }
-
+    
     func updatePassword(userPasswordCandidate: UserPasswordEditModel) async -> UserPasswordEditReturnEnum? {
         return updatePasswordData
     }
     
-    func submitOpenAnswers(text: String) async -> Bool? {
-        return submitOpenAnswersReturnData
+    func fetchAllEvents(page: String?) async -> [EventModel]? {
+        return fetchAllEventsReturnData
+    }
+    
+    func fetchAllEventsTypes() async -> [EventTypeModel]? {
+        return fetchAllEventsTypesReturnData
+    }
+    
+    func fetchAllBirthdays(page: String?) async -> [BirthdayModel]? {
+        return fetchAllBirthdayReturnData
     }
 }

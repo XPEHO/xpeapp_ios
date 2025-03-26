@@ -18,6 +18,32 @@ func countDaysBetween(_ from: Date, and to: Date) -> Int? {
     return components.day
 }
 
+
+// Formatter for full date and time (e.g., "2025-03-26 00:00:00")
+let fullDateTimeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "fr_FR")
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    return formatter
+}()
+let dateFormatterForBirthday: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "fr_FR") // Utilisez "fr_FR" si nécessaire
+    formatter.dateFormat = "yyyy-MM-dd" // Format correspondant à "2025-03-25"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
+    return formatter
+}()
+
+// Time Formatters for display the hours
+let timeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "fr_FR")
+    formatter.dateFormat = "HH:mm"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    return formatter
+}()
+
 // Date formatters for display in views
 let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -49,4 +75,46 @@ func sendAnalyticsEvent(page: String) {
             AnalyticsParameterItemID: page,
         ]
     )
+}
+
+// Extension of a color to create a color from a hexadecimal string and color blending
+extension Color {
+    // Initializes a color from a hexadecimal string (e.g., "#FF5733")
+    init(hex: String) {
+        let sanitizedHex = hex
+            .trimmingCharacters(in: .whitespacesAndNewlines) // Remove leading/trailing whitespaces
+            .replacingOccurrences(of: "#", with: "") // Delete the "#" character if present
+
+        guard sanitizedHex.count == 6, let rgbValue = UInt64(sanitizedHex, radix: 16) else {
+            self.init(red: 0, green: 0, blue: 0) // Black by default
+            return
+        }
+
+        self.init(
+            red: Double((rgbValue >> 16) & 0xFF) / 255.0,
+            green: Double((rgbValue >> 8) & 0xFF) / 255.0,
+            blue: Double(rgbValue & 0xFF) / 255.0
+        )
+    }
+
+    // Blends two colors, taking into account the transparency of the overlay color
+    func blended(with color: Color) -> Color {
+        func getRGBA(from color: UIColor) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+            var red: CGFloat = 0
+            var green: CGFloat = 0
+            var blue: CGFloat = 0
+            var alpha: CGFloat = 0
+            color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+            return (red, green, blue, alpha)
+        }
+
+        let (baseRed, baseGreen, baseBlue, _) = getRGBA(from: UIColor(self))
+        let (overlayRed, overlayGreen, overlayBlue, overlayAlpha) = getRGBA(from: UIColor(color))
+
+        let blendedRed = (1 - overlayAlpha) * baseRed + overlayAlpha * overlayRed
+        let blendedGreen = (1 - overlayAlpha) * baseGreen + overlayAlpha * overlayGreen
+        let blendedBlue = (1 - overlayAlpha) * baseBlue + overlayAlpha * overlayBlue
+
+        return Color(red: blendedRed, green: blendedGreen, blue: blendedBlue)
+    }
 }

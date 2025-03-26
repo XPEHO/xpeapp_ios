@@ -48,7 +48,7 @@ class QvstRepositoryImpl: QvstRepository {
             var completed = false
             // Try to find if there is an existing progress
             if let campaignProgress = (progressesModels.filter{$0.campaignId == campaign.id}.first) {
-                completed = campaignProgress.answeredQuestionsCount >= campaignProgress.totalQuestionsCount
+                completed = campaignProgress.answeredQuestionsCount >= campaignProgress.totalQuestionsCount ?? ""
             }
             
             campaignsEntities.append(
