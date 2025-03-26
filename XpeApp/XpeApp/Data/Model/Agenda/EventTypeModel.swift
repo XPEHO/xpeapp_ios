@@ -17,6 +17,13 @@ public struct EventTypeModel: Codable {
         case label
         case colorCode = "color_code"
     }
+
+    // Explicit initializer
+    public init(id: String?, label: String, colorCode: String) {
+        self.id = id
+        self.label = label
+        self.colorCode = colorCode
+    }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

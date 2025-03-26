@@ -35,6 +35,13 @@ public struct BirthdayModel: Codable {
         email = try container.decode(String.self, forKey: .email)
     }
 
+    init(id: String, firstName: String, birthdate: Date, email: String) {
+        self.id = id
+        self.firstName = firstName
+        self.birthdate = birthdate
+        self.email = email
+    }
+
     func toEntity() -> BirthdayEntity {
         BirthdayEntity(
             id: id,

@@ -119,6 +119,7 @@
 		D7BCA5C52D92B602005C28F3 /* BirthdayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C42D92B5FD005C28F3 /* BirthdayModel.swift */; };
 		D7BCA5C72D92B889005C28F3 /* BirthdayEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C62D92B883005C28F3 /* BirthdayEntity.swift */; };
 		D7BCA5C92D930B91005C28F3 /* BirthdaysCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */; };
+		D7BCA5CD2D93FD27005C28F3 /* AgendaRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5CC2D93FD23005C28F3 /* AgendaRepositoryTests.swift */; };
 		D7C9A5462D2C138000D9E763 /* SidebarItemProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9A5452D2C138000D9E763 /* SidebarItemProfileView.swift */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +238,7 @@
 		D7BCA5C42D92B5FD005C28F3 /* BirthdayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayModel.swift; sourceTree = "<group>"; };
 		D7BCA5C62D92B883005C28F3 /* BirthdayEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayEntity.swift; sourceTree = "<group>"; };
 		D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdaysCardView.swift; sourceTree = "<group>"; };
+		D7BCA5CC2D93FD23005C28F3 /* AgendaRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryTests.swift; sourceTree = "<group>"; };
 		D7C9A5452D2C138000D9E763 /* SidebarItemProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItemProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -360,6 +362,7 @@
 		0EEE14FF2C9C55BF0066CCB7 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				D7BCA5CC2D93FD23005C28F3 /* AgendaRepositoryTests.swift */,
 				0E72BA5F2C75DCE400C0583D /* QvstRepositoryTests.swift */,
 				0E6ACF812C8727E900735E1E /* NewsletterRepositoryTests.swift */,
 				0E6ACF832C87285500735E1E /* FeatureRepositoryTests.swift */,
@@ -863,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEE150A2C9D58130066CCB7 /* NewsletterModelEntityTests.swift in Sources */,
+				D7BCA5CD2D93FD27005C28F3 /* AgendaRepositoryTests.swift in Sources */,
 				BDACECF22C10930C007B5262 /* XpeAppTests.swift in Sources */,
 				0EEE15042C9C56A70066CCB7 /* UserRepositoryTests.swift in Sources */,
 				0E6ACF842C87285500735E1E /* FeatureRepositoryTests.swift in Sources */,
@@ -1078,6 +1082,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S97GY8T7R8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
@@ -1097,6 +1102,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S97GY8T7R8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;

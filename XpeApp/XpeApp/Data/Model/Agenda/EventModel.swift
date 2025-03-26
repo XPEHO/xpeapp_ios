@@ -58,6 +58,25 @@ public struct EventModel: Codable {
         topic = try container.decodeIfPresent(String.self, forKey: .topic)
     }
     
+    init(id: String?,
+         date: Date,
+         startTime: Date?,
+         endTime: Date?,
+         title: String,
+         location: String?,
+         typeId: String,
+         topic: String?
+    ) {
+        self.id = id
+        self.date = date
+        self.startTime = startTime
+        self.endTime = endTime
+        self.title = title
+        self.location = location
+        self.typeId = typeId
+        self.topic = topic
+    }
+    
     func toEntity() -> EventEntity {
         EventEntity(
             id: id ?? "",
