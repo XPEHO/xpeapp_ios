@@ -100,7 +100,10 @@ extension Color {
     // Blends two colors, taking into account the transparency of the overlay color
     func blended(with color: Color) -> Color {
         func getRGBA(from color: UIColor) -> (CGFloat, CGFloat, CGFloat, CGFloat) {
-            var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+            var red: CGFloat = 0
+            var green: CGFloat = 0
+            var blue: CGFloat = 0
+            var alpha: CGFloat = 0
             color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
             return (red, green, blue, alpha)
         }
