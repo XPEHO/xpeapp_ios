@@ -45,8 +45,8 @@ final class AgendaRepositoryTests: XCTestCase {
                 EventModel(
                     id: "1",
                     date: dateFormatter.date(from: "2025-03-26 00:00:00")!,
-                    startTime: dateFormatter.date(from: "2025-03-26 12:00:00"),
-                    endTime: dateFormatter.date(from: "2025-03-26 13:00:00"),
+                    startTime: "2025-03-26 12:00:00",
+                    endTime: "2025-03-26 13:00:00",
                     title: "test",
                     location: "test",
                     typeId: "test",
@@ -68,8 +68,8 @@ final class AgendaRepositoryTests: XCTestCase {
             XCTAssertEqual(event?.typeId, "test")
             XCTAssertEqual(event?.topic, "test")
             XCTAssertEqual(event?.date, dateFormatter.date(from: "2025-03-26 00:00:00"))
-            XCTAssertEqual(event?.startTime, dateFormatter.date(from: "2025-03-26 12:00:00"))
-            XCTAssertEqual(event?.endTime, dateFormatter.date(from: "2025-03-26 13:00:00"))
+            XCTAssertEqual(event?.startTime, "2025-03-26 12:00:00")
+            XCTAssertEqual(event?.endTime, "2025-03-26 13:00:00")
         }
     }
     

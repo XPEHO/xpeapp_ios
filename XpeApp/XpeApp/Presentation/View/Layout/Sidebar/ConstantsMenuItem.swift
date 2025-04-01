@@ -49,4 +49,10 @@ let menuItems: [MenuItem] = [
         label: "Vacation",
         featureFlippingId: .vacation
     ),
+    MenuItem(
+        navigationItem: .agenda,
+        iconName: "Agenda",
+        label: "Agenda",
+        featureFlippingId: .agenda
+    )
 ]

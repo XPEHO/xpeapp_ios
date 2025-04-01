@@ -11,6 +11,7 @@ import xpeho_ui
 struct EventCard: View {
     @Binding var event: EventEntity
     @Binding var eventTypes: [EventTypeEntity]
+    var collapsable: Bool = false
 
     var body: some View {
             let eventTypeColor = getEventTypeColor(event: event, eventTypes: eventTypes)
@@ -24,7 +25,7 @@ struct EventCard: View {
                         .renderingMode(.template)
                         .foregroundStyle(eventTypeColor)
                 ),
-                collapsable: false
+                collapsable: collapsable
             )
         }
     }
@@ -37,16 +38,30 @@ struct EventCard: View {
         var result: [TagPill] = []
 
         // Add the event date
-        result.append(TagPill(label: event.date.formatted(date: .numeric, time: .omitted), backgroundColor: tagColor))
+        result.append(TagPill(label: dateDayAndMonthFormatter.string(from: event.date), backgroundColor: tagColor))
 
-        // Add the start time if it exists
-        if let startTime = event.startTime {
-            result.append(TagPill(label: timeFormatter.string(from: startTime), backgroundColor: tagColor))
+        // Format the time strings by removing the last three characters ("12:00:00" -> "12:00")
+        func formatTime(_ time: String) -> String {
+            if time.count > 2 {
+                return String(time.dropLast(3))
+            }
+            return time 
         }
-        
-        // Add the end time if it exists
-        if let endTime = event.endTime {
-            result.append(TagPill(label: timeFormatter.string(from: endTime), backgroundColor: tagColor))
+
+        // Add the time range if both startTime and endTime exist
+        if let startTime = event.startTime, let endTime = event.endTime {
+            let formattedStartTime = formatTime(startTime)
+            let formattedEndTime = formatTime(endTime)
+            let timeRange = "De: \(formattedStartTime) à: \(formattedEndTime)"
+            result.append(TagPill(label: timeRange, backgroundColor: tagColor))
+        } else if let startTime = event.startTime {
+            // If only startTime exists
+            let formattedStartTime = formatTime(startTime)
+            result.append(TagPill(label: "De: \(formattedStartTime)", backgroundColor: tagColor))
+        } else if let endTime = event.endTime {
+            // If only endTime exists
+            let formattedEndTime = formatTime(endTime)
+            result.append(TagPill(label: "À: \(formattedEndTime)", backgroundColor: tagColor))
         }
 
         // Add the event type if it exists
@@ -56,7 +71,18 @@ struct EventCard: View {
 
         // Add the location if it exists and is not empty
         if let location = event.location, !location.isEmpty {
-            result.append(TagPill(label: location, backgroundColor: tagColor))
+            result.append(
+                TagPill(
+                    label: location,
+                    backgroundColor: tagColor,
+                    icon: AnyView(
+                        Image("Location")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                    )
+                )
+            )
         }
 
         // Add the topic if it exists and is not empty

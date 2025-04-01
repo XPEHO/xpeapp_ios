@@ -8,16 +8,16 @@
 import Foundation
 
 struct EventEntity: Codable, Equatable {
-    let id: String?
+    let id: String
     let date: Date
-    let startTime: Date?
-    let endTime: Date?
+    let startTime: String?
+    let endTime: String?
     let title: String
     let location: String?
     let typeId: String
     let topic: String?
 
-    init(id: String, date: Date, startTime: Date?, endTime: Date?, title: String, location: String?, typeId: String, topic: String?) {
+    init(id: String, date: Date, startTime: String?, endTime: String?, title: String, location: String?, typeId: String, topic: String?) {
         self.id = id
         self.date = date
         self.startTime = startTime

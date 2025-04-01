@@ -34,6 +34,8 @@ struct Router: View {
                     Text("CRA page placeholder")
                 case .vacation where featureManager.isEnabled(item: .vacation):
                     Text("Vacation page placeholder")
+                case .agenda where featureManager.isEnabled(item: .agenda):
+                    AgendaPage()
                 case .debug:
                     DebugPage()
                 default:

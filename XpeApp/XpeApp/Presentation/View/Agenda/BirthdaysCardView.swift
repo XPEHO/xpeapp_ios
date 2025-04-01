@@ -10,6 +10,8 @@ import xpeho_ui
 
 struct BirthdayCard: View {
     @Binding var birthday: BirthdayEntity
+    
+    var collapsable: Bool = false
 
     var body: some View {
         let baseColor = Color(hex: "FF7EEA") // Default birthday color
@@ -19,14 +21,14 @@ struct BirthdayCard: View {
         CollapsableCard(
             label: "Anniversaire de \(birthday.firstName)",
             tags: [
-                TagPill(label: birthday.birthdate.formatted(date: .numeric, time: .omitted), backgroundColor: tagColor)
+                TagPill(label: dateDayAndMonthFormatter.string(from: birthday.birthdate), backgroundColor: tagColor)
             ],
             icon: AnyView(
                 Image("Birthday")
                     .renderingMode(.template)
                     .foregroundStyle(baseColor)
             ),
-            collapsable: false
+            collapsable: collapsable
         )
     }
 }

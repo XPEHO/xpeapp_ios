@@ -6,33 +6,51 @@
 //
 
 import Foundation
+import Combine
 
-@Observable class AgendaPageViewModel {
-    
+class AgendaPageViewModel: ObservableObject {
     static let instance = AgendaPageViewModel()
     
     // Make private constructor to prevent use without shared instance
     private init() {
         initFetchWeeklyEvents()
+        initFetchEvents()
         initGetAllEventsTypes()
         initFetchWeeklyBirthday()
+        initFetchBirthday()
     }
 
-    var events: [EventEntity]? = nil
-    var eventsTypes: [EventTypeEntity]? = nil
-    var birthdays: [BirthdayEntity]? = nil
+    @Published var Weeklyevents: [EventEntity]? = nil
+    @Published var events: [EventEntity]? = nil
+    @Published var eventsTypes: [EventTypeEntity]? = nil
+    @Published var Weeklybirthdays: [BirthdayEntity]? = nil
+    @Published var birthdays: [BirthdayEntity]? = nil
+    
+    @Published var isLoading: Bool = false
     
     func update() {
         initFetchWeeklyEvents()
+        initFetchEvents()
         initGetAllEventsTypes()
         initFetchWeeklyBirthday()
+        initFetchBirthday()
     }
     
     private func initFetchWeeklyEvents() {
         Task {
             if let weeklyEvents = await AgendaRepositoryImpl.instance.getAllEvents(page: "week") {
                 DispatchQueue.main.async {
-                    self.events = weeklyEvents
+                    self.Weeklyevents = weeklyEvents
+                }
+            }
+        }
+    }
+    
+    private func initFetchEvents() {
+        Task {
+            if let Events = await AgendaRepositoryImpl.instance.getAllEvents() {
+                DispatchQueue.main.async {
+                    self.events = Events
                 }
             }
         }
@@ -52,7 +70,17 @@ import Foundation
         Task {
             if let obtainedAllWeeklyBirthdaysFetched = await AgendaRepositoryImpl.instance.getAllBirthdays(page: "week") {
                 DispatchQueue.main.async {
-                    self.birthdays = obtainedAllWeeklyBirthdaysFetched
+                    self.Weeklybirthdays = obtainedAllWeeklyBirthdaysFetched
+                }
+            }
+        }
+    }
+    
+    private func initFetchBirthday() {
+        Task {
+            if let obtainedAllBirthdaysFetched = await AgendaRepositoryImpl.instance.getAllBirthdays() {
+                DispatchQueue.main.async {
+                    self.birthdays = obtainedAllBirthdaysFetched
                 }
             }
         }
