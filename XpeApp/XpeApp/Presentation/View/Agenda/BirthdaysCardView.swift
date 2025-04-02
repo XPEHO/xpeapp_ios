@@ -24,7 +24,7 @@ struct BirthdayCard: View {
                 TagPill(label: dateDayAndMonthFormatter.string(from: birthday.birthdate), backgroundColor: tagColor)
             ],
             icon: AnyView(
-                Image("Birthday")
+                Assets.loadImage(named: "Birthday")
                     .renderingMode(.template)
                     .foregroundStyle(baseColor)
             ),
