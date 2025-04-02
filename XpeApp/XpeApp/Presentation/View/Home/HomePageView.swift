@@ -18,7 +18,7 @@ struct HomePage: View {
         ScrollView {
             VStack {
                 if lastNewsletterSectionIsEnabled() {
-                    PageTitleSection(title: "Dernière publication")
+                    PageTitleSection(title: "Changement de tests pour PR")
                     Spacer().frame(height: 16)
                     LastNewsletterPreview(
                         lastNewsletter: homePageViewModel.lastNewsletter
