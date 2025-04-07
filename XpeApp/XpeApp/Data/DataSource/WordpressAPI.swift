@@ -281,7 +281,7 @@ class WordpressAPI: WordpressAPIProtocol {
         userPasswordCandidate: UserPasswordEditModel
     ) async -> UserPasswordEditReturnEnum? {
         
-        if let (data, statusCode) = await fetchWordpressAPI <UserPasswordCandidateModel> (
+        if let (data, statusCode) = await fetchWordpressAPI <UserPasswordEditModel> (
             endpoint: "xpeho/v1/update-password",
             method: .post,
             headers: [:],
