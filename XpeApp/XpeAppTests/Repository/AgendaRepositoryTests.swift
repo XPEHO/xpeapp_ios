@@ -103,7 +103,7 @@ final class AgendaRepositoryTests: XCTestCase {
             
             let firstType = eventTypes?.first
             XCTAssertEqual(firstType?.id, "1")
-            XCTAssertEqual(firstType?.label, "Type 1")
+            XCTAssertEqual(firstType?.label, "label1")
             XCTAssertEqual(firstType?.colorCode, "#FFFFF")
         }
     }
