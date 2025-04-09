@@ -10,7 +10,7 @@ import xpeho_ui
 
 struct HomePage: View {
     @Bindable private var homePageViewModel = HomePageViewModel.instance
-    @Bindable private var agendaViewModel = AgendaPageViewModel.instance
+    @StateObject private var agendaViewModel = AgendaPageViewModel.instance
     private var featureManager = FeatureManager.instance
     private var userInfosViewModel = UserInfosPageViewModel.instance
     
@@ -37,8 +37,8 @@ struct HomePage: View {
                     )
                 }
                 if lastWeeklyEventsSectionIsEnabled(),
-                    let allWeeklyEvents = Binding($agendaViewModel.events),
-                    let allWeeklyBirthdays = Binding($agendaViewModel.birthdays),
+                   let allWeeklyEvents = Binding($agendaViewModel.Weeklyevents),
+                    let allWeeklyBirthdays = Binding($agendaViewModel.Weeklybirthdays),
                     let allEventsTypes = Binding($agendaViewModel.eventsTypes)
                      {
                      Spacer().frame(height: 16)

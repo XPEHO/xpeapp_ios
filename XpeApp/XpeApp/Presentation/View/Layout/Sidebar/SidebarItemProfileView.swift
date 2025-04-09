@@ -59,10 +59,10 @@ struct ProfileHeaderView: View {
                 .foregroundColor(.white)
             VStack(alignment: .leading, spacing: 1) {
                 HStack {
-                    Text(lastname.uppercased())
+                    Text(firstname.capitalizingFirstLetter())
                         .font(.raleway(.bold, size: 20))
                         .foregroundColor(.white)
-                    Text(firstname.capitalizingFirstLetter())
+                    Text(lastname.uppercased())
                         .font(.raleway(.bold, size: 20))
                         .foregroundColor(.white)
                 }

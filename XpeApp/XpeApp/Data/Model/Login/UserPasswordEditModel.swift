@@ -1,5 +1,5 @@
 //
-//  UserPasswordCandidateModel.swift
+//  UserPasswordEditModel.swift
 //  XpeApp
 //
 //  Created by Théo Lebègue on 13/01/2025.

@@ -125,6 +125,20 @@ final class UtilsTests: XCTestCase{
         XCTAssertEqual(formattedTime, expectedTime)
     }
 
+    func test_dateDayAndMonthFormatter() throws {
+        // GIVEN
+        var dateComponents = DateComponents(year: 2025, month: 4, day: 1)
+        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        let date = Calendar.current.date(from: dateComponents)!
+        
+        // WHEN
+        let formattedDate = dateDayAndMonthFormatter.string(from: date)
+        
+        // THEN
+        let expectedDate = "01/04"
+        XCTAssertEqual(formattedDate, expectedDate)
+    }
+
     func test_colorInitWithHex() throws {
         // GIVEN
         let hexColor = "#FF5733"

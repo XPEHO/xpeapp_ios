@@ -32,7 +32,7 @@ jobs:
           xcodebuild \
           -project XpeApp.xcodeproj/ \
           -scheme XpeApp \
-          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
           -derivedDataPath Build/ \
           -only-testing:XpeAppTests \
           -enableCodeCoverage YES \

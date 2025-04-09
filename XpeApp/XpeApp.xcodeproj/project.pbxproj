@@ -107,6 +107,8 @@
 		D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */; };
+		D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829422D9AE49D003D0986 /* AgendaPageView.swift */; };
+		D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */; };
 		D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5A92D915E09005C28F3 /* EventModel.swift */; };
 		D7BCA5AF2D916A60005C28F3 /* AgendaRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */; };
 		D7BCA5B32D916B23005C28F3 /* AgendaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */; };
@@ -226,6 +228,8 @@
 		D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosPageViewModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsMenuItem.swift; sourceTree = "<group>"; };
+		D7A829422D9AE49D003D0986 /* AgendaPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageView.swift; sourceTree = "<group>"; };
+		D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCombinedItemEnum.swift; sourceTree = "<group>"; };
 		D7BCA5A92D915E09005C28F3 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryImpl.swift; sourceTree = "<group>"; };
 		D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepository.swift; sourceTree = "<group>"; };
@@ -632,6 +636,8 @@
 		D7BCA5B62D917039005C28F3 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
+				D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */,
+				D7A829422D9AE49D003D0986 /* AgendaPageView.swift */,
 				D7BCA5C82D930B8A005C28F3 /* BirthdaysCardView.swift */,
 				D7BCA5BD2D91A488005C28F3 /* EventsCardView.swift */,
 				D7BCA5BB2D91A42E005C28F3 /* EventsListView.swift */,
@@ -772,6 +778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6277A02C943FAF00F26E55 /* LastNewsletterPreviewView.swift in Sources */,
+				D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */,
 				D72C13342D2D3E0D002F6A14 /* UserInfosModel.swift in Sources */,
 				0EF0F8DA2C90805800AF5966 /* UserCandidateModel.swift in Sources */,
 				0E61D2B92C78A20F00050F7C /* NewsletterModel.swift in Sources */,
@@ -818,6 +825,7 @@
 				0E5C6EFA2C69EDD100AA2127 /* TitleView.swift in Sources */,
 				BDACECE12C109309007B5262 /* ContentView.swift in Sources */,
 				0E61D2B12C78A0C600050F7C /* QvstCampaignModel.swift in Sources */,
+				D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */,
 				0E87AC2F2C660DBB0079877D /* HeaderView.swift in Sources */,
 				0E260DC32CDA245000F8EF0C /* PageTitleView.swift in Sources */,
 				0E260DC12CD92CEA00F8EF0C /* ListFilterTitleView.swift in Sources */,
@@ -1153,7 +1161,7 @@
 			repositoryURL = "https://github.com/XPEHO/xpeho_ui_swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
+				minimumVersion = 1.3.3;
 			};
 		};
 		BDACED102C10BB78007B5262 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

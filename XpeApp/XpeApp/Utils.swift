@@ -19,7 +19,7 @@ func countDaysBetween(_ from: Date, and to: Date) -> Int? {
 }
 
 
-// Formatter for full date and time (e.g., "2025-03-26 00:00:00")
+// Formatter for full date and time ("2025-03-26 00:00:00")
 let fullDateTimeFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "fr_FR")
@@ -29,9 +29,9 @@ let fullDateTimeFormatter: DateFormatter = {
 }()
 let dateFormatterForBirthday: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "fr_FR") // Utilisez "fr_FR" si nécessaire
+    formatter.locale = Locale(identifier: "fr_FR")
     formatter.dateFormat = "yyyy-MM-dd" // Format correspondant à "2025-03-25"
-    formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     return formatter
 }()
 
@@ -40,6 +40,15 @@ let timeFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "fr_FR")
     formatter.dateFormat = "HH:mm"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    return formatter
+}()
+
+// Date formatters for display in views
+let dateDayAndMonthFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "fr_FR")
+    formatter.dateFormat = "dd/MM"
     formatter.timeZone = TimeZone(secondsFromGMT: 0)
     return formatter
 }()

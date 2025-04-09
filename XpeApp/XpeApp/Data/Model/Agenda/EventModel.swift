@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 public struct EventModel: Codable {
-    var id: String?
+    var id: String
     let date: Date
-    let startTime: Date?
-    let endTime: Date?
+    let startTime: String?
+    let endTime: String?
     let title: String
     let location: String?
     let typeId: String
@@ -31,37 +31,27 @@ public struct EventModel: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id)
+        id = try container.decode(String.self, forKey: .id)
         
-        // Decode `date` as a String and convert it to a Date
+       // Decode `date` as a String and convert it to a Date
         let dateString = try container.decode(String.self, forKey: .date)
         guard let parsedDate = fullDateTimeFormatter.date(from: dateString) else {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "Date string does not match format expected by formatter.")
         }
         date = parsedDate
-        
-        if let startTimeString = try container.decodeIfPresent(String.self, forKey: .startTime) {
-            startTime = timeFormatter.date(from: startTimeString)
-        } else {
-            startTime = nil
-        }
-        
-        if let endTimeString = try container.decodeIfPresent(String.self, forKey: .endTime) {
-            endTime = timeFormatter.date(from: endTimeString)
-        } else {
-            endTime = nil
-        }
-        
+
+        startTime = try container.decodeIfPresent(String.self, forKey: .startTime)
+        endTime = try container.decodeIfPresent(String.self, forKey: .endTime)
         title = try container.decode(String.self, forKey: .title)
         location = try container.decodeIfPresent(String.self, forKey: .location)
         typeId = try container.decode(String.self, forKey: .typeId)
         topic = try container.decodeIfPresent(String.self, forKey: .topic)
     }
     
-    init(id: String?,
+    init(id: String,
          date: Date,
-         startTime: Date?,
-         endTime: Date?,
+         startTime: String?,
+         endTime: String?,
          title: String,
          location: String?,
          typeId: String,
@@ -79,7 +69,7 @@ public struct EventModel: Codable {
     
     func toEntity() -> EventEntity {
         EventEntity(
-            id: id ?? "",
+            id: id,
             date: date,
             startTime: startTime,
             endTime: endTime,
