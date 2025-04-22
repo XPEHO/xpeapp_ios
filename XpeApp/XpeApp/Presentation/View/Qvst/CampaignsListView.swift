@@ -13,17 +13,13 @@ struct CampaignsList: View {
     var defaultOpen: Bool = false
     
     var body: some View {
-        if campaigns.isEmpty {
-            NoContentPlaceHolder()
-        } else {
-            VStack(spacing: 10) {
-                ForEach(campaigns.indices, id: \.self) { indices in
-                    CampaignCard(
-                        campaign: $campaigns[indices],
-                        collapsable: collapsable,
-                        defaultOpen: defaultOpen
-                    )
-                }
+        VStack(spacing: 10) {
+            ForEach(campaigns.indices, id: \.self) { indices in
+                CampaignCard(
+                    campaign: $campaigns[indices],
+                    collapsable: collapsable,
+                    defaultOpen: defaultOpen
+                )
             }
         }
     }

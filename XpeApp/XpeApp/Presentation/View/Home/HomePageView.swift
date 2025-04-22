@@ -25,32 +25,34 @@ struct HomePage: View {
                     )
                     Spacer().frame(height: 32)
                 }
-                if toNotMissSectionIsEnabled(),
-                   let activeCampaigns = Binding($homePageViewModel.activeCampaigns)
-                    {
+                if toNotMissSectionIsEnabled() {
                     PageTitleSection(title: "À ne pas manquer !")
-                    Spacer().frame(height: 16)
-                    CampaignsList(
-                        campaigns: activeCampaigns,
-                        collapsable: false,
-                        defaultOpen: true
-                    )
+                    if hasContent() {
+                        Spacer().frame(height: 16)
+                        if let activeCampaigns = Binding($homePageViewModel.activeCampaigns) {
+                            CampaignsList(
+                                campaigns: activeCampaigns,
+                                collapsable: false,
+                                defaultOpen: true
+                            )
+                            Spacer().frame(height: 16)
+                        }
+                        if let allWeeklyEvents = Binding($agendaViewModel.Weeklyevents),
+                           let allWeeklyBirthdays = Binding($agendaViewModel.Weeklybirthdays),
+                           let allEventsTypes = Binding($agendaViewModel.eventsTypes) {
+                            EventsList(
+                                events: allWeeklyEvents,
+                                eventTypes: allEventsTypes,
+                                birthdays: allWeeklyBirthdays
+                            )
+                        }
+                    } else {
+                        NoContentPlaceHolder()
+                    }
                 }
-                if lastWeeklyEventsSectionIsEnabled(),
-                   let allWeeklyEvents = Binding($agendaViewModel.Weeklyevents),
-                    let allWeeklyBirthdays = Binding($agendaViewModel.Weeklybirthdays),
-                    let allEventsTypes = Binding($agendaViewModel.eventsTypes)
-                     {
-                     Spacer().frame(height: 16)
-                     EventsList(
-                         events: allWeeklyEvents,
-                         eventTypes: allEventsTypes,
-                         birthdays: allWeeklyBirthdays
-                     )
-                 }
                 
                 if !lastNewsletterSectionIsEnabled()
-                    && !toNotMissSectionIsEnabled() && lastWeeklyEventsSectionIsEnabled() {
+                    && !toNotMissSectionIsEnabled() {
                     NoContentPlaceHolder()
                 }
             }
@@ -75,14 +77,15 @@ struct HomePage: View {
     }
 
     private func toNotMissSectionIsEnabled() -> Bool {
-        // Check that the campaigns are a feature enabled
-        return featureManager.isEnabled(item: .campaign)
+        // Check that the campaigns and agenda are features enabled
+        return featureManager.isEnabled(item: .campaign) && featureManager.isEnabled(item: .agenda)
     }
 
-    private func lastWeeklyEventsSectionIsEnabled() -> Bool {
-        // Check that the events are a feature enabled
-        return featureManager.isEnabled(item: .agenda)
+    private func hasContent() -> Bool {
+        // Check if there is any content to display in the "À ne pas manquer !" section
+        let hasActiveCampaigns = !(homePageViewModel.activeCampaigns?.isEmpty ?? true)
+        let hasWeeklyEvents = !(agendaViewModel.Weeklyevents?.isEmpty ?? true)
+        let hasWeeklyBirthdays = !(agendaViewModel.Weeklybirthdays?.isEmpty ?? true)
+        return hasActiveCampaigns || hasWeeklyEvents || hasWeeklyBirthdays
     }
-
-
 }

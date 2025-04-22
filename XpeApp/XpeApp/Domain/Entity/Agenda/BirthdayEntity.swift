@@ -11,9 +11,9 @@ struct BirthdayEntity: Codable, Equatable {
     let id: String
     let firstName: String
     let birthdate: Date
-    let email: String
+    let email: String?
 
-    init(id: String, firstName: String, birthdate: Date,  email: String) {
+    init(id: String, firstName: String, birthdate: Date,  email: String?) {
         self.id = id
         self.firstName = firstName
         self.birthdate = birthdate
