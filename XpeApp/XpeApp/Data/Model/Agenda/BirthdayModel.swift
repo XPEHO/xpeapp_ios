@@ -11,7 +11,7 @@ public struct BirthdayModel: Codable {
     let id: String
     let firstName: String
     let birthdate: Date
-    let email: String
+    let email: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,10 +32,10 @@ public struct BirthdayModel: Codable {
         }
         birthdate = parsedDate
         
-        email = try container.decode(String.self, forKey: .email)
+        email = try container.decodeIfPresent(String.self, forKey: .email)
     }
 
-    init(id: String, firstName: String, birthdate: Date, email: String) {
+    init(id: String, firstName: String, birthdate: Date, email: String?) {
         self.id = id
         self.firstName = firstName
         self.birthdate = birthdate

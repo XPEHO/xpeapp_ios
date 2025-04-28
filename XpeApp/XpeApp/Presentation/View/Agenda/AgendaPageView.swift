@@ -14,24 +14,32 @@ struct AgendaPage: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                
+            VStack(alignment: .leading, spacing: 16) {
                 Title(text: "Agenda")
                 
                 if let allEvents = Binding($agendaViewModel.events),
-                let allBirthdays =  Binding($agendaViewModel.birthdays),
-                let allEventsTypes =  Binding($agendaViewModel.eventsTypes) {
-                    // Display event list
-                    EventsList(
-                        events: allEvents,
-                        eventTypes: allEventsTypes,
-                        birthdays: allBirthdays,
-                        collapsable: true
-                    )
+                   let allBirthdays = Binding($agendaViewModel.birthdays),
+                   let allEventsTypes = Binding($agendaViewModel.eventsTypes) {
+                    
+                    
+                    let hasContent = !allEvents.wrappedValue.isEmpty ||
+                    !allBirthdays.wrappedValue.isEmpty
+                    
+                    if hasContent {
+                        EventsList(
+                            events: allEvents,
+                            eventTypes: allEventsTypes,
+                            birthdays: allBirthdays,
+                            collapsable: true
+                        )
+                    } else {
+                        NoContentPlaceHolder().frame(maxWidth: .infinity)
+                    }
                 } else {
-                    ProgressView("Chargement de l'agenda...")
+                    ProgressView("Chargement de l'agenda…")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
+                        .frame(maxWidth: .infinity)
                 }
             }
         }
