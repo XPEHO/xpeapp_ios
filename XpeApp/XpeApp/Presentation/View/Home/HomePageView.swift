@@ -28,7 +28,6 @@ struct HomePage: View {
                 if toNotMissSectionIsEnabled() {
                     PageTitleSection(title: "À ne pas manquer !")
                     if hasContent() {
-                        Spacer().frame(height: 16)
                         if let activeCampaigns = Binding($homePageViewModel.activeCampaigns) {
                             CampaignsList(
                                 campaigns: activeCampaigns,
