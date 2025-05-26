@@ -25,9 +25,11 @@ enum EventCombinedItemEnum {
     var id: String {
         switch self {
         case .event(let event):
-            return event.id
+            return "event-\(event.id)"
         case .birthday(let birthday):
-            return birthday.id
+            return "birthday-\(birthday.id)"
         }
     }
 }
+
+

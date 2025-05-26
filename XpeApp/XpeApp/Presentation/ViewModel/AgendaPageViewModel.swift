@@ -48,7 +48,7 @@ class AgendaPageViewModel: ObservableObject {
     
     private func initFetchEvents() {
         Task {
-            if let Events = await AgendaRepositoryImpl.instance.getAllEvents() {
+            if let Events = await AgendaRepositoryImpl.instance.getAllEvents(page:"month") {
                 DispatchQueue.main.async {
                     self.events = Events
                 }
@@ -78,7 +78,7 @@ class AgendaPageViewModel: ObservableObject {
     
     private func initFetchBirthday() {
         Task {
-            if let obtainedAllBirthdaysFetched = await AgendaRepositoryImpl.instance.getAllBirthdays() {
+            if let obtainedAllBirthdaysFetched = await AgendaRepositoryImpl.instance.getAllBirthdays(page:"month") {
                 DispatchQueue.main.async {
                     self.birthdays = obtainedAllBirthdaysFetched
                 }
