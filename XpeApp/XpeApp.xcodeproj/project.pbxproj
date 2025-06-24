@@ -106,6 +106,7 @@
 		D72C133C2D2D7ACF002F6A14 /* ProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C133B2D2D7AC5002F6A14 /* ProfilePageView.swift */; };
 		D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
+		D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */; };
 		D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */; };
 		D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829422D9AE49D003D0986 /* AgendaPageView.swift */; };
 		D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */; };
@@ -227,6 +228,7 @@
 		D72C133B2D2D7AC5002F6A14 /* ProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageView.swift; sourceTree = "<group>"; };
 		D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosPageViewModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyPageView.swift; sourceTree = "<group>"; };
 		D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsMenuItem.swift; sourceTree = "<group>"; };
 		D7A829422D9AE49D003D0986 /* AgendaPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageView.swift; sourceTree = "<group>"; };
 		D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCombinedItemEnum.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 		0EF0F8E92C91E1BE00AF5966 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */,
 				D7BCA5B62D917039005C28F3 /* Agenda */,
 				D7056B932D367B9500D7D8CA /* Profile */,
 				0E6277AB2C94900700F26E55 /* Qvst */,
@@ -827,6 +830,7 @@
 				0E61D2B12C78A0C600050F7C /* QvstCampaignModel.swift in Sources */,
 				D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */,
 				0E87AC2F2C660DBB0079877D /* HeaderView.swift in Sources */,
+				D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */,
 				0E260DC32CDA245000F8EF0C /* PageTitleView.swift in Sources */,
 				0E260DC12CD92CEA00F8EF0C /* ListFilterTitleView.swift in Sources */,
 				0E72BA622C771FC100C0583D /* RouterManager.swift in Sources */,
@@ -1023,7 +1027,7 @@
 				CODE_SIGN_ENTITLEMENTS = XpeApp/XpeApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"XpeApp/Preview Content\"";
 				DEVELOPMENT_TEAM = S97GY8T7R8;
 				ENABLE_PREVIEWS = YES;
@@ -1057,7 +1061,7 @@
 				CODE_SIGN_ENTITLEMENTS = XpeApp/XpeApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"XpeApp/Preview Content\"";
 				DEVELOPMENT_TEAM = S97GY8T7R8;
 				ENABLE_PREVIEWS = YES;
