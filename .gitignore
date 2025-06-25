@@ -72,3 +72,4 @@ fastlane/test_output
 XpeApp/Build/
 XpeApp/Coverage.xml
 XpeApp/XpeApp/GoogleService-Info.plist
+XpeApp/XpeApp/XPEHOSecrets.plist

@@ -24,6 +24,9 @@ jobs:
       - name: Create GoogleService-Info.plist
         run: |
           echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }} | base64 -d > XpeApp/XpeApp/GoogleService-Info.plist
+      - name: Create XPEHOSecrets.plist
+        run: |
+          echo ${{ secrets.XPEHO_SECRETS_PLIST }} | base64 -d > XpeApp/XpeApp/XPEHOSecrets.plist
       # Following steps has been built following the official SonarQube documentation for iOS
       # see: https://github.com/SonarSource/sonar-scanning-examples/tree/master/swift-coverage
       - name: Build and test

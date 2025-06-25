@@ -9,6 +9,31 @@ import Foundation
 import SwiftUI
 import FirebaseAnalytics
 
+// ConfigReader class for reading values from XPEHOSecrets.plist confidential informations
+class ConfigReader {
+    static let shared = ConfigReader()
+    
+    private let configDict: [String: Any]?
+    
+    private init() {
+        if let path = Bundle.main.path(forResource: "XPEHOSecrets", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
+            self.configDict = dict
+        } else {
+            self.configDict = nil
+            debugPrint("Failed to load XPEHOSecrets.plist")
+        }
+    }
+    
+    func string(forKey key: String) -> String? {
+        return configDict?[key] as? String
+    }
+    
+    func getString(forKey key: String) -> String {
+        return string(forKey: key) ?? ""
+    }
+}
+
 // Util function to count days between two dates
 func countDaysBetween(_ from: Date, and to: Date) -> Int? {
     let calendar = Calendar.current
