@@ -107,6 +107,7 @@
 		D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */; };
+		D77CD2282E0C478600E5F45F /* XPEHOSecrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = D77CD2272E0C478600E5F45F /* XPEHOSecrets.plist */; };
 		D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */; };
 		D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829422D9AE49D003D0986 /* AgendaPageView.swift */; };
 		D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */; };
@@ -229,6 +230,7 @@
 		D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosPageViewModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyPageView.swift; sourceTree = "<group>"; };
+		D77CD2272E0C478600E5F45F /* XPEHOSecrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XPEHOSecrets.plist; sourceTree = "<group>"; };
 		D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsMenuItem.swift; sourceTree = "<group>"; };
 		D7A829422D9AE49D003D0986 /* AgendaPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageView.swift; sourceTree = "<group>"; };
 		D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCombinedItemEnum.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 		BDACECDD2C109309007B5262 /* XpeApp */ = {
 			isa = PBXGroup;
 			children = (
+				D77CD2272E0C478600E5F45F /* XPEHOSecrets.plist */,
 				0E0A7FE92CBFFA4100BFFCDB /* XpeApp.entitlements */,
 				108150F22CBD167400D57952 /* GoogleService-Info.plist */,
 				0E61D2CA2C78D47700050F7C /* Config.swift */,
@@ -763,6 +766,7 @@
 				BDACECE52C10930C007B5262 /* Assets.xcassets in Resources */,
 				0E0A7FE82CBFF9C500BFFCDB /* Entitlements.plist in Resources */,
 				108150F32CBD167400D57952 /* GoogleService-Info.plist in Resources */,
+				D77CD2282E0C478600E5F45F /* XPEHOSecrets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,8 @@ struct AgencyPage: View {
     @State private var showDigicode = false
     @State private var showAlarmcode = false
     
+    // Config reader
+    private let config = ConfigReader.shared
     
     var body: some View {
         ScrollView {
@@ -37,14 +39,14 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Wifi",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: config.getString(forKey: "WIFI_SSID"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     button: ClickyButton(
                         label: "COPIER MDP",
                         horizontalPadding: 50,
                         verticalPadding: 12,
                         onPress: {
-                            UIPasteboard.general.string = ""
+                            UIPasteboard.general.string = config.getString(forKey: "WIFI_PASSWORD")
                             toastManager.setParams(
                                 message: "Wifi copié"
                             )
@@ -64,14 +66,14 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Wifi invité",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: config.getString(forKey: "WIFI_GUEST_SSID"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     button: ClickyButton(
                         label: "COPIER MDP",
                         horizontalPadding: 50,
                         verticalPadding: 12,
                         onPress: {
-                            UIPasteboard.general.string = ""
+                            UIPasteboard.general.string = config.getString(forKey: "WIFI_GUEST_PASSWORD")
                             toastManager.setParams(
                                 message: "Wifi invité copié"
                             )
@@ -90,7 +92,7 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Imprimante de l'agence",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: config.getString(forKey: "PRINTER_NAME"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     icon: AnyView(
                         Image("Print")
@@ -104,7 +106,7 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Alarme bâtiment",
                     tags: [
-                        TagPill(label: showAlarmcode ? "" : "*******", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: showAlarmcode ? config.getString(forKey: "ALARM_CODE") : "*******", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     button: ClickyButton(
                         label: showAlarmcode ? "MASQUER" : "AFFICHER",
@@ -124,7 +126,7 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Digicode portail Synergie",
                     tags: [
-                        TagPill(label: showDigicode ? "" : "*******", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: showDigicode ? config.getString(forKey: "DIGICODE") : "*******", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     button: ClickyButton(
                         label: showDigicode ? "MASQUER" : "AFFICHER",
@@ -144,8 +146,8 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Société fontaine à eau",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "WATER_FOUNTAIN_COMPANY"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "WATER_FOUNTAIN_CONTACT"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
                     ],
                     icon: AnyView(
                         Image("Water-fountain")
@@ -159,10 +161,10 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Ménage (un vendredi sur deux)",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: config.getString(forKey: "CLEANING_COMPANY"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "CLEANING_CONTACT"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "CLEANING_MANAGER"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "CLEANING_MANAGER_CONTACT"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     icon: AnyView(
                         Image("Cleaning")
@@ -176,10 +178,10 @@ struct AgencyPage: View {
                 CollapsableCard(
                     label: "Propriétaires",
                     tags: [
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
-                        TagPill(label: "", backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
+                        TagPill(label: config.getString(forKey: "OWNER1_NAME"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "OWNER1_CONTACT"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "OWNER2_NAME"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR),
+                        TagPill(label: config.getString(forKey: "OWNER2_CONTACT"), backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR)
                     ],
                     icon: AnyView(
                         Image("Owner")
