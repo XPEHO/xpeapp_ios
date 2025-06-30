@@ -49,6 +49,14 @@ struct Sidebar: View {
                             )
                         }
                     }
+                    
+                    SidebarItem(
+                        isSidebarVisible: $isSidebarVisible,
+                        navigationItem: .agency,
+                        icon: Image("Building"),
+                        label: "Agence"
+                    )
+                    
                     SidebarItem(
                         isSidebarVisible: $isSidebarVisible,
                         icon: Image("About"),

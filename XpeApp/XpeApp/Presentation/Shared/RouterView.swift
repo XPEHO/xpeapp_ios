@@ -38,6 +38,8 @@ struct Router: View {
                     AgendaPage()
                 case .debug:
                     DebugPage()
+                case .agency:
+                    AgencyPage()
                 default:
                     DisabledFeaturePlaceHolder()
                 }
