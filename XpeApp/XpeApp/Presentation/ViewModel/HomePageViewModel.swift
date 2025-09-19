@@ -37,31 +37,20 @@ import SwiftUI
         }
     }
     
+    
     private func initLastNewsletterPreview() {
-        Task{
-            NewsletterRepositoryImpl.instance.getNewsletterPreviewUrl(
-                newsletter: self.lastNewsletter
-            ) { obtainedPreviewUrl in
-                if let previewUrl = obtainedPreviewUrl,
-                    let url = URL(string: previewUrl) {
-                    let urlSession = URLSession.shared
-                    let dataTask = urlSession.dataTask(with: url) { data, response, error in
-                        if let error = error {
-                            debugPrint("Failed to load image data: \(error.localizedDescription)")
-                            return
-                        }
-                        if let data = data, let image = UIImage(data: data) {
-                            DispatchQueue.main.async {
-                                self.lastNewsletterPreview = image
-                            }
-                        } else {
-                            debugPrint("Failed to load image for last newsletter")
-                        }
-                    }
-                    dataTask.resume()
-                } else {
-                    debugPrint("Failed to load image for last newsletter")
+        Task {
+            guard let previewPath = self.lastNewsletter?.previewPath, !previewPath.isEmpty else {
+                debugPrint("No previewPath for last newsletter")
+                return
+            }
+            if let imageData = await WordpressAPI.instance.fetchImage(previewPath: previewPath),
+               let image = UIImage(data: imageData) {
+                DispatchQueue.main.async {
+                    self.lastNewsletterPreview = image
                 }
+            } else {
+                debugPrint("Failed to load image for last newsletter with previewPath: \(self.lastNewsletter?.previewPath ?? "nil")")
             }
         }
     }

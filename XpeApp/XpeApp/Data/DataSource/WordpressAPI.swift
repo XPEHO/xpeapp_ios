@@ -413,6 +413,24 @@ class WordpressAPI: WordpressAPIProtocol {
             return nil
         }
     }
+
+    // Image Storage
+
+    func fetchImage(previewPath: String) async -> Data? {
+        if let (data, statusCode) = await fetchWordpressAPI(
+            endpoint: "xpeho/v1/image-storage/\(previewPath)",
+            method: .get,
+            headers: [:]
+        ) {
+            if statusCode == 403 {
+                debugPrint("Unauthorized access in fetchImage")
+                return nil
+            }
+            return data
+        } else {
+            return nil
+        }
+    }
     
 
 }
