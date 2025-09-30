@@ -73,12 +73,14 @@ struct CampaignCard: View {
     private func getTagsList(campaign: QvstCampaignEntity) -> [TagPill]{
         var result: [TagPill] = []
         // Init the tagsList depending the data that we got
-        result.append(
-            TagPill(
-                label: campaign.themeName,
-                backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR
+        for name in (campaign.themeNames.isEmpty ? [campaign.themeName] : campaign.themeNames) {
+            result.append(
+                TagPill(
+                    label: name,
+                    backgroundColor: XPEHO_THEME.GREEN_DARK_COLOR
+                )
             )
-        )
+        }
         
         // If the campaign is open we indicate the days remaining
         //      If it end in less or equal than 3 days and it hasn't been completed -> the color is red
@@ -129,3 +131,4 @@ struct CampaignCard: View {
         return result
     }
 }
+

@@ -55,7 +55,8 @@ class QvstRepositoryImpl: QvstRepository {
                 QvstCampaignEntity(
                     id: campaign.id,
                     name: campaign.name,
-                    themeName: campaign.theme.name,
+                    themeName: campaign.themes.map { $0.name }.joined(separator: ", "),
+                    themeNames: campaign.themes.map { $0.name },
                     status: campaign.status,
                     outdated: remainingDays <= 0,
                     completed: completed,
@@ -123,3 +124,4 @@ class QvstRepositoryImpl: QvstRepository {
         )
     }
 }
+
