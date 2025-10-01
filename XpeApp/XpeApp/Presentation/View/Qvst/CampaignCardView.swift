@@ -73,7 +73,7 @@ struct CampaignCard: View {
     private func getTagsList(campaign: QvstCampaignEntity) -> [TagPill]{
         var result: [TagPill] = []
         // Init the tagsList depending the data that we got
-        for name in (campaign.themeNames.isEmpty ? [campaign.themeName] : campaign.themeNames) {
+        for name in campaign.themeNames {
             result.append(
                 TagPill(
                     label: name,

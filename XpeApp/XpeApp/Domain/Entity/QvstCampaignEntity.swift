@@ -10,7 +10,6 @@ import Foundation
 @Observable class QvstCampaignEntity: Identifiable, Equatable {
     let id: String
     let name: String
-    let themeName: String
     let themeNames: [String]
     let status: String
     let outdated: Bool
@@ -19,10 +18,9 @@ import Foundation
     let endDate: Date
     let resultLink: String
     
-    init(id: String, name: String, themeName: String, themeNames: [String] = [], status: String, outdated: Bool, completed: Bool, remainingDays: Int, endDate: Date, resultLink: String) {
+    init(id: String, name: String, themeNames: [String] = [], status: String, outdated: Bool, completed: Bool, remainingDays: Int, endDate: Date, resultLink: String) {
         self.id = id
         self.name = name
-        self.themeName = themeName
         self.themeNames = themeNames
         self.status = status
         self.outdated = outdated
