@@ -27,7 +27,7 @@ struct CampaignForm: View {
         VStack {
             if let campaign = routerManager.parameters["campaign"] as? QvstCampaignEntity {
                 HStack {
-                    Title(text: campaign.themeName)
+                    Title(text: campaign.name)
                     Spacer()
                 }
                 Spacer().frame(height: 60)

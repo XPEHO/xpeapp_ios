@@ -10,7 +10,7 @@ import Foundation
 struct QvstCampaignModel: Codable, Identifiable {
     let id: String
     let name: String
-    let theme: QvstThemeModel
+    let themes: [QvstThemeModel]
     let status: String
     let startDate: Date
     let endDate: Date
@@ -20,7 +20,7 @@ struct QvstCampaignModel: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case theme
+        case themes
         case status
         case startDate = "start_date"
         case endDate = "end_date"
@@ -28,11 +28,11 @@ struct QvstCampaignModel: Codable, Identifiable {
         case participationRate = "participation_rate"
     }
     
-    init(from decoder: any Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
-        self.theme = try container.decode(QvstThemeModel.self, forKey: .theme)
+        self.themes = try container.decode([QvstThemeModel].self, forKey: .themes)
         self.status = try container.decode(String.self, forKey: .status)
         self.participationRate = try container.decode(String.self, forKey: .participationRate)
         self.action = try container.decode(String.self, forKey: .action)
@@ -51,7 +51,7 @@ struct QvstCampaignModel: Codable, Identifiable {
 
     init(id: String, 
          name: String,
-         theme: QvstThemeModel,
+         themes: [QvstThemeModel],
          status: String,
          startDate: Date,
          endDate: Date,
@@ -60,12 +60,26 @@ struct QvstCampaignModel: Codable, Identifiable {
     ) {
         self.id = id
         self.name = name
-        self.theme = theme
+        self.themes = themes
         self.status = status
         self.startDate = startDate
         self.endDate = endDate
         self.action = action
         self.participationRate = participationRate
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(themes, forKey: .themes)
+        try container.encode(status, forKey: .status)
+        let startDateString = QvstCampaignModel.dateDatabaseFormatter.string(from: startDate)
+        let endDateString = QvstCampaignModel.dateDatabaseFormatter.string(from: endDate)
+        try container.encode(startDateString, forKey: .startDate)
+        try container.encode(endDateString, forKey: .endDate)
+        try container.encode(action, forKey: .action)
+        try container.encode(participationRate, forKey: .participationRate)
     }
     
     // Formatter for decode
@@ -76,3 +90,4 @@ struct QvstCampaignModel: Codable, Identifiable {
         return formatter
     }()
 }
+

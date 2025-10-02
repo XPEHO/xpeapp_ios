@@ -59,7 +59,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -95,7 +95,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -127,7 +127,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -162,7 +162,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignEntity(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    themeName: "Qvst Theme",
+                    themeNames: ["Qvst Theme"],
                     status: "OPEN",
                     outdated: false,
                     completed: true,
@@ -215,7 +215,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -251,7 +251,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -283,7 +283,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignModel(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    theme: QvstThemeModel(id: "theme_id", name: "Qvst Theme"),
+                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
                     status: "OPEN",
                     startDate: currentDate,
                     endDate: currentDatePlusOneDay,
@@ -318,7 +318,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignEntity(
                     id: "campaign_id",
                     name: "Qvst Campaign",
-                    themeName: "Qvst Theme",
+                    themeNames: ["Qvst Theme"],
                     status: "OPEN",
                     outdated: false,
                     completed: true,
@@ -344,7 +344,7 @@ final class QvstRepositoryTests: XCTestCase {
             QvstCampaignEntity(
                 id: "campaign_id_1",
                 name: "Qvst Campaign 1",
-                themeName: "Qvst Theme",
+                themeNames: ["Qvst Theme"],
                 status: "OPEN",
                 outdated: false,
                 completed: true,
@@ -355,7 +355,7 @@ final class QvstRepositoryTests: XCTestCase {
             QvstCampaignEntity(
                 id: "campaign_id_2",
                 name: "Qvst Campaign 2",
-                themeName: "Qvst Theme",
+                themeNames: ["Qvst Theme"],
                 status: "CLOSED",
                 outdated: true,
                 completed: true,
@@ -374,7 +374,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignEntity(
                     id: "campaign_id_1",
                     name: "Qvst Campaign 1",
-                    themeName: "Qvst Theme",
+                    themeNames: ["Qvst Theme"],
                     status: "OPEN",
                     outdated: false,
                     completed: true,
@@ -387,7 +387,7 @@ final class QvstRepositoryTests: XCTestCase {
                 QvstCampaignEntity(
                     id: "campaign_id_2",
                     name: "Qvst Campaign 2",
-                    themeName: "Qvst Theme",
+                    themeNames: ["Qvst Theme"],
                     status: "CLOSED",
                     outdated: true,
                     completed: true,
