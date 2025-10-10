@@ -281,5 +281,64 @@ final class UserRepositoryTests: XCTestCase {
         // THEN
         XCTAssertEqual(result, .newPasswordsNotMatch)
     }
+    
+    func test_loginWithCacheIfTokenValid_tokenStored_notExpired_success() async throws {
+        // GIVEN - Token valide en cache (1 heure d'âge)
+        let validDate = Date().addingTimeInterval(-3600)
+        let validDateString = fullDateTimeFormatter.string(from: validDate)
+        
+        KeychainManager.instance.saveValue(validDateString, forKey: "user_token_issued_at")
+        KeychainManager.instance.saveValue("user_id", forKey: "user_id")
+        KeychainManager.instance.saveValue("Bearer token", forKey: "user_token")
+        
+        userSource.checkTokenValidityReturnData = TokenValidityModel(
+            code: "jwt_auth_valid_token",
+            message: "Token is valid",
+            data: ["status": 200]
+        )
+        
+        // WHEN
+        await userRepo.loginWithCacheIfTokenValid { completion in
+            // THEN
+            XCTAssertEqual(completion, LoginResult.success)
+        }
+        
+        XCTAssertNotNil(userRepo.user)
+    }
+    
+    func test_loginWithCacheIfTokenValid_tokenExpired_logout() async throws {
+        // GIVEN - Token expiré (plus de 5 jours)
+        let expiredDate = Date().addingTimeInterval(-tokenLifetimeSeconds - 3600)
+        let expiredDateString = fullDateTimeFormatter.string(from: expiredDate)
+        
+        KeychainManager.instance.saveValue(expiredDateString, forKey: "user_token_issued_at")
+        KeychainManager.instance.saveValue("user_id", forKey: "user_id")
+        KeychainManager.instance.saveValue("Bearer token", forKey: "user_token")
+        
+        // WHEN
+        await userRepo.loginWithCacheIfTokenValid { completion in
+            // THEN
+            XCTAssertEqual(completion, LoginResult.failure)
+        }
+        
+        // Vérification que le logout a bien nettoyé le cache
+        XCTAssertNil(userRepo.user)
+        XCTAssertNil(KeychainManager.instance.getValue(forKey: "user_id"))
+        XCTAssertNil(KeychainManager.instance.getValue(forKey: "user_token"))
+        XCTAssertNil(KeychainManager.instance.getValue(forKey: "user_token_issued_at"))
+    }
+    
+    func test_loginWithCacheIfTokenValid_noTokenStored_failure() async throws {
+        // GIVEN - Pas de token en cache
+        KeychainManager.instance.deleteValue(forKey: "user_token_issued_at")
+        
+        // WHEN
+        await userRepo.loginWithCacheIfTokenValid { completion in
+            // THEN
+            XCTAssertEqual(completion, LoginResult.failure)
+        }
+        
+        XCTAssertNil(userRepo.user)
+    }
 }
 

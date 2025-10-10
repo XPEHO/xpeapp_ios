@@ -41,10 +41,22 @@ func fetchWordpressAPI <BodyType: Codable> (
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     }
     
-    // Set token auth
+    // Set token auth with local expiration check
     let userRepo = UserRepositoryImpl.instance
-    if let user = userRepo.user {
-        request.setValue(user.token, forHTTPHeaderField: "authorization")
+    if let issuedAtString = KeychainManager.instance.getValue(forKey: "user_token_issued_at"),
+       let issuedAt = fullDateTimeFormatter.date(from: issuedAtString) {
+        let now = Date()
+        let totalLifetimeSeconds: TimeInterval = tokenLifetimeSeconds
+        let tokenAge = now.timeIntervalSince(issuedAt)
+        if tokenAge < totalLifetimeSeconds {
+            if let user = userRepo.user {
+                request.setValue(user.token, forHTTPHeaderField: "authorization")
+            }
+        } else {
+            userRepo.logout()
+        }
+    } else {
+        userRepo.logout()
     }
     
     do {
@@ -86,10 +98,22 @@ func fetchWordpressAPI (
         request.setValue(value, forHTTPHeaderField: key)
     }
     
-    // Set token auth
+    // Set token auth with local expiration check
     let userRepo = UserRepositoryImpl.instance
-    if let user = userRepo.user {
-        request.setValue(user.token, forHTTPHeaderField: "authorization")
+    if let issuedAtString = KeychainManager.instance.getValue(forKey: "user_token_issued_at"),
+       let issuedAt = fullDateTimeFormatter.date(from: issuedAtString) {
+        let now = Date()
+        let totalLifetimeSeconds: TimeInterval = tokenLifetimeSeconds
+        let ageSeconds = now.timeIntervalSince(issuedAt)
+        if ageSeconds < totalLifetimeSeconds {
+            if let user = userRepo.user {
+                request.setValue(user.token, forHTTPHeaderField: "authorization")
+            }
+        } else {
+            userRepo.logout()
+        }
+    } else {
+        userRepo.logout()
     }
     
     do {
@@ -106,3 +130,4 @@ func fetchWordpressAPI (
     }
     
 }
+

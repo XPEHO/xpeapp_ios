@@ -152,3 +152,6 @@ extension Color {
         return Color(red: blendedRed, green: blendedGreen, blue: blendedBlue)
     }
 }
+
+/// Lifetime for locally accepted JWT token before forcing logout (5 days)
+public let tokenLifetimeSeconds: TimeInterval = 5 * 24 * 60 * 60

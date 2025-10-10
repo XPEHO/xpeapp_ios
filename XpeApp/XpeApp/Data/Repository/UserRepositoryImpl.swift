@@ -66,15 +66,22 @@ import Foundation
                 )
                 
                 // Register the user
-                self.user = UserEntity(
+                let newUser = UserEntity(
                     token: "Bearer " + successTokenResponse.token,
                     id: userId
                 )
+                self.user = newUser
                 
                 // Save it in cache
-                KeychainManager.instance.saveValue(user!.id, forKey: "user_id")
-                KeychainManager.instance.saveValue(
-                    user!.token, forKey: "user_token")
+                KeychainManager.instance.saveValue(newUser.id, forKey: "user_id")
+                KeychainManager.instance.saveValue(newUser.token, forKey: "user_token")
+                
+                // Save token issued at date in cache (format: yyyy-MM-dd HH:mm:ss)
+                let issuedAtString = fullDateTimeFormatter.string(from: Date())
+                KeychainManager.instance.saveValue(issuedAtString, forKey: "user_token_issued_at")
+                
+                // Save last used username for prefill on next login
+                KeychainManager.instance.saveValue(username, forKey: "last_username")
                 
                 completion(.success)
             } catch {
@@ -94,6 +101,25 @@ import Foundation
     func loginWithCacheIfTokenValid(
         completion: @escaping (LoginResult) -> Void
     ) async {
+        // Check local token expiration based on issued_at stored in Keychain
+        if let issuedAtString = KeychainManager.instance.getValue(forKey: "user_token_issued_at"),
+           let issuedAt = fullDateTimeFormatter.date(from: issuedAtString) {
+            let now = Date()
+            let totalLifetimeSeconds: TimeInterval = tokenLifetimeSeconds
+            let ageSeconds = now.timeIntervalSince(issuedAt)
+            if ageSeconds >= totalLifetimeSeconds {
+                // Token expired locally -> perform the same logout as profile page
+                self.logout()
+                completion(.failure)
+                return
+            }
+        } else {
+            // No issued_at in cache -> consider invalid and logout
+            self.logout()
+            completion(.failure)
+            return
+        }
+        
         // Get the user from cache
         guard let id = KeychainManager.instance.getValue(forKey: "user_id")
         else {
@@ -170,6 +196,7 @@ import Foundation
         // Remove the user from cache
         KeychainManager.instance.deleteValue(forKey: "user_id")
         KeychainManager.instance.deleteValue(forKey: "user_token")
+        KeychainManager.instance.deleteValue(forKey: "user_token_issued_at")
         
         // Disconnect from Firebase
         do {
@@ -182,3 +209,4 @@ import Foundation
         }
     }
 }
+
