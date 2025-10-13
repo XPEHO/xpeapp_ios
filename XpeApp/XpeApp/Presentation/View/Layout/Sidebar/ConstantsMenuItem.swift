@@ -22,7 +22,7 @@ let menuItems: [MenuItem] = [
     MenuItem(
         navigationItem: .campaign,
         iconName: "QVST",
-        label: "Campagnes QVST",
+        label: "Campagnes",
         featureFlippingId: .campaign
     ),
     MenuItem(
