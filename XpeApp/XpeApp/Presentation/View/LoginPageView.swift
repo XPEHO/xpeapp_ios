@@ -39,6 +39,7 @@ struct LoginPage: View {
                 }
             InputText(
                 label: "Email",
+                defaultInput: username,
                 submitLabel: .next,
                 onSubmit: {
                     focusedField = .password
@@ -75,6 +76,9 @@ struct LoginPage: View {
         }
         .onAppear{
             sendAnalyticsEvent(page: "login_page")
+            if let last = KeychainManager.instance.getValue(forKey: "last_username") {
+                self.username = last
+            }
         }
         .padding(.horizontal, 16)
         .preferredColorScheme(.dark)
