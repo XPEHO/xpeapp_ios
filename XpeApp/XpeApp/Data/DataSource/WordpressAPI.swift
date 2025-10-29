@@ -27,6 +27,7 @@ protocol WordpressAPIProtocol {
     func fetchAllEvents(page: String?) async -> [EventModel]?
     func fetchAllEventsTypes() async -> [EventTypeModel]?
     func fetchAllBirthdays(page: String?) async -> [BirthdayModel]?
+    func submitIdea(idea: IdeaSubmissionModel) async -> Bool?
 }
 
 class WordpressAPI: WordpressAPIProtocol {
@@ -432,5 +433,20 @@ class WordpressAPI: WordpressAPIProtocol {
         }
     }
     
+    // IdeaBox
+    
+    // Submit an idea to the idea box
+    func submitIdea(idea: IdeaSubmissionModel) async -> Bool? {
+        if let (_, statusCode) = await fetchWordpressAPI<IdeaSubmissionModel>(
+            endpoint: "xpeho/v1/ideas",
+            method: .post,
+            headers: [:],
+            bodyObject: idea
+        ) {
+            return statusCode == 201
+        } else {
+            return nil
+        }
+    }
 
 }

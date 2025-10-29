@@ -54,5 +54,11 @@ let menuItems: [MenuItem] = [
         iconName: "Agenda",
         label: "Agenda",
         featureFlippingId: .agenda
+    ),
+    MenuItem(
+        navigationItem: .ideaBox,
+        iconName: "IdeaBulb",
+        label: "Boite à idées",
+        featureFlippingId: .ideaBox
     )
 ]

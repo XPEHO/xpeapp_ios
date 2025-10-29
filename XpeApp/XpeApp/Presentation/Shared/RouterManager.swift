@@ -10,6 +10,7 @@ import SwiftUI
 // The raw values that reference a feature of the app need to reflect the ids of features in firebase database
 enum RouterItem: String {
     case home = "home"
+    case ideaBox = "ideaBox"
     case newsletters = "newsletters"
     case campaign = "campaign"
     case campaignForm = "campaignForm"
