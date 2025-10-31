@@ -14,26 +14,27 @@ struct IdeaBoxPage: View {
     private var routerManager = RouterManager.instance
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Title(text: "Partage ton idée")
-                .padding(.bottom, 10)
-            
-            Text("Contexte")
-                .font(.raleway(.medium, size: 16))
-                .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
-                .multilineTextAlignment(.leading)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Title(text: "Partage ton idée :")
+                Spacer(minLength: 60)
+                
+                Text("Contexte : ")
+                    .font(.raleway(.semiBold, size: 16))
+                    .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             
                 InputText(
-                    label: "Thématique",
+                    label: "Thématique (ex : Agence, en mission etc...)",
                     onInput: { input in
                         ideaBoxViewModel.context = input
                     }
                 )
-            
-                Text("Description")
-                    .font(.raleway(.medium, size: 16))
+                
+                Text("Description : ")
+                    .font(.raleway(.semiBold, size: 16))
                     .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
-                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 InputText(
                     label: "Mon idée/Ma suggestion",
@@ -42,48 +43,49 @@ struct IdeaBoxPage: View {
                         ideaBoxViewModel.description = input
                     }
                 )
-            
-            Spacer()
-            
-            ClickyButton(
-                label: ideaBoxViewModel.isSending ? "Envoi en cours..." : "Soumettre",
-                verticalPadding: 12,
-                onPress: {
-                    Task {
-                        let success = await ideaBoxViewModel.submitIdea()
-                        
-                        DispatchQueue.main.async {
-                            if success {
-                                toastManager.setParams(
-                                    message: "Idée soumise avec succès !",
-                                    action: {
-                                        ideaBoxViewModel.resetForm()
-                                        routerManager.goTo(item: .home)
+                
+                HStack {
+                    Spacer()
+                    ClickyButton(
+                        label: "SOUMETTRE",
+                        size: 18,
+                        horizontalPadding: 70,
+                        verticalPadding: 18,
+                        enabled: true,
+                        onPress: {
+                            Task {
+                                let success = await ideaBoxViewModel.submitIdea()
+                                
+                                DispatchQueue.main.async {
+                                    if success {
+                                        toastManager.setParams(
+                                            message: "Idée soumise avec succès !",
+                                            action: {
+                                                ideaBoxViewModel.resetForm()
+                                                routerManager.goTo(item: .home)
+                                            }
+                                        )
+                                        toastManager.play()
+                                    } else {
+                                        toastManager.setParams(
+                                            message: "Impossible d'envoyer votre idée",
+                                            error: true
+                                        )
+                                        toastManager.play()
                                     }
-                                )
-                                toastManager.play()
-                            } else {
-                                toastManager.setParams(
-                                    message: "Impossible d'envoyer votre idée",
-                                    error: true
-                                )
-                                toastManager.play()
+                                }
                             }
                         }
-                    }
+                    )
+                    Spacer()
                 }
-            )
-            .disabled(!ideaBoxViewModel.isFormValid() || ideaBoxViewModel.isSending)
-            .frame(maxWidth: .infinity)
+                .padding(.top, 32)
+                
+            }
         }
-        .padding(.horizontal, 16)
         .onAppear {
             sendAnalyticsEvent(page: "idea_box_page")
         }
         .accessibility(identifier: "IdeaBoxView")
     }
-}
-
-#Preview {
-    IdeaBoxPage()
 }
