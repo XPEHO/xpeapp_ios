@@ -11,6 +11,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseMessaging
+import FirebaseCrashlytics
 import xpeho_ui
 
 @main
@@ -45,6 +46,9 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         // Initialize Firebase
         FirebaseApp.configure()
+        let enableCrashlytics: Bool = (Configuration.env == .uat || Configuration.env == .prod)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(enableCrashlytics)
+    
         // Set Firebase Messaging delegate
         Messaging.messaging().delegate = self
         // Request notification permissions
@@ -194,3 +198,16 @@ extension XpeAppAppDelegate: MessagingDelegate {
     }
 }
 
+
+// MARK: - Crashlytics helpers
+import Foundation
+import FirebaseCrashlytics
+
+func logNonFatalError(_ error: Error, userInfo: [String: Any]? = nil) {
+    let nsError = error as NSError
+    Crashlytics.crashlytics().record(error: nsError, userInfo: userInfo)
+}
+
+func logMessage(_ message: String) {
+    Crashlytics.crashlytics().log(message)
+}

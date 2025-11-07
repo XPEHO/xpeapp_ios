@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 let backendUrl = Configuration.backendUrl
 
@@ -26,6 +27,10 @@ func fetchWordpressAPI <BodyType: Codable> (
         debugPrint("Invalid URL : \(endpointUrl)")
         return nil
     }
+    
+    CrashlyticsUtils.setCustomKey("endpoint", value: endpoint)
+    CrashlyticsUtils.setCustomKey("method", value: method.rawValue)
+    CrashlyticsUtils.logEvent("HTTP Request: \(method.rawValue) \(endpoint)")
     
     // Setup request
     var request = URLRequest(url: url)
@@ -60,6 +65,7 @@ func fetchWordpressAPI <BodyType: Codable> (
     }
     
     do {
+        CrashlyticsUtils.setCustomKey("has_body", value: "true")
         // Encode body
         let body = try JSONEncoder().encode(bodyObject)
         request.httpBody = body
@@ -67,11 +73,15 @@ func fetchWordpressAPI <BodyType: Codable> (
         // Decode data got
         let (data, response) = try await URLSession.shared.data(for: request)
         if let httpResponse = response as? HTTPURLResponse {
+            CrashlyticsUtils.setCustomKey("status_code", value: String(httpResponse.statusCode))
+            CrashlyticsUtils.logEvent("HTTP Response: \(httpResponse.statusCode) \(endpoint)")
             return (data, httpResponse.statusCode)
         } else {
             return nil
         }
     } catch {
+        CrashlyticsUtils.recordException(error)
+        CrashlyticsUtils.logEvent("HTTP Error on: \(endpoint)")
         debugPrint("Request failed on \(endpointUrl) : \(error)")
         return nil
     }
@@ -88,6 +98,10 @@ func fetchWordpressAPI (
         debugPrint("Invalid URL : \(endpointUrl)")
         return nil
     }
+    
+    CrashlyticsUtils.setCustomKey("endpoint", value: endpoint)
+    CrashlyticsUtils.setCustomKey("method", value: method.rawValue)
+    CrashlyticsUtils.logEvent("HTTP Request: \(method.rawValue) \(endpoint)")
     
     // Setup request
     var request = URLRequest(url: url)
@@ -120,14 +134,17 @@ func fetchWordpressAPI (
         // Decode data got
         let (data, response) = try await URLSession.shared.data(for: request)
         if let httpResponse = response as? HTTPURLResponse {
+            CrashlyticsUtils.setCustomKey("status_code", value: String(httpResponse.statusCode))
+            CrashlyticsUtils.logEvent("HTTP Response: \(httpResponse.statusCode) \(endpoint)")
             return (data, httpResponse.statusCode)
         } else {
             return nil
         }
     } catch {
+        CrashlyticsUtils.recordException(error)
+        CrashlyticsUtils.logEvent("HTTP Error on: \(endpoint)")
         debugPrint("Request failed on \(endpointUrl) : \(error)")
         return nil
     }
     
 }
-

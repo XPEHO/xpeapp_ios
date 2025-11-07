@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import Foundation
+import FirebaseCrashlytics
 
 @Observable class UserRepositoryImpl: UserRepository {
     // An instance for app and a mock for tests
@@ -37,6 +38,8 @@ import Foundation
         password: String,
         completion: @escaping (LoginResult) -> Void
     ) async {
+        CrashlyticsUtils.setCurrentFeature("auth")
+        CrashlyticsUtils.logEvent("Auth attempt (username provided)")
         // Generate token
         guard
             let tokenResponse = await dataSource.generateToken(
@@ -46,6 +49,9 @@ import Foundation
                 )
             )
         else {
+            CrashlyticsUtils.logEvent("Auth error: generateToken returned nil")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "generateToken_nil")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             debugPrint("Failed call to generateToken in login")
             completion(.error)
             return
@@ -57,6 +63,9 @@ import Foundation
                 let userId = await dataSource.fetchUserId(
                     email: successTokenResponse.userEmail)
             else {
+                CrashlyticsUtils.logEvent("Auth error: fetchUserId failed")
+                CrashlyticsUtils.setCustomKey("last_auth_error", value: "fetchUserId_failed")
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
                 debugPrint("Failed call to fetchUserId in login")
                 completion(.error)
                 return
@@ -70,6 +79,7 @@ import Foundation
                 )
                 // Inform analytics about this user identifier
                 analytics.setUserId(authResult.user.uid)
+                CrashlyticsUtils.logEvent("Auth success (anonymous)")
                 
                 // Register the user
                 let newUser = UserEntity(
@@ -89,16 +99,30 @@ import Foundation
                 // Save last used username for prefill on next login
                 KeychainManager.instance.saveValue(username, forKey: "last_username")
                 
+                CrashlyticsUtils.setUserId(successTokenResponse.userEmail)
+                CrashlyticsUtils.setCustomKey("user_email", value: successTokenResponse.userEmail)
+                CrashlyticsUtils.setUserContext(isLoggedIn: true)
+                
                 completion(.success)
             } catch {
+                CrashlyticsUtils.recordException(error)
+                CrashlyticsUtils.logEvent("Auth error: Firebase anonymous sign-in failed")
+                CrashlyticsUtils.setCustomKey("last_auth_error", value: error.localizedDescription)
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
                 debugPrint(
                     "Error connecting to Firebase anonymously to Firebase: \(error.localizedDescription)"
                 )
                 completion(.error)
             }
         } else if tokenResponse.error != nil {
+            CrashlyticsUtils.logEvent("Auth failure: invalid credentials or server response")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "token_response_error")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             completion(.failure)
         } else {
+            CrashlyticsUtils.logEvent("Auth error: unhandled tokenResponse")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "unhandled_token_response")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             debugPrint("Unhandled tokenResponse in login")
             completion(.error)
         }
@@ -107,6 +131,8 @@ import Foundation
     func loginWithCacheIfTokenValid(
         completion: @escaping (LoginResult) -> Void
     ) async {
+        CrashlyticsUtils.setCurrentFeature("auth")
+        CrashlyticsUtils.logEvent("Auth attempt (cache)")
         // Check local token expiration based on issued_at stored in Keychain
         if let issuedAtString = KeychainManager.instance.getValue(forKey: "user_token_issued_at"),
            let issuedAt = fullDateTimeFormatter.date(from: issuedAtString) {
@@ -116,11 +142,17 @@ import Foundation
             if ageSeconds >= totalLifetimeSeconds {
                 // Token expired locally -> perform the same logout as profile page
                 self.logout()
+                CrashlyticsUtils.logEvent("Auth cache invalid: token expired")
+                CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_token_expired")
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
                 completion(.failure)
                 return
             }
         } else {
             // No issued_at in cache -> consider invalid and logout
+            CrashlyticsUtils.logEvent("Auth cache invalid: missing issued_at")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_missing_issued_at")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             self.logout()
             completion(.failure)
             return
@@ -129,12 +161,14 @@ import Foundation
         // Get the user from cache
         guard let id = KeychainManager.instance.getValue(forKey: "user_id")
         else {
+            CrashlyticsUtils.logEvent("Auth cache invalid: missing user_id")
             completion(.failure)
             return
         }
         guard
             let token = KeychainManager.instance.getValue(forKey: "user_token")
         else {
+            CrashlyticsUtils.logEvent("Auth cache invalid: missing user_token")
             completion(.failure)
             return
         }
@@ -146,6 +180,9 @@ import Foundation
         // Check the validity of its token
         guard let validity = await dataSource.checkTokenValidity(token: token)
         else {
+            CrashlyticsUtils.logEvent("Auth cache error: checkTokenValidity nil")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "checkTokenValidity_nil")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             debugPrint(
                 "Failed call to checkTokenValidity in isTokenInCacheValid")
             completion(.error)
@@ -163,18 +200,28 @@ import Foundation
 
                 // Inform analytics about this user identifier
                 analytics.setUserId(authResult.user.uid)
+                CrashlyticsUtils.logEvent("Auth success (cache anonymous)")
+                CrashlyticsUtils.setUserId(userFromCache.id)
+                CrashlyticsUtils.setUserContext(isLoggedIn: true)
                 
                 // Register the user
                 self.user = userFromCache
                 
                 completion(.success)
             } catch {
+                CrashlyticsUtils.recordException(error)
+                CrashlyticsUtils.logEvent("Auth cache error: Firebase anonymous sign-in failed")
+                CrashlyticsUtils.setCustomKey("last_auth_error", value: error.localizedDescription)
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
                 debugPrint(
                     "Error connecting to Firebase anonymously: \(error.localizedDescription)"
                 )
                 completion(.error)
             }
         } else {
+            CrashlyticsUtils.logEvent("Auth cache invalid: token not valid")
+            CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_token_invalid")
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
             completion(.failure)
         }
     }
@@ -201,6 +248,8 @@ import Foundation
     
     func logout() {
         self.user = nil
+        CrashlyticsUtils.logEvent("Logout")
+        CrashlyticsUtils.setUserContext(isLoggedIn: false)
         
         // Remove the user from cache
         KeychainManager.instance.deleteValue(forKey: "user_id")
