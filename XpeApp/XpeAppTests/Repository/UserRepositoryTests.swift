@@ -17,146 +17,142 @@ final class UserRepositoryTests: XCTestCase {
     override func setUp() {
         super.setUp()
         userRepo.user = nil
+        KeychainManager.instance.deleteValue(forKey: "user_id")
+        KeychainManager.instance.deleteValue(forKey: "user_token")
+        KeychainManager.instance.deleteValue(forKey: "user_token_issued_at")
     }
     
     override func tearDownWithError() throws {
         super.tearDown()
         userRepo.user = nil
+        KeychainManager.instance.deleteValue(forKey: "user_id")
+        KeychainManager.instance.deleteValue(forKey: "user_token")
+        KeychainManager.instance.deleteValue(forKey: "user_token_issued_at")
     }
     
     // ------------------- login TESTS -------------------
     
-    func test_login_generateTokenError() throws {
-        Task {
-            // GIVEN
-            userSource.generateTokenReturnData = nil
-            userSource.fetchUserIdReturnData = "user_id"
+    func test_login_generateTokenError() async throws {
+        // GIVEN
+        userSource.generateTokenReturnData = nil
+        userSource.fetchUserIdReturnData = "user_id"
+        
+        // WHEN
+        await userRepo.login(
+            username: "username",
+            password: "password"
+        ) { completion in
             
-            // WHEN
-            await userRepo.login(
-                username: "username",
-                password: "password"
-            ) { completion in
-                
-                // THEN
-                XCTAssertEqual(completion, LoginResult.error)
-                XCTAssertNil(self.userRepo.user)
-                
-            }
+            // THEN
+            XCTAssertEqual(completion, LoginResult.error)
+            XCTAssertNil(self.userRepo.user)
+            
         }
     }
     
-    func test_login_generateTokenUnhandledTokenResponse() throws {
-        Task {
-            // GIVEN
-            userSource.generateTokenReturnData = TokenResponseModel (
-                success: nil,
-                error: nil
-            )
-            userSource.fetchUserIdReturnData = "user_id"
+    func test_login_generateTokenUnhandledTokenResponse() async throws {
+        // GIVEN
+        userSource.generateTokenReturnData = TokenResponseModel (
+            success: nil,
+            error: nil
+        )
+        userSource.fetchUserIdReturnData = "user_id"
+        
+        // WHEN
+        await userRepo.login(
+            username: "username",
+            password: "password"
+        ) { completion in
             
-            // WHEN
-            await userRepo.login(
-                username: "username",
-                password: "password"
-            ) { completion in
-                
-                // THEN
-                XCTAssertEqual(completion, LoginResult.error)
-                XCTAssertNil(self.userRepo.user)
-                
-            }
+            // THEN
+            XCTAssertEqual(completion, LoginResult.error)
+            XCTAssertNil(self.userRepo.user)
+            
         }
     }
     
-    func test_login_generateTokenIncorrectPassword() throws {
-        Task {
-            // GIVEN
-            userSource.generateTokenReturnData = TokenResponseModel (
-                success: nil,
-                error: ErrorTokenResponseModel(
-                    code: "[jwt_auth] incorrect_password",
-                    message: "<strong>Error:</strong> Incorrect password",
-                    data: ErrorTokenResponseModel.ErrorData(
-                        status: 403
-                    )
+    func test_login_generateTokenIncorrectPassword() async throws {
+        // GIVEN
+        userSource.generateTokenReturnData = TokenResponseModel (
+            success: nil,
+            error: ErrorTokenResponseModel(
+                code: "[jwt_auth] incorrect_password",
+                message: "<strong>Error:</strong> Incorrect password",
+                data: ErrorTokenResponseModel.ErrorData(
+                    status: 403
                 )
             )
-            userSource.fetchUserIdReturnData = "user_id"
+        )
+        userSource.fetchUserIdReturnData = "user_id"
+        
+        // WHEN
+        await userRepo.login(
+            username: "username",
+            password: "password"
+        ) { completion in
             
-            // WHEN
-            await userRepo.login(
-                username: "username",
-                password: "password"
-            ) { completion in
-                
-                // THEN
-                XCTAssertEqual(completion, LoginResult.failure)
-                XCTAssertNil(self.userRepo.user)
-                
-            }
+            // THEN
+            XCTAssertEqual(completion, LoginResult.failure)
+            XCTAssertNil(self.userRepo.user)
+            
         }
     }
     
-    func test_login_fetchUserIdError() throws {
-        Task {
-            // GIVEN
-            userSource.generateTokenReturnData = TokenResponseModel (
-                success: SuccessTokenResponseModel(
-                    token: "token",
-                    userEmail: "user_email",
-                    userNiceName: "user_nice_name",
-                    userDisplayName: "user_display_name"
-                ),
-                error: nil
-            )
-            userSource.fetchUserIdReturnData = nil
+    func test_login_fetchUserIdError() async throws {
+        // GIVEN
+        userSource.generateTokenReturnData = TokenResponseModel (
+            success: SuccessTokenResponseModel(
+                token: "token",
+                userEmail: "user_email",
+                userNiceName: "user_nice_name",
+                userDisplayName: "user_display_name"
+            ),
+            error: nil
+        )
+        userSource.fetchUserIdReturnData = nil
+        
+        // WHEN
+        await userRepo.login(
+            username: "username",
+            password: "password"
+        ) { completion in
             
-            // WHEN
-            await userRepo.login(
-                username: "username",
-                password: "password"
-            ) { completion in
-                
-                // THEN
-                XCTAssertEqual(completion, LoginResult.error)
-                XCTAssertNil(self.userRepo.user)
-                
-            }
+            // THEN
+            XCTAssertEqual(completion, LoginResult.error)
+            XCTAssertNil(self.userRepo.user)
+            
         }
     }
     
-    func test_login_Success() throws {
-        Task {
-            // GIVEN
-            userSource.generateTokenReturnData = TokenResponseModel (
-                success: SuccessTokenResponseModel(
-                    token: "token",
-                    userEmail: "user_email",
-                    userNiceName: "user_nice_name",
-                    userDisplayName: "user_display_name"
-                ),
-                error: nil
-            )
-            userSource.fetchUserIdReturnData = "user_id"
+    func test_login_Success() async throws {
+        // GIVEN
+        userSource.generateTokenReturnData = TokenResponseModel (
+            success: SuccessTokenResponseModel(
+                token: "token",
+                userEmail: "user_email",
+                userNiceName: "user_nice_name",
+                userDisplayName: "user_display_name"
+            ),
+            error: nil
+        )
+        userSource.fetchUserIdReturnData = "user_id"
+        
+        // WHEN
+        await userRepo.login(
+            username: "username",
+            password: "password"
+        ) { completion in
             
-            // WHEN
-            await userRepo.login(
-                username: "username",
-                password: "password"
-            ) { completion in
-                
-                // THEN
-                XCTAssertEqual(completion, LoginResult.success)
-            }
-            
-            let dataExpected = UserEntity(
-                token: "Bearer token",
-                id: "user_id"
-            )
-            XCTAssertNotNil(userRepo.user)
-            XCTAssertEqual(userRepo.user, dataExpected)
+            // THEN
+            XCTAssertEqual(completion, LoginResult.success)
         }
+        
+        let dataExpected = UserEntity(
+            token: "Bearer token",
+            id: "user_id"
+        )
+        XCTAssertNotNil(userRepo.user)
+        XCTAssertEqual(userRepo.user, dataExpected)
     }
     
     
@@ -186,23 +182,21 @@ final class UserRepositoryTests: XCTestCase {
         XCTAssertNil(KeychainManager.instance.getValue(forKey: "user_token"))
     }
     
-    func test_logout_disconnectsFromFirebase() throws {
-        Task {
-            // GIVEN
-            let auth = Auth.auth()
-            do {
-                try await auth.signInAnonymously()
-            } catch {
-                XCTFail("Failed to sign in anonymously")
-            }
-            XCTAssertNotNil(auth.currentUser)
-            
-            // WHEN
-            userRepo.logout()
-            
-            // THEN
-            XCTAssertNil(auth.currentUser)
+    func test_logout_disconnectsFromFirebase() async throws {
+        // GIVEN
+        let auth = Auth.auth()
+        do {
+            try await auth.signInAnonymously()
+        } catch {
+            XCTFail("Failed to sign in anonymously")
         }
+        XCTAssertNotNil(auth.currentUser)
+        
+        // WHEN
+        userRepo.logout()
+        
+        // THEN
+        XCTAssertNil(auth.currentUser)
     }
         // ------------------- fetchUserInfos TESTS -------------------
     
@@ -330,6 +324,8 @@ final class UserRepositoryTests: XCTestCase {
     
     func test_loginWithCacheIfTokenValid_noTokenStored_failure() async throws {
         // GIVEN - Pas de token en cache
+        KeychainManager.instance.deleteValue(forKey: "user_id")
+        KeychainManager.instance.deleteValue(forKey: "user_token")
         KeychainManager.instance.deleteValue(forKey: "user_token_issued_at")
         
         // WHEN
