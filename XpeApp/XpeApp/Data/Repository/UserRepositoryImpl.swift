@@ -64,6 +64,8 @@ import Foundation
                 debugPrint(
                     "Successfully signed in anonymously: \(authResult.user.uid)"
                 )
+                // Inform analytics about this user identifier
+                AnalyticsModel.shared.setUserId(authResult.user.uid)
                 
                 // Register the user
                 let newUser = UserEntity(
@@ -154,6 +156,9 @@ import Foundation
                 debugPrint(
                     "Successfully signed in anonymously to Firebase: \(authResult.user.uid)"
                 )
+
+                // Inform analytics about this user identifier
+                AnalyticsModel.shared.setUserId(authResult.user.uid)
                 
                 // Register the user
                 self.user = userFromCache
@@ -201,6 +206,8 @@ import Foundation
         // Disconnect from Firebase
         do {
             try Auth.auth().signOut()
+            // Reset analytics user information on logout
+            AnalyticsModel.shared.reset()
             debugPrint("Successfully signed out from Firebase")
         } catch {
             debugPrint(

@@ -75,5 +75,6 @@ struct ProfileUserInfosView: View {
         .onAppear {
             userInfosViewModel.update()
         }
+        .trackScreen("profile_user_infos")
     }
 }

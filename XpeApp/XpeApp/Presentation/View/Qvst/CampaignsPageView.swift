@@ -20,7 +20,9 @@ struct CampaignsPage: View {
                 PageTitleWithFilterSection(
                     title: "Campagnes de l'année",
                     filterList: filterList,
-                    selectedYear: $selectedYear
+                    selectedYear: $selectedYear,
+                    analyticsEventName: "campaign_filter_selected",
+                    analyticsParamKey: "year"
                 )
                 Spacer().frame(height: 16)
                 if let campaigns = Binding(classifiedCampaigns[selectedYear]) {
@@ -41,12 +43,12 @@ struct CampaignsPage: View {
         }
         .onAppear {
             campaignsPageViewModel.update();
-            sendAnalyticsEvent(page: "qvst_campaign_detail_page")
         }
         .refreshable {
             campaignsPageViewModel.update()
             featureManager.update()
         }
+        .trackScreen("qvst_campaign_detail_page")
         .accessibility(identifier: "QvstView")
     }
     

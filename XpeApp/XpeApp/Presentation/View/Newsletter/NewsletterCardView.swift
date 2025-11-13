@@ -8,10 +8,12 @@
 import SwiftUI
 import xpeho_ui
 import FirebaseAnalytics
+import Foundation
 
 struct NewsletterCard: View {
     var toastManager = ToastManager.instance
     @State var newsletter: NewsletterEntity
+    @EnvironmentObject var analytics: AnalyticsModel
     
     @Environment(\.openURL) var openURL
     
@@ -31,13 +33,13 @@ struct NewsletterCard: View {
                 horizontalPadding: 50,
                 verticalPadding: 12,
                 onPress: {
-                    Analytics.logEvent(
-                        "open_newsletter",
+                    analytics.trackEvent(
+                        AnalyticsEventName.openNewsletter.rawValue,
                         parameters: [
-                            AnalyticsParameterItemID: newsletter.id ?? "",
-                            AnalyticsParameterItemName: dateMonthFormatter.string(from: newsletter.date).capitalized,
+                            AnalyticsParamKey.itemId: newsletter.id ?? "",
+                            AnalyticsParamKey.itemName: dateMonthFormatter.string(from: newsletter.date).capitalized,
                         ]
-                    );
+                    )
                     openPdf(
                         url: newsletter.pdfUrl,
                         toastManager: toastManager,

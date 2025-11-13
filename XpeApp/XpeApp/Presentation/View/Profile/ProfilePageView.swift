@@ -14,6 +14,7 @@ struct ProfilePage: View {
                 ProfileUserInfosView(isChangingPassword:$isChangingPassword)
             }
         }
+        .trackScreen("profile_page")
         .accessibility(identifier: isChangingPassword ? "ChangePasswordView" : "ProfileView")
     }
     

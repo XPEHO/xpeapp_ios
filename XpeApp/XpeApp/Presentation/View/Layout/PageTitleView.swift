@@ -21,6 +21,9 @@ struct PageTitleWithFilterSection: View {
     var title: String
     var filterList: [Int]
     @Binding var selectedYear: Int
+    var analyticsEventName: String? = nil
+    var analyticsParamKey: String? = nil
+    @EnvironmentObject var analytics: AnalyticsModel
     
     var body: some View {
         HStack {
@@ -32,6 +35,10 @@ struct PageTitleWithFilterSection: View {
                     defaultSelectedElement: selectedYear
                 ) { selectedElement in
                     selectedYear = selectedElement
+                    if let eventName = analyticsEventName {
+                        let key = analyticsParamKey ?? "value"
+                        analytics.trackEvent(eventName, parameters: [key: String(describing: selectedElement)])
+                    }
                 }
             } else {
                 ListFilterTitle(text: String(selectedYear))

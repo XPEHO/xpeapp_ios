@@ -8,6 +8,7 @@ import SwiftUI
 import xpeho_ui
 struct AboutView: View {
     @Binding var isPresented: Bool
+    @EnvironmentObject var analytics: AnalyticsModel
     var body: some View {
         VStack(alignment: .leading) {
             Text("À propos")
@@ -16,7 +17,7 @@ struct AboutView: View {
                 .padding(.leading, 10)
                 .padding(.bottom, 4)
             Spacer().frame(height: 10)
-            
+
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Propriétaire:")
@@ -37,7 +38,7 @@ struct AboutView: View {
             .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
             Spacer().frame(height: 20)
-            
+
             ClickyButton(
                 label: "Ok",
                 verticalPadding: 12,
@@ -53,6 +54,9 @@ struct AboutView: View {
         .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(radius: 10)
+        .onAppear {
+            analytics.trackEvent(AnalyticsEventName.aboutOpen.rawValue, parameters: nil)
+        }
     }
 }
 struct Confidentiality: View {

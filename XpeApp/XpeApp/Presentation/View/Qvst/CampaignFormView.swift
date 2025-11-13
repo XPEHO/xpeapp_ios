@@ -13,6 +13,7 @@ struct CampaignForm: View {
     var campaignFormViewModel = CampaignFormViewModel.instance
     var routerManager = RouterManager.instance
     var toastManager = ToastManager.instance
+    @EnvironmentObject var analytics: AnalyticsModel
     
     // Data state
     @State var questions: [QvstQuestionModel] = []
@@ -84,6 +85,7 @@ struct CampaignForm: View {
             }
         }
         .onAppear(perform: initCampaignData)
+        .trackScreen("qvst_campaign_form")
     }
     
     struct QuestionView: View {
@@ -240,6 +242,7 @@ struct CampaignForm: View {
                     // Unlock to be able to try again
                     isSending = false
                 } else {
+                    analytics.trackEvent(AnalyticsEventName.campaignCompleted.rawValue, parameters: [AnalyticsParamKey.campaignId: campaign.id, AnalyticsParamKey.campaignName: campaign.name])
                     // Inform user
                     toastManager.setParams(
                         message: "Réponses envoyées",

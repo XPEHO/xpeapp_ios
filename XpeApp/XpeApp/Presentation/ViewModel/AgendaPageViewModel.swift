@@ -10,9 +10,13 @@ import Combine
 
 class AgendaPageViewModel: ObservableObject {
     static let instance = AgendaPageViewModel()
-    
-    // Make private constructor to prevent use without shared instance
-    private init() {
+
+    // Analytics client injected (default to shared AnalyticsModel)
+    private let analytics: AnalyticsModel
+
+    // Allow injection for testability; default uses AnalyticsModel.shared
+    init(analytics: AnalyticsModel = AnalyticsModel.shared) {
+        self.analytics = analytics
         initFetchWeeklyEvents()
         initFetchEvents()
         initGetAllEventsTypes()
@@ -34,6 +38,15 @@ class AgendaPageViewModel: ObservableObject {
         initGetAllEventsTypes()
         initFetchWeeklyBirthday()
         initFetchBirthday()
+    }
+
+    // MARK: - Analytics helpers
+    func trackEvent(_ name: String, parameters: [String: Any]? = nil) {
+        analytics.trackEvent(name, parameters: parameters)
+    }
+
+    func trackScreen(_ name: String, parameters: [String: Any]? = nil) {
+        analytics.trackScreen(name, parameters: parameters)
     }
     
     private func initFetchWeeklyEvents() {

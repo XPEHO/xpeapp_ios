@@ -194,9 +194,7 @@ struct AgencyPage: View {
                 )
             }
         }
-        .onAppear {
-            sendAnalyticsEvent(page: "agency_page")
-        }
+        .trackScreen("agency_page")
         .accessibility(identifier: "AgencyView")
     }
 }

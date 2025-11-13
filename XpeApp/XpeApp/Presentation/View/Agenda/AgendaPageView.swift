@@ -45,12 +45,12 @@ struct AgendaPage: View {
         }
         .onAppear {
             agendaViewModel.update()
-            sendAnalyticsEvent(page: "agenda_page")
         }
         .refreshable {
             agendaViewModel.update()
             featureManager.update()
         }
+        .trackScreen("agenda_page")
         .accessibility(identifier: "AgendaView")
     }
 }

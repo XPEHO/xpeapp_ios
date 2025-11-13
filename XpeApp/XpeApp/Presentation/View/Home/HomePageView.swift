@@ -9,6 +9,7 @@ import SwiftUI
 import xpeho_ui
 
 struct HomePage: View {
+    @EnvironmentObject var analytics: AnalyticsModel
     @Bindable private var homePageViewModel = HomePageViewModel.instance
     @StateObject private var agendaViewModel = AgendaPageViewModel.instance
     private var featureManager = FeatureManager.instance
@@ -59,7 +60,13 @@ struct HomePage: View {
         .onAppear {
             homePageViewModel.update()
             agendaViewModel.update()
-            sendAnalyticsEvent(page: "home_page")
+            analytics.trackEvent(
+                AnalyticsEventName.openHome.rawValue,
+                parameters: [
+                    AnalyticsParamKey.itemId: "home_page",
+                    AnalyticsParamKey.itemName: "Home",
+                ]
+            )
         }
         .refreshable {
             homePageViewModel.update()
@@ -67,6 +74,7 @@ struct HomePage: View {
             featureManager.update()
             userInfosViewModel.update()
         }
+        .trackScreen("home_page")
         .accessibility(identifier: "HomeView")
     }
 

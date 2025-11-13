@@ -12,6 +12,7 @@ struct IdeaBoxPage: View {
     @State private var ideaBoxViewModel = IdeaBoxPageViewModel.instance
     private var toastManager = ToastManager.instance
     private var routerManager = RouterManager.instance
+    @EnvironmentObject var analytics: AnalyticsModel
     
     var body: some View {
         ScrollView {
@@ -58,6 +59,7 @@ struct IdeaBoxPage: View {
                                 
                                 DispatchQueue.main.async {
                                     if success {
+                                        analytics.trackEvent(AnalyticsEventName.ideaSubmitted.rawValue, parameters: [AnalyticsParamKey.context: ideaBoxViewModel.context])
                                         toastManager.setParams(
                                             message: "Idée soumise avec succès !",
                                             action: {
@@ -83,9 +85,7 @@ struct IdeaBoxPage: View {
                 
             }
         }
-        .onAppear {
-            sendAnalyticsEvent(page: "idea_box_page")
-        }
+        .trackScreen("idea_box_page")
         .accessibility(identifier: "IdeaBoxView")
     }
 }

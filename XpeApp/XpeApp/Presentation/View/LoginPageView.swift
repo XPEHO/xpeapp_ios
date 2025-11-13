@@ -74,14 +74,14 @@ struct LoginPage: View {
             )
             .padding(.top, 32)
         }
+        .preferredColorScheme(.dark)
+        .trackScreen("login_page")
         .onAppear{
-            sendAnalyticsEvent(page: "login_page")
             if let last = KeychainManager.instance.getValue(forKey: "last_username") {
                 self.username = last
             }
         }
         .padding(.horizontal, 16)
-        .preferredColorScheme(.dark)
     }
 
     func onLoginPress() {
