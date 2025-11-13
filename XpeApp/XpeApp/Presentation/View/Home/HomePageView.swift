@@ -37,8 +37,8 @@ struct HomePage: View {
                             )
                             Spacer().frame(height: 16)
                         }
-                        if let allWeeklyEvents = Binding($agendaViewModel.Weeklyevents),
-                           let allWeeklyBirthdays = Binding($agendaViewModel.Weeklybirthdays),
+                        if let allWeeklyEvents = Binding($agendaViewModel.weeklyEvents),
+                           let allWeeklyBirthdays = Binding($agendaViewModel.weeklyBirthdays),
                            let allEventsTypes = Binding($agendaViewModel.eventsTypes) {
                             EventsList(
                                 events: allWeeklyEvents,
@@ -91,8 +91,8 @@ struct HomePage: View {
     private func hasContent() -> Bool {
         // Check if there is any content to display in the "À ne pas manquer !" section
         let hasActiveCampaigns = !(homePageViewModel.activeCampaigns?.isEmpty ?? true)
-        let hasWeeklyEvents = !(agendaViewModel.Weeklyevents?.isEmpty ?? true)
-        let hasWeeklyBirthdays = !(agendaViewModel.Weeklybirthdays?.isEmpty ?? true)
+        let hasWeeklyEvents = !(agendaViewModel.weeklyEvents?.isEmpty ?? true)
+        let hasWeeklyBirthdays = !(agendaViewModel.weeklyBirthdays?.isEmpty ?? true)
         return hasActiveCampaigns || hasWeeklyEvents || hasWeeklyBirthdays
     }
 }
