@@ -18,14 +18,18 @@ class QvstRepositoryImpl: QvstRepository {
     // Data source and user repo to use (so we can mock them)
     private let dataSource: WordpressAPIProtocol
     private let userRepo: UserRepositoryImpl
+    // Analytics client
+    private let analytics: AnalyticsModel
 
     // Make private constructor to prevent use without shared instances
     private init(
         dataSource: WordpressAPIProtocol = WordpressAPI.instance,
-        userRepo: UserRepositoryImpl = UserRepositoryImpl.instance
+        userRepo: UserRepositoryImpl = UserRepositoryImpl.instance,
+        analytics: AnalyticsModel = AnalyticsModel.shared
     ) {
         self.dataSource = dataSource
         self.userRepo = userRepo
+        self.analytics = analytics
     }
     
     private func convertCampaignsToEntities(
