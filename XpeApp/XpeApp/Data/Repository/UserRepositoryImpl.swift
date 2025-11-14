@@ -17,15 +17,19 @@ import Foundation
     
     // Data source to use
     private let dataSource: WordpressAPIProtocol
+    // Analytics client
+    private let analytics: AnalyticsModel
     
     // Watched user
     var user: UserEntity? = nil
     
     // Make private constructor to prevent use without shared instances
     private init(
-        dataSource: WordpressAPIProtocol = WordpressAPI.instance
+        dataSource: WordpressAPIProtocol = WordpressAPI.instance,
+        analytics: AnalyticsModel = AnalyticsModel.shared
     ) {
         self.dataSource = dataSource
+        self.analytics = analytics
     }
     
     func login(
@@ -65,7 +69,7 @@ import Foundation
                     "Successfully signed in anonymously: \(authResult.user.uid)"
                 )
                 // Inform analytics about this user identifier
-                AnalyticsModel.shared.setUserId(authResult.user.uid)
+                analytics.setUserId(authResult.user.uid)
                 
                 // Register the user
                 let newUser = UserEntity(
@@ -158,7 +162,7 @@ import Foundation
                 )
 
                 // Inform analytics about this user identifier
-                AnalyticsModel.shared.setUserId(authResult.user.uid)
+                analytics.setUserId(authResult.user.uid)
                 
                 // Register the user
                 self.user = userFromCache
@@ -207,7 +211,7 @@ import Foundation
         do {
             try Auth.auth().signOut()
             // Reset analytics user information on logout
-            AnalyticsModel.shared.reset()
+            analytics.reset()
             debugPrint("Successfully signed out from Firebase")
         } catch {
             debugPrint(

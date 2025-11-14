@@ -22,8 +22,8 @@ struct NewsletterPage: View {
                     title: "Newsletters de l'année",
                     filterList: filterList,
                     selectedYear: $selectedYear,
-                    analyticsEventName: "newsletter_filter_selected",
-                    analyticsParamKey: "year"
+                    analyticsEventName: AnalyticsEventName.newsletterFilterSelected.rawValue,
+                    analyticsParamKey: AnalyticsParamKey.year
                 )
                 Spacer().frame(height: 16)
                 let newsletters: [NewsletterEntity] = classifiedNewsletters[selectedYear] ?? []

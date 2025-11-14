@@ -21,8 +21,8 @@ struct CampaignsPage: View {
                     title: "Campagnes de l'année",
                     filterList: filterList,
                     selectedYear: $selectedYear,
-                    analyticsEventName: "campaign_filter_selected",
-                    analyticsParamKey: "year"
+                    analyticsEventName: AnalyticsEventName.campaignFilterSelected.rawValue,
+                    analyticsParamKey: AnalyticsParamKey.year
                 )
                 Spacer().frame(height: 16)
                 if let campaigns = Binding(classifiedCampaigns[selectedYear]) {

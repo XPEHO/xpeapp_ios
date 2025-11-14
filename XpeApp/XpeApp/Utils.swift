@@ -102,11 +102,11 @@ func isValidEmail(_ email: String) -> Bool {
     return emailPred.evaluate(with: email)
 }
 
-func sendAnalyticsEvent(page: String) {
-    AnalyticsModel.shared.trackEvent(
+func sendAnalyticsEvent(page: String, analytics: AnalyticsModel = AnalyticsModel.shared) {
+    analytics.trackEvent(
         AnalyticsEventViewItem,
         parameters: [
-            AnalyticsParameterItemID: page,
+            AnalyticsParamKey.itemId: page,
         ]
     )
 }
@@ -190,7 +190,7 @@ extension View {
     }
 }
 
-// 
+// ScreenViewModifier for tracking screen views
 struct ScreenViewModifier: ViewModifier {
     let screenName: String
     let parameters: [String: Any]?
