@@ -14,7 +14,7 @@ struct LoginPage: View {
     var loginManager = LoginManager.instance
     var toastManager = ToastManager.instance
     
-    @State var username: String = ""
+    @State var username: String = KeychainManager.instance.getValue(forKey: "last_username") ?? ""
     @State var password: String = ""
     
     // Allow to lock the button after first click and prevent spamming
