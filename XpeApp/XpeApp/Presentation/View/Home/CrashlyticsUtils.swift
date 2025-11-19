@@ -35,4 +35,10 @@ public enum CrashlyticsUtils {
             setCustomKey("user_role", value: userRole)
         }
     }
+    
+    /// Returns the current timestamp in milliseconds since epoch
+    public static var currentTimestampMillis: Int64 {
+        Int64(Date.now.timeIntervalSince1970 * 1000)
+    }
+
 }

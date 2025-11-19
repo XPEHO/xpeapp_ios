@@ -65,7 +65,7 @@ import FirebaseCrashlytics
             else {
                 CrashlyticsUtils.logEvent("Auth error: fetchUserId failed")
                 CrashlyticsUtils.setCustomKey("last_auth_error", value: "fetchUserId_failed")
-                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
                 debugPrint("Failed call to fetchUserId in login")
                 completion(.error)
                 return
@@ -108,7 +108,7 @@ import FirebaseCrashlytics
                 CrashlyticsUtils.recordException(error)
                 CrashlyticsUtils.logEvent("Auth error: Firebase anonymous sign-in failed")
                 CrashlyticsUtils.setCustomKey("last_auth_error", value: error.localizedDescription)
-                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
                 debugPrint(
                     "Error connecting to Firebase anonymously to Firebase: \(error.localizedDescription)"
                 )
@@ -117,12 +117,12 @@ import FirebaseCrashlytics
         } else if tokenResponse.error != nil {
             CrashlyticsUtils.logEvent("Auth failure: invalid credentials or server response")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "token_response_error")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             completion(.failure)
         } else {
             CrashlyticsUtils.logEvent("Auth error: unhandled tokenResponse")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "unhandled_token_response")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Unhandled tokenResponse in login")
             completion(.error)
         }
@@ -144,7 +144,7 @@ import FirebaseCrashlytics
                 self.logout()
                 CrashlyticsUtils.logEvent("Auth cache invalid: token expired")
                 CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_token_expired")
-                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
                 completion(.failure)
                 return
             }
@@ -152,7 +152,7 @@ import FirebaseCrashlytics
             // No issued_at in cache -> consider invalid and logout
             CrashlyticsUtils.logEvent("Auth cache invalid: missing issued_at")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_missing_issued_at")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             self.logout()
             completion(.failure)
             return
@@ -182,7 +182,7 @@ import FirebaseCrashlytics
         else {
             CrashlyticsUtils.logEvent("Auth cache error: checkTokenValidity nil")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "checkTokenValidity_nil")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint(
                 "Failed call to checkTokenValidity in isTokenInCacheValid")
             completion(.error)
@@ -212,7 +212,7 @@ import FirebaseCrashlytics
                 CrashlyticsUtils.recordException(error)
                 CrashlyticsUtils.logEvent("Auth cache error: Firebase anonymous sign-in failed")
                 CrashlyticsUtils.setCustomKey("last_auth_error", value: error.localizedDescription)
-                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+                CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
                 debugPrint(
                     "Error connecting to Firebase anonymously: \(error.localizedDescription)"
                 )
@@ -221,7 +221,7 @@ import FirebaseCrashlytics
         } else {
             CrashlyticsUtils.logEvent("Auth cache invalid: token not valid")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "cache_token_invalid")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             completion(.failure)
         }
     }

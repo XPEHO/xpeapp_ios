@@ -37,7 +37,7 @@ class NewsletterRepositoryImpl: NewsletterRepository {
         guard let newsletters = await dataSource.fetchAllNewsletters() else {
             CrashlyticsUtils.logEvent("Newsletter error: fetchAllNewsletters returned nil in getNewsletters")
             CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "fetchAllNewsletters_nil")
-            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllNewsletters in getNewsletters")
             return nil
         }
@@ -56,7 +56,7 @@ class NewsletterRepositoryImpl: NewsletterRepository {
         guard let newsletters = await dataSource.fetchAllNewsletters() else {
             CrashlyticsUtils.logEvent("Newsletter error: fetchAllNewsletters returned nil in getLastNewsletter")
             CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "fetchAllNewsletters_nil")
-            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllNewsletters in getLastNewsletter")
             return nil
         }
@@ -73,7 +73,7 @@ class NewsletterRepositoryImpl: NewsletterRepository {
         guard let newsletter = newsletter else {
             CrashlyticsUtils.logEvent("Newsletter error: no newsletter in getNewsletterPreviewUrl")
             CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "no_newsletter")
-            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("No newsletter")
             return
         }

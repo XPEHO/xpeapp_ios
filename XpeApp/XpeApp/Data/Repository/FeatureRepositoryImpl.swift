@@ -37,7 +37,7 @@ class FeatureRepositoryImpl: FeatureRepository {
         guard let features = await dataSource.fetchAllFeatures() else {
             CrashlyticsUtils.logEvent("Feature error: fetchAllFeatures returned nil in getFeatures")
             CrashlyticsUtils.setCustomKey("last_feature_error", value: "fetchAllFeatures_nil")
-            CrashlyticsUtils.setCustomKey("last_feature_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_feature_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllFeatures in getFeatures")
             return nil
         }

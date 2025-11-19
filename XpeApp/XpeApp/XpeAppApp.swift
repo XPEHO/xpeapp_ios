@@ -160,13 +160,7 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
             let currentPart = currentParts[i]
             let latestPart = latestParts[i]
 
-            if currentPart < latestPart {
-                return true
-            }
-
-            if currentPart > latestPart {
-                return false
-            }
+            return currentPart < latestPart
         }
 
         return false

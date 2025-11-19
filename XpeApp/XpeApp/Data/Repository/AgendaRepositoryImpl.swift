@@ -39,7 +39,7 @@ import Foundation
         guard let events = await dataSource.fetchAllEvents(page: page) else {
             CrashlyticsUtils.logEvent("Agenda error: fetchAllEvents returned nil in getAllEvents")
             CrashlyticsUtils.setCustomKey("last_agenda_error", value: "fetchAllEvents_nil")
-            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllEvents in getAllEvents")
             return nil
         }
@@ -59,7 +59,7 @@ import Foundation
         guard let eventsTypes = await dataSource.fetchAllEventsTypes() else {
             CrashlyticsUtils.logEvent("Agenda error: fetchAllEventsTypes returned nil in getAllEventsTypes")
             CrashlyticsUtils.setCustomKey("last_agenda_error", value: "fetchAllEventsTypes_nil")
-            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllEventsTypes in getAllEventsTypes")
             return nil
         }
@@ -80,7 +80,7 @@ import Foundation
         guard let birthdays = await dataSource.fetchAllBirthdays(page: page) else {
             CrashlyticsUtils.logEvent("Agenda error: fetchAllBirthdays returned nil in getAllBirthdays")
             CrashlyticsUtils.setCustomKey("last_agenda_error", value: "fetchAllBirthdays_nil")
-            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_agenda_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllBirthdays in getAllBirthdays")
             return nil
         }
