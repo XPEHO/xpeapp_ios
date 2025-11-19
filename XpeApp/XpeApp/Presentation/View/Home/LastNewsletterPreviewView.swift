@@ -12,6 +12,7 @@ struct LastNewsletterPreview: View {
     var toastManager = ToastManager.instance
     var lastNewsletter: NewsletterEntity?
     @State private var homePageViewModel = HomePageViewModel.instance
+    @EnvironmentObject var analytics: AnalyticsModel
     
     @Environment(\.openURL) var openURL
     
@@ -42,6 +43,13 @@ struct LastNewsletterPreview: View {
                 }),
                 height: 200,
                 onPress: {
+                    analytics.trackEvent(
+                        AnalyticsEventName.openNewsletter.rawValue,
+                        parameters: [
+                            AnalyticsParamKey.itemId: lastNewsletter.id ?? "",
+                            AnalyticsParamKey.itemName: dateMonthFormatter.string(from: lastNewsletter.date).capitalized,
+                        ]
+                    )
                     openPdf(
                         url: lastNewsletter.pdfUrl,
                         toastManager: toastManager,

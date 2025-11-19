@@ -16,12 +16,16 @@ import Foundation
     
     // Data source to use
     private let dataSource: WordpressAPIProtocol
+    // Analytics client
+    private let analytics: AnalyticsModel
     
     // Make private constructor to prevent use without shared instances
     private init(
-        dataSource: WordpressAPIProtocol = WordpressAPI.instance
+        dataSource: WordpressAPIProtocol = WordpressAPI.instance,
+        analytics: AnalyticsModel = AnalyticsModel.shared
     ) {
         self.dataSource = dataSource
+        self.analytics = analytics
     }
     
     

@@ -21,7 +21,9 @@ struct NewsletterPage: View {
                 PageTitleWithFilterSection(
                     title: "Newsletters de l'année",
                     filterList: filterList,
-                    selectedYear: $selectedYear
+                    selectedYear: $selectedYear,
+                    analyticsEventName: AnalyticsEventName.newsletterFilterSelected.rawValue,
+                    analyticsParamKey: AnalyticsParamKey.year
                 )
                 Spacer().frame(height: 16)
                 let newsletters: [NewsletterEntity] = classifiedNewsletters[selectedYear] ?? []
@@ -34,12 +36,12 @@ struct NewsletterPage: View {
         }
         .onAppear {
             newsletterPageViewModel.update();
-            sendAnalyticsEvent(page: "newsletter_page")
         }
         .refreshable {
             newsletterPageViewModel.update()
             featureManager.update()
         }
+        .trackScreen("newsletter_page")
         .accessibility(identifier: "NewsletterView")
     }
     

@@ -14,6 +14,7 @@ struct CampaignCard: View {
     @Binding var campaign: QvstCampaignEntity
     
     @Environment(\.openURL) var openURL
+    @EnvironmentObject var analytics: AnalyticsModel
     
     var collapsable: Bool = true
     var defaultOpen: Bool = false
@@ -41,12 +42,13 @@ struct CampaignCard: View {
     // Get the action button for a campaign
     private func getButton(campaign: QvstCampaignEntity) -> ClickyButton?{
         var result : ClickyButton?
-        if (campaign.status == "OPEN") && !campaign.completed {
+            if (campaign.status == "OPEN") && !campaign.completed {
             result = ClickyButton(
                 label: "Compléter",
                 horizontalPadding: 50,
                 verticalPadding: 12,
                 onPress: {
+                    analytics.trackEvent(AnalyticsEventName.campaignOpen.rawValue, parameters: [AnalyticsParamKey.campaignId: campaign.id, AnalyticsParamKey.campaignName: campaign.name])
                     routerManager.goTo(item: .campaignForm, parameters: ["campaign": campaign])
                 }
             )
@@ -56,6 +58,7 @@ struct CampaignCard: View {
                 horizontalPadding: 50,
                 verticalPadding: 12,
                 onPress: {
+                    analytics.trackEvent(AnalyticsEventName.campaignViewResults.rawValue, parameters: [AnalyticsParamKey.campaignId: campaign.id, AnalyticsParamKey.campaignName: campaign.name])
                     openPdf(
                         url: campaign.resultLink,
                         toastManager: toastManager,

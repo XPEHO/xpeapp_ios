@@ -102,11 +102,11 @@ func isValidEmail(_ email: String) -> Bool {
     return emailPred.evaluate(with: email)
 }
 
-func sendAnalyticsEvent(page: String) {
-    Analytics.logEvent(
+func sendAnalyticsEvent(page: String, analytics: AnalyticsModel = AnalyticsModel.shared) {
+    analytics.trackEvent(
         AnalyticsEventViewItem,
         parameters: [
-            AnalyticsParameterItemID: page,
+            AnalyticsParamKey.itemId: page,
         ]
     )
 }
@@ -155,3 +155,52 @@ extension Color {
 
 /// Lifetime for locally accepted JWT token before forcing logout (5 days)
 public let tokenLifetimeSeconds: TimeInterval = 5 * 24 * 60 * 60
+
+// Name of Events
+enum AnalyticsEventName: String {
+    case openNewsletter = "open_newsletter"
+    case openHome = "open_home"
+    case openPdf = "open_pdf"
+    case tapCTA = "tap_cta"
+    case share = "share"
+    case error = "error"
+    case aboutOpen = "about_open"
+    case ideaSubmitted = "idea_submitted"
+    case campaignOpen = "campaign_open"
+    case campaignViewResults = "campaign_view_results"
+    case campaignCompleted = "campaign_completed"
+    case newsletterFilterSelected = "newsletter_filter_selected"
+    case campaignFilterSelected = "campaign_filter_selected"
+}
+// Key
+enum AnalyticsParamKey {
+    static let itemId = "item_id"
+    static let itemName = "item_name"
+    static let screen = "screen"
+    static let errorMessage = "error_message"
+    static let year = "year"
+    static let campaignId = "campaign_id"
+    static let campaignName = "campaign_name"
+    static let context = "context"
+}
+// Extension for track screen
+extension View {
+    func trackScreen(_ name: String, parameters: [String: Any]? = nil) -> some View {
+        modifier(ScreenViewModifier(screenName: name, parameters: parameters))
+    }
+}
+
+// ScreenViewModifier for tracking screen views
+struct ScreenViewModifier: ViewModifier {
+    let screenName: String
+    let parameters: [String: Any]?
+
+    @EnvironmentObject var analytics: AnalyticsModel
+
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                analytics.trackScreen(screenName, screenClass: screenName, parameters: parameters)
+            }
+    }
+}

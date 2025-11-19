@@ -105,6 +105,7 @@
 		D72C13362D2D3F0D002F6A14 /* UserInfosEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13352D2D3F07002F6A14 /* UserInfosEntity.swift */; };
 		D72C133C2D2D7ACF002F6A14 /* ProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C133B2D2D7AC5002F6A14 /* ProfilePageView.swift */; };
 		D72C13442D2EF74F002F6A14 /* UserInfosPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */; };
+		D73DF94C2EC6337B00ACDF48 /* AnalyticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D75675C42EB25D87002957AB /* IdeaSubmissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */; };
 		D75675C62EB26227002957AB /* IdeaBoxPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C52EB26222002957AB /* IdeaBoxPageView.swift */; };
@@ -231,6 +232,7 @@
 		D72C13352D2D3F07002F6A14 /* UserInfosEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosEntity.swift; sourceTree = "<group>"; };
 		D72C133B2D2D7AC5002F6A14 /* ProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageView.swift; sourceTree = "<group>"; };
 		D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfosPageViewModel.swift; sourceTree = "<group>"; };
+		D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSubmissionModel.swift; sourceTree = "<group>"; };
 		D75675C52EB26222002957AB /* IdeaBoxPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBoxPageView.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 		0EF0F8E42C91E15B00AF5966 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */,
 				D75675C22EB25B6F002957AB /* IdeaBox */,
 				D7BCA5A62D915D04005C28F3 /* Agenda */,
 				D72C13322D2D3DF9002F6A14 /* User-Infos */,
@@ -868,6 +871,7 @@
 				0E6277B52C98829200F26E55 /* UserEntity.swift in Sources */,
 				0E6277B12C98290C00F26E55 /* CampaignFormViewModel.swift in Sources */,
 				D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */,
+				D73DF94C2EC6337B00ACDF48 /* AnalyticsModel.swift in Sources */,
 				0E6277BD2C9ADB5500F26E55 /* NewslettersListView.swift in Sources */,
 				0E61D2C42C78A4F200050F7C /* QvstProgressModel.swift in Sources */,
 				0EF0F8DE2C90863E00AF5966 /* TokenValidityModel.swift in Sources */,
@@ -1051,7 +1055,7 @@
 				CODE_SIGN_ENTITLEMENTS = XpeApp/XpeApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"XpeApp/Preview Content\"";
 				DEVELOPMENT_TEAM = S97GY8T7R8;
 				ENABLE_PREVIEWS = YES;
@@ -1067,7 +1071,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.0;
+				MARKETING_VERSION = 1.12.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpeho.xpeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1085,7 +1089,7 @@
 				CODE_SIGN_ENTITLEMENTS = XpeApp/XpeApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"XpeApp/Preview Content\"";
 				DEVELOPMENT_TEAM = S97GY8T7R8;
 				ENABLE_PREVIEWS = YES;
@@ -1101,7 +1105,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.0;
+				MARKETING_VERSION = 1.12.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpeho.xpeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

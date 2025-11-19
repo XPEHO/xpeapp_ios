@@ -27,6 +27,7 @@ struct XpeAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(AnalyticsModel.shared)
         }
     }
 }
