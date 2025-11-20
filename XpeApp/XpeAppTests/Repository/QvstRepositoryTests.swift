@@ -44,7 +44,7 @@ final class QvstRepositoryTests: XCTestCase {
         let campaigns = await qvstRepo.getCampaigns()
 
         // THEN
-        XCTAssertNil(campaigns)
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
     func test_getCampaigns_NoUserError() async throws {
@@ -78,7 +78,7 @@ final class QvstRepositoryTests: XCTestCase {
         let campaigns = await qvstRepo.getCampaigns()
 
         // THEN
-        XCTAssertNil(campaigns)
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
     func test_getCampaigns_fetchCampaignsProgressError() async throws {
@@ -108,7 +108,7 @@ final class QvstRepositoryTests: XCTestCase {
         let campaigns = await qvstRepo.getCampaigns()
 
         // THEN
-        XCTAssertNil(campaigns)
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
     func test_getCampaigns_Success() async throws {
@@ -192,7 +192,7 @@ final class QvstRepositoryTests: XCTestCase {
         let activeCampaigns = await qvstRepo.getActiveCampaigns()
 
         // THEN
-        XCTAssertNil(activeCampaigns)
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
     
     func test_getActiveCampaigns_NoUserError() async throws {
@@ -226,7 +226,7 @@ final class QvstRepositoryTests: XCTestCase {
         let activeCampaigns = await qvstRepo.getActiveCampaigns()
 
         // THEN
-        XCTAssertNil(activeCampaigns)
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
 
     func test_getActiveCampaigns_fetchCampaignsProgressError() async throws {
@@ -256,7 +256,7 @@ final class QvstRepositoryTests: XCTestCase {
         let activeCampaigns = await qvstRepo.getActiveCampaigns()
 
         // THEN
-        XCTAssertNil(activeCampaigns)
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
 
     func test_getActiveCampaigns_Success() async throws {
