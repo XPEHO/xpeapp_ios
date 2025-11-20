@@ -82,7 +82,7 @@ final class AgendaRepositoryTests: XCTestCase {
             let eventTypes = await agendaRepo.getAllEventsTypes()
             
             // THEN
-            XCTAssertTrue(eventTypes?.isEmpty ?? true)
+            XCTAssertNil(eventTypes)
         }
     }
     
@@ -117,7 +117,7 @@ final class AgendaRepositoryTests: XCTestCase {
             let birthdays = await agendaRepo.getAllBirthdays(page: "")
             
             // THEN
-            XCTAssertTrue(birthdays?.isEmpty ?? true)
+            XCTAssertNil(birthdays)
         }
     }
     
