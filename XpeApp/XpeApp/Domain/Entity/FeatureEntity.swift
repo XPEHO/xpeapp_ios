@@ -24,6 +24,6 @@ import Foundation
     }
     
     static func == (lhs: FeatureEntity, rhs: FeatureEntity) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.name == rhs.name && lhs.enabled == rhs.enabled
     }
 }
