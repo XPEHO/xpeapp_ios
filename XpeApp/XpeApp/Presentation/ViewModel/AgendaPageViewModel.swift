@@ -24,10 +24,10 @@ class AgendaPageViewModel: ObservableObject {
         initFetchBirthday()
     }
 
-    @Published var Weeklyevents: [EventEntity]? = nil
+    @Published var weeklyEvents: [EventEntity]? = nil
     @Published var events: [EventEntity]? = nil
     @Published var eventsTypes: [EventTypeEntity]? = nil
-    @Published var Weeklybirthdays: [BirthdayEntity]? = nil
+    @Published var weeklyBirthdays: [BirthdayEntity]? = nil
     @Published var birthdays: [BirthdayEntity]? = nil
     
     @Published var isLoading: Bool = false
@@ -53,7 +53,7 @@ class AgendaPageViewModel: ObservableObject {
         Task {
             if let weeklyEvents = await AgendaRepositoryImpl.instance.getAllEvents(page: "week") {
                 DispatchQueue.main.async {
-                    self.Weeklyevents = weeklyEvents
+                    self.weeklyEvents = weeklyEvents
                 }
             }
         }
@@ -61,9 +61,9 @@ class AgendaPageViewModel: ObservableObject {
     
     private func initFetchEvents() {
         Task {
-            if let Events = await AgendaRepositoryImpl.instance.getAllEvents(page:"month") {
+            if let eventsFetched = await AgendaRepositoryImpl.instance.getAllEvents(page:"month") {
                 DispatchQueue.main.async {
-                    self.events = Events
+                    self.events = eventsFetched
                 }
             }
         }
@@ -83,7 +83,7 @@ class AgendaPageViewModel: ObservableObject {
         Task {
             if let obtainedAllWeeklyBirthdaysFetched = await AgendaRepositoryImpl.instance.getAllBirthdays(page: "week") {
                 DispatchQueue.main.async {
-                    self.Weeklybirthdays = obtainedAllWeeklyBirthdaysFetched
+                    self.weeklyBirthdays = obtainedAllWeeklyBirthdaysFetched
                 }
             }
         }

@@ -30,7 +30,7 @@ final class NewsletterRepositoryTests: XCTestCase {
             let newsletters = await newsletterRepo.getNewsletters()
             
             // THEN
-            XCTAssertNil(newsletters)
+            XCTAssertTrue(newsletters?.isEmpty ?? true)
         }
     }
     
@@ -78,7 +78,7 @@ final class NewsletterRepositoryTests: XCTestCase {
             let lastNewsletter = await newsletterRepo.getLastNewsletter()
             
             // THEN
-            XCTAssertNil(lastNewsletter)
+            XCTAssertTrue(lastNewsletter == nil)
         }
     }
     

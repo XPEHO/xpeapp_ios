@@ -34,7 +34,7 @@ public struct EventTypeModel: Codable {
 
     func toEntity() -> EventTypeEntity {
         EventTypeEntity(
-            id: id ?? "",
+            id: id,
             label: label,
             colorCode: colorCode
         )

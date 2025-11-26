@@ -12,7 +12,7 @@ struct EventTypeEntity: Codable, Equatable {
     let label: String
     let colorCode: String
 
-    init(id: String, label: String, colorCode: String) {
+    init(id: String?, label: String, colorCode: String) {
         self.id = id
         self.label = label
         self.colorCode = colorCode

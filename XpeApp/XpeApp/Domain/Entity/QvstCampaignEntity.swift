@@ -31,6 +31,14 @@ import Foundation
     }
     
     static func == (lhs: QvstCampaignEntity, rhs: QvstCampaignEntity) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id &&
+            lhs.name == rhs.name &&
+            lhs.themeNames == rhs.themeNames &&
+            lhs.status == rhs.status &&
+            lhs.outdated == rhs.outdated &&
+            lhs.completed == rhs.completed &&
+            lhs.remainingDays == rhs.remainingDays &&
+            lhs.endDate == rhs.endDate &&
+            lhs.resultLink == rhs.resultLink
     }
 }

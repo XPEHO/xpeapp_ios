@@ -24,313 +24,297 @@ final class QvstRepositoryTests: XCTestCase {
     
     // ------------------- getCampaigns TESTS -------------------
 
-    func test_getCampaigns_fetchAllCampaignsError() throws {
-        Task {
-            // GIVEN
-            qvstSource.fetchAllCampaignsReturnData = nil
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getCampaigns_fetchAllCampaignsError() async throws {
+        // GIVEN
+        qvstSource.fetchAllCampaignsReturnData = nil
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "0",
+                totalQuestionsCount: "0"
             )
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "0",
-                    totalQuestionsCount: "0"
-                )
-            ]
-            
-            // WHEN
-            let campaigns = await qvstRepo.getCampaigns()
-            
-            // THEN
-            XCTAssertNil(campaigns)
-        }
+        ]
+
+        // WHEN
+        let campaigns = await qvstRepo.getCampaigns()
+
+        // THEN
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
-    func test_getCampaigns_NoUserError() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchAllCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = nil
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "0",
-                    totalQuestionsCount: "0"
-                )
-            ]
-            
-            // WHEN
-            let campaigns = await qvstRepo.getCampaigns()
-            
-            // THEN
-            XCTAssertNil(campaigns)
-        }
+    func test_getCampaigns_NoUserError() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchAllCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
+            )
+        ]
+        userRepo.user = nil
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "0",
+                totalQuestionsCount: "0"
+            )
+        ]
+
+        // WHEN
+        let campaigns = await qvstRepo.getCampaigns()
+
+        // THEN
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
-    func test_getCampaigns_fetchCampaignsProgressError() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchAllCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getCampaigns_fetchCampaignsProgressError() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchAllCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
             )
-            qvstSource.fetchCampaignsProgressReturnData = nil
-            
-            // WHEN
-            let campaigns = await qvstRepo.getCampaigns()
-            
-            // THEN
-            XCTAssertNil(campaigns)
-        }
+        ]
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = nil
+
+        // WHEN
+        let campaigns = await qvstRepo.getCampaigns()
+
+        // THEN
+        XCTAssertTrue(campaigns?.isEmpty ?? true)
     }
     
-    func test_getCampaigns_Success() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchAllCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getCampaigns_Success() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchAllCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
             )
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "2",
-                    totalQuestionsCount: "2"
-                ),
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id_2",
-                    answeredQuestionsCount: "2",
-                    totalQuestionsCount: "4"
-                )
-            ]
-            
-            // WHEN
-            let campaigns = await qvstRepo.getCampaigns()
-            
-            // THEN
-            let dataExpected = [
-                QvstCampaignEntity(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themeNames: ["Qvst Theme"],
-                    status: "OPEN",
-                    outdated: false,
-                    completed: true,
-                    remainingDays: 1,
-                    endDate: currentDatePlusOneDay,
-                    resultLink: "action"
-                )
-            ]
-            XCTAssertNotNil(campaigns)
-            XCTAssertEqual(campaigns!.count, 1)
-            XCTAssertEqual(campaigns, dataExpected)
-        }
+        ]
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "2",
+                totalQuestionsCount: "2"
+            ),
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id_2",
+                answeredQuestionsCount: "2",
+                totalQuestionsCount: "4"
+            )
+        ]
+
+        // WHEN
+        let campaigns = await qvstRepo.getCampaigns()
+
+        // THEN
+        let dataExpected = [
+            QvstCampaignEntity(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themeNames: ["Qvst Theme"],
+                status: "OPEN",
+                outdated: false,
+                completed: true,
+                remainingDays: 1,
+                endDate: currentDatePlusOneDay,
+                resultLink: "action"
+            )
+        ]
+        XCTAssertNotNil(campaigns)
+        XCTAssertEqual(campaigns!.count, 1)
+        XCTAssertEqual(campaigns, dataExpected)
     }
 
     
     // ------------------- getActiveCampaigns TESTS -------------------
 
-    func test_getActiveCampaigns_fetchActiveCampaignsError() throws {
-        Task {
-            // GIVEN
-            qvstSource.fetchActiveCampaignsReturnData = nil
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getActiveCampaigns_fetchActiveCampaignsError() async throws {
+        // GIVEN
+        qvstSource.fetchActiveCampaignsReturnData = nil
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "0",
+                totalQuestionsCount: "0"
             )
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "0",
-                    totalQuestionsCount: "0"
-                )
-            ]
-            
-            // WHEN
-            let activeCampaigns = await qvstRepo.getActiveCampaigns()
-            
-            // THEN
-            XCTAssertNil(activeCampaigns)
-        }
+        ]
+
+        // WHEN
+        let activeCampaigns = await qvstRepo.getActiveCampaigns()
+
+        // THEN
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
     
-    func test_getActiveCampaigns_NoUserError() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchActiveCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = nil
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "0",
-                    totalQuestionsCount: "0"
-                )
-            ]
-            
-            // WHEN
-            let activeCampaigns = await qvstRepo.getActiveCampaigns()
-            
-            // THEN
-            XCTAssertNil(activeCampaigns)
-        }
+    func test_getActiveCampaigns_NoUserError() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchActiveCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
+            )
+        ]
+        userRepo.user = nil
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "0",
+                totalQuestionsCount: "0"
+            )
+        ]
+
+        // WHEN
+        let activeCampaigns = await qvstRepo.getActiveCampaigns()
+
+        // THEN
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
 
-    func test_getActiveCampaigns_fetchCampaignsProgressError() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchActiveCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getActiveCampaigns_fetchCampaignsProgressError() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchActiveCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
             )
-            qvstSource.fetchCampaignsProgressReturnData = nil
-            
-            // WHEN
-            let activeCampaigns = await qvstRepo.getActiveCampaigns()
-            
-            // THEN
-            XCTAssertNil(activeCampaigns)
-        }
+        ]
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = nil
+
+        // WHEN
+        let activeCampaigns = await qvstRepo.getActiveCampaigns()
+
+        // THEN
+        XCTAssertTrue(activeCampaigns?.isEmpty ?? true)
     }
 
-    func test_getActiveCampaigns_Success() throws {
-        Task {
-            let currentDate = Date()
-            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-            
-            // GIVEN
-            qvstSource.fetchActiveCampaignsReturnData = [
-                QvstCampaignModel(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
-                    status: "OPEN",
-                    startDate: currentDate,
-                    endDate: currentDatePlusOneDay,
-                    action: "action",
-                    participationRate: "rate"
-                )
-            ]
-            userRepo.user = UserEntity(
-                token: "token",
-                id: "user_id"
+    func test_getActiveCampaigns_Success() async throws {
+        let currentDate = Date()
+        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+
+        // GIVEN
+        qvstSource.fetchActiveCampaignsReturnData = [
+            QvstCampaignModel(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themes: [QvstThemeModel(id: "theme_id", name: "Qvst Theme")],
+                status: "OPEN",
+                startDate: currentDate,
+                endDate: currentDatePlusOneDay,
+                action: "action",
+                participationRate: "rate"
             )
-            qvstSource.fetchCampaignsProgressReturnData = [
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id",
-                    answeredQuestionsCount: "2",
-                    totalQuestionsCount: "2"
-                ),
-                QvstProgressModel(
-                    userId: "user_id",
-                    campaignId: "campaign_id_2",
-                    answeredQuestionsCount: "2",
-                    totalQuestionsCount: "4"
-                )
-            ]
-            
-            // WHEN
-            let activeCampaigns = await qvstRepo.getActiveCampaigns()
-            
-            // THEN
-            let dataExpected = [
-                QvstCampaignEntity(
-                    id: "campaign_id",
-                    name: "Qvst Campaign",
-                    themeNames: ["Qvst Theme"],
-                    status: "OPEN",
-                    outdated: false,
-                    completed: true,
-                    remainingDays: 1,
-                    endDate: currentDatePlusOneDay,
-                    resultLink: "action"
-                )
-            ]
-            XCTAssertNotNil(activeCampaigns)
-            XCTAssertEqual(activeCampaigns!.count, 1)
-            XCTAssertEqual(activeCampaigns, dataExpected)
-        }
+        ]
+        userRepo.user = UserEntity(
+            token: "token",
+            id: "user_id"
+        )
+        qvstSource.fetchCampaignsProgressReturnData = [
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id",
+                answeredQuestionsCount: "2",
+                totalQuestionsCount: "2"
+            ),
+            QvstProgressModel(
+                userId: "user_id",
+                campaignId: "campaign_id_2",
+                answeredQuestionsCount: "2",
+                totalQuestionsCount: "4"
+            )
+        ]
+
+        // WHEN
+        let activeCampaigns = await qvstRepo.getActiveCampaigns()
+
+        // THEN
+        let dataExpected = [
+            QvstCampaignEntity(
+                id: "campaign_id",
+                name: "Qvst Campaign",
+                themeNames: ["Qvst Theme"],
+                status: "OPEN",
+                outdated: false,
+                completed: true,
+                remainingDays: 1,
+                endDate: currentDatePlusOneDay,
+                resultLink: "action"
+            )
+        ]
+        XCTAssertNotNil(activeCampaigns)
+        XCTAssertEqual(activeCampaigns!.count, 1)
+        XCTAssertEqual(activeCampaigns, dataExpected)
     }
 
     

@@ -29,31 +29,51 @@ class NewsletterRepositoryImpl: NewsletterRepository {
     }
     
     func getNewsletters() async -> [NewsletterEntity]? {
+        // Telemetry
+        CrashlyticsUtils.setCurrentFeature("newsletter")
+        CrashlyticsUtils.logEvent("Newsletter attempt: getNewsletters")
+
         // Fetch data
         guard let newsletters = await dataSource.fetchAllNewsletters() else {
+            CrashlyticsUtils.logEvent("Newsletter error: fetchAllNewsletters returned nil in getNewsletters")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "fetchAllNewsletters_nil")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllNewsletters in getNewsletters")
             return nil
         }
-        
+
         return newsletters.sorted(by: { $0.date > $1.date }).map { model in
             model.toEntity()
         }
     }
     
     func getLastNewsletter() async -> NewsletterEntity? {
+        // Telemetry
+        CrashlyticsUtils.setCurrentFeature("newsletter")
+        CrashlyticsUtils.logEvent("Newsletter attempt: getLastNewsletter")
+
         // Fetch data
         guard let newsletters = await dataSource.fetchAllNewsletters() else {
+            CrashlyticsUtils.logEvent("Newsletter error: fetchAllNewsletters returned nil in getLastNewsletter")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "fetchAllNewsletters_nil")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllNewsletters in getLastNewsletter")
             return nil
         }
-        
+
         let sortedNewsletters = newsletters.sorted(by: { $0.date < $1.date })
         
         return sortedNewsletters.last?.toEntity()
     }
     
     func getNewsletterPreviewUrl(newsletter: NewsletterEntity?, completion: @escaping (String?) -> Void) {
+        CrashlyticsUtils.setCurrentFeature("newsletter")
+        CrashlyticsUtils.logEvent("Newsletter attempt: getNewsletterPreviewUrl")
+
         guard let newsletter = newsletter else {
+            CrashlyticsUtils.logEvent("Newsletter error: no newsletter in getNewsletterPreviewUrl")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "no_newsletter")
+            CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("No newsletter")
             return
         }

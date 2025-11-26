@@ -113,6 +113,9 @@
 		D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */; };
 		D77CD2282E0C478600E5F45F /* XPEHOSecrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = D77CD2272E0C478600E5F45F /* XPEHOSecrets.plist */; };
 		D78652562D4A355E0023DFAA /* ConstantsMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */; };
+		D7A64FCE2EBA5DA100F44201 /* CrashlyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A64FCD2EBA5DA100F44201 /* CrashlyticsManager.swift */; };
+		D7A64FD02EBA5FEB00F44201 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D7A64FCF2EBA5FEB00F44201 /* FirebaseCrashlytics */; };
+		D7A64FD32EBE4ADE00F44201 /* CrashlyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A64FD22EBE4ADE00F44201 /* CrashlyticsUtils.swift */; };
 		D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829422D9AE49D003D0986 /* AgendaPageView.swift */; };
 		D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */; };
 		D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5A92D915E09005C28F3 /* EventModel.swift */; };
@@ -240,6 +243,8 @@
 		D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyPageView.swift; sourceTree = "<group>"; };
 		D77CD2272E0C478600E5F45F /* XPEHOSecrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XPEHOSecrets.plist; sourceTree = "<group>"; };
 		D78652552D4A35510023DFAA /* ConstantsMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsMenuItem.swift; sourceTree = "<group>"; };
+		D7A64FCD2EBA5DA100F44201 /* CrashlyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsManager.swift; sourceTree = "<group>"; };
+		D7A64FD22EBE4ADE00F44201 /* CrashlyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsUtils.swift; sourceTree = "<group>"; };
 		D7A829422D9AE49D003D0986 /* AgendaPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageView.swift; sourceTree = "<group>"; };
 		D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCombinedItemEnum.swift; sourceTree = "<group>"; };
 		D7BCA5A92D915E09005C28F3 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
@@ -266,6 +271,7 @@
 				BDACED162C10BB78007B5262 /* FirebaseMessaging in Frameworks */,
 				0EB50D232CDB676F004E8C24 /* xpeho_ui in Frameworks */,
 				0E1153C32D5F8273003DF133 /* xpeho_ui in Frameworks */,
+				D7A64FD02EBA5FEB00F44201 /* FirebaseCrashlytics in Frameworks */,
 				778946922D301C480041D247 /* FirebaseAnalytics in Frameworks */,
 				BDACED122C10BB78007B5262 /* FirebaseAuth in Frameworks */,
 				7789469A2D301C480041D247 /* FirebaseAppCheck in Frameworks */,
@@ -310,6 +316,7 @@
 			children = (
 				0E5C6EFB2C6A1A4500AA2127 /* HomePageView.swift */,
 				0E62779F2C943FAF00F26E55 /* LastNewsletterPreviewView.swift */,
+				D7A64FD22EBE4ADE00F44201 /* CrashlyticsUtils.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -592,6 +599,7 @@
 				BDACECE42C10930C007B5262 /* Assets.xcassets */,
 				0E155E642C64F97100649EBC /* LaunchScreen.storyboard */,
 				BDACECE62C10930C007B5262 /* Preview Content */,
+				D7A64FCD2EBA5DA100F44201 /* CrashlyticsManager.swift */,
 			);
 			path = XpeApp;
 			sourceTree = "<group>";
@@ -691,6 +699,7 @@
 				BDACECD72C109309007B5262 /* Sources */,
 				BDACECD82C109309007B5262 /* Frameworks */,
 				BDACECD92C109309007B5262 /* Resources */,
+				D7A64FD12EBE424100F44201 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -711,6 +720,7 @@
 				778946992D301C480041D247 /* FirebaseAppCheck */,
 				0E1153BF2D5F443F003DF133 /* xpeho_ui */,
 				0E1153C22D5F8273003DF133 /* xpeho_ui */,
+				D7A64FCF2EBA5FEB00F44201 /* FirebaseCrashlytics */,
 			);
 			productName = XpeApp;
 			productReference = BDACECDB2C109309007B5262 /* XpeApp.app */;
@@ -799,6 +809,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D7A64FD12EBE424100F44201 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BDACECD72C109309007B5262 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -824,9 +861,11 @@
 				0EF0F9042C932F1000AF5966 /* NewsletterEntity.swift in Sources */,
 				0EF1CA482CFF68A700AF0848 /* UtilsUI.swift in Sources */,
 				0E67FA212C74943C00B34AE9 /* ToastManager.swift in Sources */,
+				D7A64FD32EBE4ADE00F44201 /* CrashlyticsUtils.swift in Sources */,
 				0E61D2AF2C78A0AC00050F7C /* QvstThemeModel.swift in Sources */,
 				D75675C42EB25D87002957AB /* IdeaSubmissionModel.swift in Sources */,
 				0E6277A22C943FC600F26E55 /* CampaignCardView.swift in Sources */,
+				D7A64FCE2EBA5DA100F44201 /* CrashlyticsManager.swift in Sources */,
 				0E6277AD2C94907500F26E55 /* CampaignsPageViewModel.swift in Sources */,
 				0EF0F8F82C92CED700AF5966 /* QvstRepository.swift in Sources */,
 				D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */,
@@ -1071,7 +1110,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.2;
+				MARKETING_VERSION = 1.12.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpeho.xpeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1105,7 +1144,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12.2;
+				MARKETING_VERSION = 1.12.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xpeho.xpeapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1263,6 +1302,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BDACED102C10BB78007B5262 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		D7A64FCF2EBA5FEB00F44201 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDACED102C10BB78007B5262 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

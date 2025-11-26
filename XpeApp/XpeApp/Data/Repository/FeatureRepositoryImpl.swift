@@ -29,12 +29,19 @@ class FeatureRepositoryImpl: FeatureRepository {
     }
     
     func getFeatures() async -> [String : FeatureEntity]? {
+        // Telemetry
+        CrashlyticsUtils.setCurrentFeature("feature")
+        CrashlyticsUtils.logEvent("Feature attempt: getFeatures")
+
         // Fetch data
         guard let features = await dataSource.fetchAllFeatures() else {
+            CrashlyticsUtils.logEvent("Feature error: fetchAllFeatures returned nil in getFeatures")
+            CrashlyticsUtils.setCustomKey("last_feature_error", value: "fetchAllFeatures_nil")
+            CrashlyticsUtils.setCustomKey("last_feature_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllFeatures in getFeatures")
             return nil
         }
-        
+
         return features.reduce(into: [String: FeatureEntity]()) { result, feature in
             if let id = feature.id {
                 result[id] = feature.toEntity()

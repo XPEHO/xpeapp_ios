@@ -11,6 +11,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseMessaging
+import FirebaseCrashlytics
 import xpeho_ui
 
 @main
@@ -45,6 +46,9 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         // Initialize Firebase
         FirebaseApp.configure()
+        let enableCrashlytics: Bool = (Configuration.env == .uat || Configuration.env == .prod)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(enableCrashlytics)
+    
         // Set Firebase Messaging delegate
         Messaging.messaging().delegate = self
         // Request notification permissions
@@ -75,16 +79,18 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
     }
 
     private func checkForUpdate() {
-        //guard !isDebug() else { return }
-        
         DispatchQueue.global(qos: .background).async {
             let latestVersion = self.getLatestReleaseTag()
             let currentVersion = self.getCurrentAppVersion()
             
-            if let latestVersion = latestVersion {debugPrint("Latest: "+latestVersion)}
-            debugPrint("Current: "+currentVersion)
-            
-            if let latestVersion = latestVersion, self.isVersionLessThan(currentVersion, latestVersion) {
+            if let latestVersion = latestVersion {
+                debugPrint("Latest: " + latestVersion)
+            }
+
+            debugPrint("Current: " + currentVersion)
+
+            if let latestVersion = latestVersion,
+               self.isVersionLessThan(currentVersion, latestVersion) {
                 self.isUpdateRequired = true
                 DispatchQueue.main.async {
                     self.showUpdateDialog(version: latestVersion)
@@ -149,14 +155,14 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
     private func isVersionLessThan(_ currentVersion: String, _ latestVersion: String) -> Bool {
         let currentParts = currentVersion.split(separator: ".").compactMap { Int($0) }
         let latestParts = latestVersion.split(separator: ".").compactMap { Int($0) }
-        
+
         for i in 0..<max(currentParts.count, latestParts.count) {
             let currentPart = currentParts[i]
             let latestPart = latestParts[i]
-            
-            if currentPart < latestPart { return true }
-            if currentPart > latestPart { return false }
+
+            return currentPart < latestPart
         }
+
         return false
     }
 }
@@ -193,4 +199,3 @@ extension XpeAppAppDelegate: MessagingDelegate {
         //print("Firebase registration token: \(String(describing: fcmToken))")
     }
 }
-
