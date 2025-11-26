@@ -90,14 +90,14 @@ class QvstRepositoryImpl: QvstRepository {
         guard let user = userRepo.user else {
             CrashlyticsUtils.logEvent("Qvst error: no user in getCampaigns")
             CrashlyticsUtils.setCustomKey("last_qvst_error", value: "no_user")
-            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("No user to use in getCampaigns")
             return nil
         }
         guard let campaignsModels = await dataSource.fetchAllCampaigns() else {
             CrashlyticsUtils.logEvent("Qvst error: fetchAllCampaigns returned nil in getCampaigns")
             CrashlyticsUtils.setCustomKey("last_qvst_error", value: "fetchAllCampaigns_nil")
-            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllCampaigns in getCampaigns")
             return nil
         }
@@ -106,7 +106,7 @@ class QvstRepositoryImpl: QvstRepository {
         ) else {
             CrashlyticsUtils.logEvent("Qvst error: fetchCampaignsProgress returned nil in getCampaigns")
             CrashlyticsUtils.setCustomKey("last_qvst_error", value: "fetchCampaignsProgress_nil")
-            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_qvst_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchCampaignsProgress in getCampaigns")
             return nil
         }

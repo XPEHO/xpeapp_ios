@@ -51,7 +51,7 @@ import FirebaseCrashlytics
         else {
             CrashlyticsUtils.logEvent("Auth error: generateToken returned nil")
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "generateToken_nil")
-            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(Int(Date().timeIntervalSince1970 * 1000)))
+            CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to generateToken in login")
             completion(.error)
             return
