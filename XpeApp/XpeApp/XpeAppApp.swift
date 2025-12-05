@@ -176,6 +176,23 @@ extension XpeAppAppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         //self.sendDeviceTokenToServer(data: deviceToken)
         Messaging.messaging().setAPNSToken(deviceToken, type: .unknown)
+        Messaging.messaging().subscribe(toTopic: "all")
+    }
+    
+    // Present notifications in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .list, .sound])
+    }
+
+    // Handle notification tap
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        NotificationCenter.default.post(
+            name: Notification.Name("didReceiveRemoteNotification"),
+            object: nil,
+            userInfo: userInfo
+        )
+        completionHandler()
     }
     
     private func registerForPushNotifications(application: UIApplication) {
