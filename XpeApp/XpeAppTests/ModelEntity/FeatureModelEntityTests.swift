@@ -39,11 +39,10 @@ final class FeatureEntityTests: XCTestCase{
     }
     
     func test_entityFromModel() throws {
-            
         // WHEN
         let entityFromModel = FeatureEntity.from(model: model)
-        
         // THEN
+        XCTAssertNotNil(entityFromModel)
         XCTAssertEqual(entityFromModel, entity)
     }
 
