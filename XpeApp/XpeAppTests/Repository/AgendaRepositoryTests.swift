@@ -58,7 +58,6 @@ final class AgendaRepositoryTests: XCTestCase {
             let events = await agendaRepo.getAllEvents(page: nil)
             
             // THEN
-            XCTAssertNotNil(events)
             XCTAssertEqual(events?.count, 1)
             
             let event = events?.first
@@ -143,7 +142,6 @@ final class AgendaRepositoryTests: XCTestCase {
             let birthdays: [BirthdayEntity]? = await agendaRepo.getAllBirthdays(page: nil)
             
             // THEN
-            XCTAssertNotNil(birthdays)
             XCTAssertEqual(birthdays?.count, 2)
             
             let firstBirthday = birthdays?.first

@@ -78,7 +78,7 @@ final class NewsletterRepositoryTests: XCTestCase {
             let lastNewsletter = await newsletterRepo.getLastNewsletter()
             
             // THEN
-            XCTAssertTrue(lastNewsletter == nil)
+            XCTAssertNil(lastNewsletter)
         }
     }
     

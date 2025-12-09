@@ -42,7 +42,6 @@ final class FeatureEntityTests: XCTestCase{
         // WHEN
         let entityFromModel = FeatureEntity.from(model: model)
         // THEN
-        XCTAssertNotNil(entityFromModel)
         XCTAssertEqual(entityFromModel, entity)
     }
 
