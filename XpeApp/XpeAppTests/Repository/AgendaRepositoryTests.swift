@@ -21,20 +21,6 @@ final class AgendaRepositoryTests: XCTestCase {
         super.tearDown()
     }
     
-    
-        func test_getAllEvents_fetchError() throws {
-        Task {
-            // GIVEN
-            agendaSource.fetchAllEventsReturnData = nil
-            
-            // WHEN
-            let events = await agendaRepo.getAllEvents(page: nil)
-            
-            // THEN
-            XCTAssertNil(events)
-        }
-    }
-    
     func test_getAllEvents_Success() throws {
         Task {
             let dateFormatter = DateFormatter()

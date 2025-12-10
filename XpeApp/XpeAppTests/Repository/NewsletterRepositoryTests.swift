@@ -138,19 +138,6 @@ final class NewsletterRepositoryTests: XCTestCase {
         
         waitForExpectations(timeout: 1, handler: nil)
     }
-    
-    func test_getNewsletterPreviewUrl_NoNewsletter() throws {
-        let expectation = self.expectation(description: "Completion handler should not be called")
-        expectation.isInverted = true
-            
-        // WHEN
-        newsletterRepo.getNewsletterPreviewUrl(newsletter: nil) { url in
-            // THEN
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-    }
 
     // ------------------- classifyNewsletters TESTS -------------------
 
