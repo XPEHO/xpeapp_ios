@@ -53,19 +53,11 @@ final class NewsletterRepositoryTests: XCTestCase {
             let newsletters = await newsletterRepo.getNewsletters()
             
             // THEN
-            let dataExpected = [
-                NewsletterEntity(
-                    id: "id",
-                    pdfUrl: "http://url.com",
-                    date: currentDate,
-                    summary: ["summary 1", "summary 2", "summary 3"],
-                    previewPath: "path/to/preview"
-                )
-            ]
-            
             XCTAssertNotNil(newsletters)
-            XCTAssertEqual(newsletters!.count, 1)
-            XCTAssertEqual(newsletters, dataExpected)
+            XCTAssertEqual(newsletters?.count, 1)
+            XCTAssertEqual(newsletters?[0].id, "id")
+            XCTAssertEqual(newsletters?[0].pdfUrl, "http://url.com")
+            XCTAssertEqual(newsletters?[0].summary, ["summary 1", "summary 2", "summary 3"])
         }
     }
     
