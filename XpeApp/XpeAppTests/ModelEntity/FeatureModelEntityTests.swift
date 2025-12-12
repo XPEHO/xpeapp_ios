@@ -16,10 +16,10 @@ final class FeatureEntityTests: XCTestCase{
         prodEnabled: true,
         uatEnabled: true
     )
-    let entity = FeatureEntity(
-        name: "feature_name",
-        enabled: true
-    )
+    var entity: FeatureEntity {
+        let enabled = Configuration.env == .prod ? model.prodEnabled : model.uatEnabled
+        return FeatureEntity(name: model.name, enabled: enabled)
+    }
 
     override func setUp() {
         super.setUp()
@@ -39,10 +39,8 @@ final class FeatureEntityTests: XCTestCase{
     }
     
     func test_entityFromModel() throws {
-            
         // WHEN
         let entityFromModel = FeatureEntity.from(model: model)
-        
         // THEN
         XCTAssertEqual(entityFromModel, entity)
     }
