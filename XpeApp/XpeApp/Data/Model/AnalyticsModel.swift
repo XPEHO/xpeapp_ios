@@ -15,7 +15,13 @@ class AnalyticsModel: ObservableObject {
     // Toggle for enabling/disabling analytics
     var enabled: Bool = true
 
-    init() {}
+    init() {
+        /*
+         * This initializer is intentionally left empty.
+         * All setup for AnalyticsModel is handled via property initializations or static/shared instance.
+         * If future initialization logic is needed, it can be added here.
+         */
+    }
 
     func trackEvent(_ name: String, parameters: [String: Any]?) {
         guard enabled else { return }
