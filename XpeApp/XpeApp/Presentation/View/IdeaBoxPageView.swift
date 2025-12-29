@@ -47,38 +47,44 @@ struct IdeaBoxPage: View {
                 
                 HStack {
                     Spacer()
-                    ClickyButton(
-                        label: "SOUMETTRE",
-                        size: 18,
-                        horizontalPadding: 70,
-                        verticalPadding: 18,
-                        enabled: true,
-                        onPress: {
-                            Task {
-                                let success = await ideaBoxViewModel.submitIdea()
-                                
-                                DispatchQueue.main.async {
-                                    if success {
-                                        analytics.trackEvent(AnalyticsEventName.ideaSubmitted.rawValue, parameters: [AnalyticsParamKey.context: ideaBoxViewModel.context])
-                                        toastManager.setParams(
-                                            message: "Idée soumise avec succès !",
-                                            action: {
-                                                ideaBoxViewModel.resetForm()
-                                                routerManager.goTo(item: .home)
-                                            }
-                                        )
-                                        toastManager.play()
-                                    } else {
-                                        toastManager.setParams(
-                                            message: "Impossible d'envoyer votre idée",
-                                            error: true
-                                        )
-                                        toastManager.play()
+                    if ideaBoxViewModel.isSending {
+                        ProgressView("Envoi en cours...")
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .padding(.vertical, 18)
+                            .frame(minWidth: 70)
+                    } else {
+                        ClickyButton(
+                            label: "SOUMETTRE",
+                            size: 18,
+                            horizontalPadding: 70,
+                            verticalPadding: 18,
+                            enabled: true,
+                            onPress: {
+                                Task {
+                                    let success = await ideaBoxViewModel.submitIdea()
+                                    DispatchQueue.main.async {
+                                        if success {
+                                            analytics.trackEvent(AnalyticsEventName.ideaSubmitted.rawValue, parameters: [AnalyticsParamKey.context: ideaBoxViewModel.context])
+                                            toastManager.setParams(
+                                                message: "Idée soumise avec succès !",
+                                                action: {
+                                                    ideaBoxViewModel.resetForm()
+                                                    routerManager.goTo(item: .home)
+                                                }
+                                            )
+                                            toastManager.play()
+                                        } else {
+                                            toastManager.setParams(
+                                                message: "Impossible d'envoyer votre idée",
+                                                error: true
+                                            )
+                                            toastManager.play()
+                                        }
                                     }
                                 }
                             }
-                        }
-                    )
+                        )
+                    }
                     Spacer()
                 }
                 .padding(.top, 32)
