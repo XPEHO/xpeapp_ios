@@ -21,10 +21,21 @@ import SwiftUI
     var lastNewsletter: NewsletterEntity? = nil
     var activeCampaigns: [QvstCampaignEntity]? = nil
     var lastNewsletterPreview: UIImage? = nil
+    var lastConnectionSuccess: Bool = false
     
     func update() {
         initLastNewsletter()
         initActiveCampaigns()
+        initLastConnection()
+    }
+
+    private func initLastConnection() {
+        Task {
+            let result = await UserRepositoryImpl.instance.postLastConnection()
+            DispatchQueue.main.async {
+                self.lastConnectionSuccess = result
+            }
+        }
     }
     
     private func initLastNewsletter() {

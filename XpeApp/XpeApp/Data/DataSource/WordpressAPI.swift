@@ -10,6 +10,7 @@ import Foundation
 // Protocol to be able to mock the data source
 protocol WordpressAPIProtocol {
     func fetchUserId(email: String) async -> String?
+    func postLastConnection() async -> Bool?
     func generateToken(userCandidate: UserCandidateModel) async -> TokenResponseModel?
     func checkTokenValidity(token: String) async -> TokenValidityModel?
     func fetchAllCampaigns() async -> [QvstCampaignModel]?
@@ -73,6 +74,23 @@ class WordpressAPI: WordpressAPIProtocol {
                 debugPrint("Failed to decode data in fetchUserInfos : \(error)")
                 let dataString = String(data: data, encoding: .utf8) ?? ""
                 debugPrint("Data got : \(dataString)")
+                return nil
+            }
+        } else {
+            return nil
+        }
+        
+    }
+    
+    // Post Last Connection of the user
+    func postLastConnection() async -> Bool? {
+        if let (data, _) = await fetchWordpressAPI (
+            endpoint: "xpeho/v1/user:last-connection",
+            method: .post,
+        ){
+            if let dataString = String(data: data, encoding: .utf8) {
+                return dataString.contains("true")
+            } else {
                 return nil
             }
         } else {

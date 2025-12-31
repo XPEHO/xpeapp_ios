@@ -12,6 +12,7 @@ class MockWordpressAPI: WordpressAPIProtocol {
     
     // Mocked Returns
     var fetchUserIdReturnData: String?
+    var postLastConnection: Bool?
     var generateTokenReturnData: TokenResponseModel?
     var checkTokenValidityReturnData: TokenValidityModel?
     var fetchAllCampaignsReturnData: [QvstCampaignModel]?
@@ -66,6 +67,10 @@ class MockWordpressAPI: WordpressAPIProtocol {
     
     func fetchUserInfos() async -> UserInfosModel? {
         return fetchUserInfosReturnData
+    }
+    
+    func postLastConnection() async -> Bool? {
+        return postLastConnection
     }
     
     func updatePassword(userPasswordCandidate: UserPasswordEditModel) async -> UserPasswordEditReturnEnum? {
