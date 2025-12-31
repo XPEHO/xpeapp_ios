@@ -31,7 +31,7 @@ import SwiftUI
 
     private func initLastConnection() {
         Task {
-            let result = await UserRepositoryImpl.instance.postLastConnection()
+            let result = await UserRepositoryImpl.instance.fetchPostLastConnection()
             DispatchQueue.main.async {
                 self.lastConnectionSuccess = result
             }

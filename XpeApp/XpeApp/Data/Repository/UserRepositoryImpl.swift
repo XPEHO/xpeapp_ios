@@ -234,8 +234,8 @@ import FirebaseCrashlytics
         }
     }
     
-    func postLastConnection() async -> Bool {
-        let result = await dataSource.postLastConnection()
+    func fetchPostLastConnection() async -> Bool {
+        let result = await dataSource.fetchPostLastConnection()
         return result == true
     }
     
