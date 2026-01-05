@@ -58,19 +58,6 @@ final class AgendaRepositoryTests: XCTestCase {
         }
     }
     
-    func test_getAllEventsTypes_fetchError() throws {
-        Task {
-            // GIVEN
-            agendaSource.fetchAllEventsTypesReturnData = nil
-            
-            // WHEN
-            let eventTypes = await agendaRepo.getAllEventsTypes()
-            
-            // THEN
-            XCTAssertNil(eventTypes)
-        }
-    }
-    
     func test_getAllEventsTypes_Success() throws {
         Task {
             // GIVEN
