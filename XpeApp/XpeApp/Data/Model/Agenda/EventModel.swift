@@ -8,13 +8,6 @@
 import Foundation
 import SwiftUI
 
-private let dateOnlyFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
-    formatter.timeZone = TimeZone(secondsFromGMT: 0)
-    return formatter
-}()
-
 public struct EventModel: Codable {
     var id: String
     let date: Date
@@ -49,9 +42,12 @@ public struct EventModel: Codable {
         }
         date = parsedDate
         
-        let endDateString = try container.decode(String.self, forKey: .endDate)
-        if let parsedEndDate = dateOnlyFormatter.date(from: endDateString) {
-            endDate = parsedEndDate
+        if let endDateString = try container.decodeIfPresent(String.self, forKey: .endDate) {
+            if let parsedEndDate = dateFormatterForBirthday.date(from: endDateString) {
+                endDate = parsedEndDate
+            } else {
+                endDate = nil
+            }
         } else {
             endDate = nil
         }
