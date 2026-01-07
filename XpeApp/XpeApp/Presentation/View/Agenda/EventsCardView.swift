@@ -39,7 +39,11 @@ struct EventCard: View {
 
         // Add the event date
         result.append(TagPill(label: dateDayAndMonthFormatter.string(from: event.date), backgroundColor: tagColor))
-
+        
+        // Add the event endDate
+        if let endDate = event.endDate {
+            result.append(TagPill(label: dateDayAndMonthFormatter.string(from: endDate), backgroundColor: tagColor))
+        }
         // Format the time strings by removing the last three characters ("12:00:00" -> "12:00")
         func formatTime(_ time: String) -> String {
             if time.count > 2 {

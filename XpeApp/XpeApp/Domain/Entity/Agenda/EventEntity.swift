@@ -10,6 +10,7 @@ import Foundation
 struct EventEntity: Codable, Equatable {
     let id: String
     let date: Date
+    let endDate: Date?
     let startTime: String?
     let endTime: String?
     let title: String
@@ -17,9 +18,10 @@ struct EventEntity: Codable, Equatable {
     let typeId: String
     let topic: String?
 
-    init(id: String, date: Date, startTime: String?, endTime: String?, title: String, location: String?, typeId: String, topic: String?) {
+    init(id: String, date: Date, endDate: Date? = nil, startTime: String?, endTime: String?, title: String, location: String?, typeId: String, topic: String?) {
         self.id = id
         self.date = date
+        self.endDate = endDate
         self.startTime = startTime
         self.endTime = endTime
         self.title = title

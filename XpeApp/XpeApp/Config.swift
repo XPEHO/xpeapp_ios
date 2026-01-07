@@ -13,7 +13,7 @@ struct Configuration {
         case uat, prod, local
     }
     
-    static var env: EnvItem = .local
+    static var env: EnvItem = .uat
     
     static var backendUrl: String {
         // Try to get url from environment
