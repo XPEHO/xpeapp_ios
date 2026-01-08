@@ -234,6 +234,11 @@ import FirebaseCrashlytics
         }
     }
     
+    func fetchPostLastConnection() async -> Bool {
+        let result = await dataSource.fetchPostLastConnection()
+        return result == true
+    }
+    
     func updatePassword(
         initialPassword: String,
         newPassword: String,
