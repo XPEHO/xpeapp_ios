@@ -37,9 +37,16 @@ struct EventCard: View {
 
         var result: [TagPill] = []
 
-        // Add the event date
-        result.append(TagPill(label: dateDayAndMonthFormatter.string(from: event.date), backgroundColor: tagColor))
-
+        // Add the event date range as a single tag if endDate exists
+        if let endDate = event.endDate {
+            let startStr = dateDayAndMonthFormatter.string(from: event.date)
+            let endStr = dateDayAndMonthFormatter.string(from: endDate)
+            let rangeLabel = "Du: \(startStr) Au: \(endStr)"
+            result.append(TagPill(label: rangeLabel, backgroundColor: tagColor))
+        } else {
+            // Only start date
+            result.append(TagPill(label: dateDayAndMonthFormatter.string(from: event.date), backgroundColor: tagColor))
+        }
         // Format the time strings by removing the last three characters ("12:00:00" -> "12:00")
         func formatTime(_ time: String) -> String {
             if time.count > 2 {

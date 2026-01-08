@@ -11,6 +11,7 @@ import SwiftUI
 public struct EventModel: Codable {
     var id: String
     let date: Date
+    let endDate: Date?
     let startTime: String?
     let endTime: String?
     let title: String
@@ -21,6 +22,7 @@ public struct EventModel: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case date
+        case endDate = "end_date"
         case startTime = "start_time"
         case endTime = "end_time"
         case title
@@ -39,6 +41,16 @@ public struct EventModel: Codable {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "Date string does not match format expected by formatter.")
         }
         date = parsedDate
+        
+        if let endDateString = try container.decodeIfPresent(String.self, forKey: .endDate) {
+            if let parsedEndDate = dateFormatterForBirthday.date(from: endDateString) {
+                endDate = parsedEndDate
+            } else {
+                endDate = nil
+            }
+        } else {
+            endDate = nil
+        }
 
         startTime = try container.decodeIfPresent(String.self, forKey: .startTime)
         endTime = try container.decodeIfPresent(String.self, forKey: .endTime)
@@ -50,6 +62,7 @@ public struct EventModel: Codable {
     
     init(id: String,
          date: Date,
+         endDate: Date? = nil,
          startTime: String?,
          endTime: String?,
          title: String,
@@ -59,6 +72,7 @@ public struct EventModel: Codable {
     ) {
         self.id = id
         self.date = date
+        self.endDate = endDate
         self.startTime = startTime
         self.endTime = endTime
         self.title = title
@@ -71,6 +85,7 @@ public struct EventModel: Codable {
         EventEntity(
             id: id,
             date: date,
+            endDate: endDate,
             startTime: startTime,
             endTime: endTime,
             title: title,
