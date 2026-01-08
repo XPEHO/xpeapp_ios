@@ -21,91 +21,99 @@ final class NewsletterRepositoryTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_getNewsletters_fetchAllNewslettersError() async throws {
-        // GIVEN
-        newsletterSource.fetchAllNewslettersReturnData = nil
-        
-        // WHEN
-        let newsletters = await newsletterRepo.getNewsletters()
-        
-        // THEN
-        XCTAssertTrue(newsletters?.isEmpty ?? true)
+    func test_getNewsletters_fetchAllNewslettersError() throws {
+        Task {
+            // GIVEN
+            newsletterSource.fetchAllNewslettersReturnData = nil
+            
+            // WHEN
+            let newsletters = await newsletterRepo.getNewsletters()
+            
+            // THEN
+            XCTAssertTrue(newsletters?.isEmpty ?? true)
+        }
     }
     
-    func test_getNewsletters_Success() async throws {
-        let currentDate = Date()
-        
-        // GIVEN
-        newsletterSource.fetchAllNewslettersReturnData = [
-            NewsletterModel(
-                id: "id",
-                date: currentDate,
-                pdfUrl: "http://url.com",
-                publicationDate: currentDate,
-                summary: "summary 1,summary 2,summary 3"
-            )
-        ]
-        
-        // WHEN
-        let newsletters = await newsletterRepo.getNewsletters()
-        
-        // THEN
-        XCTAssertNotNil(newsletters)
-        XCTAssertEqual(newsletters?.count, 1)
-        XCTAssertEqual(newsletters?[0].id, "id")
-        XCTAssertEqual(newsletters?[0].pdfUrl, "http://url.com")
-        XCTAssertEqual(newsletters?[0].summary, ["summary 1", "summary 2", "summary 3"])
+    func test_getNewsletters_Success() throws {
+        Task {
+            let currentDate = Date()
+            
+            // GIVEN
+            newsletterSource.fetchAllNewslettersReturnData = [
+                NewsletterModel(
+                    id: "id",
+                    date: currentDate,
+                    pdfUrl: "http://url.com",
+                    publicationDate: currentDate,
+                    summary: "summary 1,summary 2,summary 3"
+                )
+            ]
+            
+            // WHEN
+            let newsletters = await newsletterRepo.getNewsletters()
+            
+            // THEN
+            XCTAssertNotNil(newsletters)
+            XCTAssertEqual(newsletters?.count, 1)
+            XCTAssertEqual(newsletters?[0].id, "id")
+            XCTAssertEqual(newsletters?[0].pdfUrl, "http://url.com")
+            XCTAssertEqual(newsletters?[0].summary, ["summary 1", "summary 2", "summary 3"])
+        }
     }
     
-    func test_getLastNewsletter_fetchAllNewslettersError() async throws {
-        // GIVEN
-        newsletterSource.fetchAllNewslettersReturnData = nil
-        
-        // WHEN
-        let lastNewsletter = await newsletterRepo.getLastNewsletter()
-        
-        // THEN
-        XCTAssertNil(lastNewsletter)
+    func test_getLastNewsletter_fetchAllNewslettersError() throws {
+        Task {
+            // GIVEN
+            newsletterSource.fetchAllNewslettersReturnData = nil
+            
+            // WHEN
+            let lastNewsletter = await newsletterRepo.getLastNewsletter()
+            
+            // THEN
+            XCTAssertNil(lastNewsletter)
+        }
     }
     
-    func test_getLastNewsletter_Success() async throws {
-        let currentDate = Date()
-        let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
-        
-        // GIVEN
-        newsletterSource.fetchAllNewslettersReturnData = [
-            NewsletterModel(
-                id: "id1",
-                date: currentDate,
-                pdfUrl: "http://url.com",
-                publicationDate: currentDate,
-                summary: "summary 1,summary 2,summary 3",
-                previewPath: "path/to/preview/1"
-            ),
-            NewsletterModel(
+    func test_getLastNewsletter_Success() throws {
+        Task {
+            let currentDate = Date()
+            let currentDatePlusOneDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+            
+            // GIVEN
+            newsletterSource.fetchAllNewslettersReturnData = [
+                NewsletterModel(
+                    id: "id1",
+                    date: currentDate,
+                    pdfUrl: "http://url.com",
+                    publicationDate: currentDate,
+                    summary: "summary 1,summary 2,summary 3",
+                    previewPath: "path/to/preview/1"
+                ),
+                NewsletterModel(
+                    id: "id2",
+                    date: currentDatePlusOneDay,
+                    pdfUrl: "http://url.com",
+                    publicationDate: currentDate,
+                    summary: "summary 1,summary 2,summary 3",
+                    previewPath: "path/to/preview/2"
+                )
+            ]
+            
+            // WHEN
+            let lastNewsletter = await newsletterRepo.getLastNewsletter()
+            
+            // THEN
+            let dataExpected = NewsletterEntity(
                 id: "id2",
-                date: currentDatePlusOneDay,
                 pdfUrl: "http://url.com",
-                publicationDate: currentDate,
-                summary: "summary 1,summary 2,summary 3",
+                date: currentDatePlusOneDay,
+                summary: ["summary 1", "summary 2", "summary 3"],
                 previewPath: "path/to/preview/2"
             )
-        ]
-        
-        // WHEN
-        let lastNewsletter = await newsletterRepo.getLastNewsletter()
-        
-        // THEN
-        let dataExpected = NewsletterEntity(
-            id: "id2",
-            pdfUrl: "http://url.com",
-            date: currentDatePlusOneDay,
-            summary: ["summary 1", "summary 2", "summary 3"],
-            previewPath: "path/to/preview/2"
-        )
-        
-        XCTAssertNotNil(lastNewsletter)
-        XCTAssertEqual(lastNewsletter, dataExpected)
+            
+            XCTAssertNotNil(lastNewsletter)
+            XCTAssertEqual(lastNewsletter, dataExpected)
+        }
     }
 
     func test_getNewsletterPreviewUrl_Success() throws {
