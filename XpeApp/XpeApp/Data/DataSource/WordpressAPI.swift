@@ -10,7 +10,7 @@ import Foundation
 // Protocol to be able to mock the data source
 protocol WordpressAPIProtocol {
     func fetchUserId(email: String) async -> String?
-    func fetchPostLastConnection() async -> Bool?
+    func fetchReportConnection() async -> Bool?
     func generateToken(userCandidate: UserCandidateModel) async -> TokenResponseModel?
     func checkTokenValidity(token: String) async -> TokenValidityModel?
     func fetchAllCampaigns() async -> [QvstCampaignModel]?
@@ -83,7 +83,7 @@ class WordpressAPI: WordpressAPIProtocol {
     }
     
     // Post Last Connection of the user
-    func fetchPostLastConnection() async -> Bool? {
+    func fetchReportConnection() async -> Bool? {
         if let (data, _) = await fetchWordpressAPI (
             endpoint: "xpeho/v1/user:last-connection",
             method: .post,

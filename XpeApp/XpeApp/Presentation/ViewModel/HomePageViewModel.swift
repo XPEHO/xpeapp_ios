@@ -26,12 +26,12 @@ import SwiftUI
     func update() {
         initLastNewsletter()
         initActiveCampaigns()
-        initLastConnection()
+        initReportConnection()
     }
 
-    private func initLastConnection() {
+    private func initReportConnection() {
         Task {
-            let result = await UserRepositoryImpl.instance.fetchPostLastConnection()
+            let result = await UserRepositoryImpl.instance.fetchReportConnection()
             DispatchQueue.main.async {
                 self.lastConnectionSuccess = result
             }
