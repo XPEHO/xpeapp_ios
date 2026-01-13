@@ -31,7 +31,7 @@ import SwiftUI
 
     private func initReportConnection() {
         Task {
-            let result = await UserRepositoryImpl.instance.fetchReportConnection()
+            let result = await UserRepositoryImpl.instance.reportConnexion()
             DispatchQueue.main.async {
                 self.lastConnectionSuccess = result
             }

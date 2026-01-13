@@ -234,8 +234,8 @@ import FirebaseCrashlytics
         }
     }
     
-    func fetchReportConnection() async -> Bool {
-        let result = await dataSource.fetchReportConnection()
+    func reportConnexion() async -> Bool {
+        let result = await dataSource.reportConnexion()
         return result == true
     }
     
