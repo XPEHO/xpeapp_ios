@@ -15,52 +15,52 @@ final class FeatureRepositoryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        // Reset mock data before each test
+        featureSource.fetchAllFeaturesReturnData = nil
     }
 
     override func tearDownWithError() throws {
+        // Reset mock data after each test
+        featureSource.fetchAllFeaturesReturnData = nil
         super.tearDown()
     }
 
-    func test_getFeatures_fetchAllFeaturesError() throws {
-        Task {
-            // GIVEN
-            featureSource.fetchAllFeaturesReturnData = nil
-            
-            // WHEN
-            let features = await featureRepo.getFeatures()
-            
-            // THEN
-            XCTAssertNil(features)
-        }
+    func test_getFeatures_fetchAllFeaturesError() async throws {
+        // GIVEN
+        featureSource.fetchAllFeaturesReturnData = nil
+        
+        // WHEN
+        let features = await featureRepo.getFeatures()
+        
+        // THEN
+        XCTAssertNil(features)
     }
     
-    func test_getFeatures_Success() throws {
-        Task {
-            // GIVEN
-            featureSource.fetchAllFeaturesReturnData = [
-                FeatureModel(
-                    id: "id",
-                    description: "description",
-                    name: "Feature",
-                    prodEnabled: true,
-                    uatEnabled: true
-                )
-            ]
-            
-            // WHEN
-            let features = await featureRepo.getFeatures()
-            
-            // THEN
-            let dataExpected = [
-                "id": FeatureEntity(
-                    name: "Feature",
-                    enabled: true
-                )
-            ]
-            
-            XCTAssertNotNil(features)
-            XCTAssertEqual(features!.count, 1)
-            XCTAssertEqual(features, dataExpected)
-        }
+    func test_getFeatures_Success() async throws {
+        // GIVEN
+        featureSource.fetchAllFeaturesReturnData = [
+            FeatureModel(
+                id: "id",
+                description: "description",
+                name: "Feature",
+                prodEnabled: true,
+                uatEnabled: true
+            )
+        ]
+        
+        // WHEN
+        let features = await featureRepo.getFeatures()
+        
+        // THEN
+        let dataExpected = [
+            "id": FeatureEntity(
+                name: "Feature",
+                enabled: true
+            )
+        ]
+        
+        XCTAssertNotNil(features)
+        XCTAssertEqual(features!.count, 1)
+        XCTAssertEqual(features, dataExpected)
     }
 }

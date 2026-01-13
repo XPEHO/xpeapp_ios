@@ -234,6 +234,11 @@ import FirebaseCrashlytics
         }
     }
     
+    func reportConnexion() async -> Bool {
+        let result = await dataSource.reportConnexion()
+        return result == true
+    }
+    
     func updatePassword(
         initialPassword: String,
         newPassword: String,
