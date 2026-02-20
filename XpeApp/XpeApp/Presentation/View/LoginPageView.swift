@@ -8,7 +8,7 @@
 import SwiftUI
 import xpeho_ui
 import FirebaseAnalytics
-
+import SafariServices
 
 struct LoginPage: View {
     var loginManager = LoginManager.instance
@@ -19,6 +19,10 @@ struct LoginPage: View {
     
     // Allow to lock the button after first click and prevent spamming
     @State var isTryingToLogin = false
+    
+    private let config = ConfigReader.shared
+    
+    @State private var isShowingResetSheet = false // Pour ouvrir la "fenêtre"
 
     @FocusState private var focusedField: Field?
     enum Field {
@@ -67,12 +71,21 @@ struct LoginPage: View {
                 size: 18,
                 horizontalPadding: 70,
                 verticalPadding: 18,
-                enabled: true,//!isTryingToLogin,
+                enabled: true,
                 onPress: {
                     onLoginPress()
                 }
             )
+            ForgotPasswordText(
+                focusedField: $focusedField,
+                onPress: { isShowingResetSheet = true }
+            )
             .padding(.top, 32)
+            .sheet(isPresented: $isShowingResetSheet) {
+                if let url = URL(string: config.getString(forKey: "PASSWORD_RESET_URL")) {
+                    SafariView(url: url)
+                }
+            }
         }
         .preferredColorScheme(.dark)
         .trackScreen("login_page")
@@ -92,8 +105,31 @@ struct LoginPage: View {
         ) {
             isTryingToLogin = false
         }
-        debugPrint("Login with \(username)") 
+        debugPrint("Login with \(username)")
     }
+}
+struct ForgotPasswordText: View {
+    var focusedField: FocusState<LoginPage.Field?>.Binding
+    var onPress: () -> Void
+
+    var body: some View {
+        Text("Mot de passe oublié ?")
+            .foregroundColor(.black)
+            .font(.system(size: 16, weight: .bold))
+            .onTapGesture {
+                focusedField.wrappedValue = nil
+                onPress()
+            }
+            .padding(8)
+    }
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }
 
 #Preview {
