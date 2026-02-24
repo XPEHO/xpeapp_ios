@@ -15,6 +15,8 @@ final class NewsletterRepositoryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        // Reset mock data before each test
+        newsletterSource.fetchAllNewslettersReturnData = []
     }
 
     override func tearDownWithError() throws {

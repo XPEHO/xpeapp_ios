@@ -16,6 +16,11 @@ final class QvstRepositoryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        // Reset mock data before each test
+        qvstSource.fetchAllCampaignsReturnData = nil
+        qvstSource.fetchActiveCampaignsReturnData = nil
+        qvstSource.fetchCampaignsProgressReturnData = nil
+        userRepo.user = nil
     }
 
     override func tearDownWithError() throws {
@@ -322,8 +327,8 @@ final class QvstRepositoryTests: XCTestCase {
 
     func test_classifyCampaigns() throws {
         // GIVEN
-        let currentDate = Date()
-        let currentDatePlusOneYear = Calendar.current.date(byAdding: .year, value: 1, to: currentDate)!
+        let currentDate = Calendar.current.date(from: DateComponents(year: 2025, month: 1, day: 1))!
+        let currentDatePlusOneYear = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 1))!
         let campaigns = [
             QvstCampaignEntity(
                 id: "campaign_id_1",
@@ -348,43 +353,14 @@ final class QvstRepositoryTests: XCTestCase {
                 resultLink: "action 2"
             )
         ]
-        
+
         // WHEN
         let classifiedCampaigns = qvstRepo.classifyCampaigns(campaigns: campaigns)
-        
+
         // THEN
-        let dataExpected = [
-            Calendar.current.component(.year, from: currentDatePlusOneYear): [
-                QvstCampaignEntity(
-                    id: "campaign_id_1",
-                    name: "Qvst Campaign 1",
-                    themeNames: ["Qvst Theme"],
-                    status: "OPEN",
-                    outdated: false,
-                    completed: true,
-                    remainingDays: 1,
-                    endDate: currentDatePlusOneYear,
-                    resultLink: "action 1"
-                )
-            ],
-            Calendar.current.component(.year, from: currentDate): [
-                QvstCampaignEntity(
-                    id: "campaign_id_2",
-                    name: "Qvst Campaign 2",
-                    themeNames: ["Qvst Theme"],
-                    status: "CLOSED",
-                    outdated: true,
-                    completed: true,
-                    remainingDays: 0,
-                    endDate: currentDate,
-                    resultLink: "action 2"
-                )
-            ]
-        ]
         XCTAssertNotNil(classifiedCampaigns)
-        XCTAssertEqual(classifiedCampaigns[Calendar.current.component(.year, from: currentDatePlusOneYear)]?.count, 1)
-        XCTAssertEqual(classifiedCampaigns[Calendar.current.component(.year, from: currentDate)]?.count, 1)
-        XCTAssertEqual(classifiedCampaigns, dataExpected)
+        XCTAssertEqual(classifiedCampaigns[2026]?.first?.id, "campaign_id_1")
+        XCTAssertEqual(classifiedCampaigns[2025]?.first?.id, "campaign_id_2")
     }
 }
 

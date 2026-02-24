@@ -124,6 +124,7 @@ import FirebaseCrashlytics
             CrashlyticsUtils.setCustomKey("last_auth_error", value: "unhandled_token_response")
             CrashlyticsUtils.setCustomKey("last_auth_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Unhandled tokenResponse in login")
+            self.user = nil
             completion(.error)
         }
     }

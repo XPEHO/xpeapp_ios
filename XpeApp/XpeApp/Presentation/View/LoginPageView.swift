@@ -9,7 +9,6 @@ import SwiftUI
 import xpeho_ui
 import FirebaseAnalytics
 
-
 struct LoginPage: View {
     var loginManager = LoginManager.instance
     var toastManager = ToastManager.instance
@@ -19,6 +18,11 @@ struct LoginPage: View {
     
     // Allow to lock the button after first click and prevent spamming
     @State var isTryingToLogin = false
+    
+    private let config = ConfigReader.shared
+    
+    // open window of SSO
+    @State private var isShowingResetSheet = false
 
     @FocusState private var focusedField: Field?
     enum Field {
@@ -67,11 +71,22 @@ struct LoginPage: View {
                 size: 18,
                 horizontalPadding: 70,
                 verticalPadding: 18,
-                enabled: true,//!isTryingToLogin,
+                enabled: true,
                 onPress: {
                     onLoginPress()
                 }
             )
+            ForgotPasswordText(focusedField: $focusedField) {
+                if let url = URL(string: config.getString(forKey: "PASSWORD_RESET_URL")) {
+                    SSOManager.shared.authenticate(url: url, callbackURLScheme: "xpeapp") { callbackURL, error in
+                        if let successURL = callbackURL {
+                            print("Success SSO : \(successURL)")
+                        } else if let error = error {
+                            print("Error ou annulated SSO : \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
             .padding(.top, 32)
         }
         .preferredColorScheme(.dark)
@@ -92,7 +107,22 @@ struct LoginPage: View {
         ) {
             isTryingToLogin = false
         }
-        debugPrint("Login with \(username)") 
+        debugPrint("Login with \(username)")
+    }
+}
+struct ForgotPasswordText: View {
+    var focusedField: FocusState<LoginPage.Field?>.Binding
+    var onPress: () -> Void
+
+    var body: some View {
+        Text("Mot de passe oublié ?")
+            .foregroundColor(.black)
+            .font(.system(size: 16, weight: .bold))
+            .onTapGesture {
+                focusedField.wrappedValue = nil
+                onPress()
+            }
+            .padding(8)
     }
 }
 

@@ -39,7 +39,7 @@ class NewsletterRepositoryImpl: NewsletterRepository {
             CrashlyticsUtils.setCustomKey("last_newsletter_error", value: "fetchAllNewsletters_nil")
             CrashlyticsUtils.setCustomKey("last_newsletter_error_time", value: String(CrashlyticsUtils.currentTimestampMillis))
             debugPrint("Failed call to fetchAllNewsletters in getNewsletters")
-            return nil
+            return []
         }
 
         return newsletters.sorted(by: { $0.date > $1.date }).map { model in
