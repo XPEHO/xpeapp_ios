@@ -8,7 +8,6 @@
 import SwiftUI
 import xpeho_ui
 import FirebaseAnalytics
-import SafariServices
 
 struct LoginPage: View {
     var loginManager = LoginManager.instance
@@ -22,7 +21,8 @@ struct LoginPage: View {
     
     private let config = ConfigReader.shared
     
-    @State private var isShowingResetSheet = false // Pour ouvrir la "fenêtre"
+    // open window of SSO
+    @State private var isShowingResetSheet = false
 
     @FocusState private var focusedField: Field?
     enum Field {
@@ -76,16 +76,18 @@ struct LoginPage: View {
                     onLoginPress()
                 }
             )
-            ForgotPasswordText(
-                focusedField: $focusedField,
-                onPress: { isShowingResetSheet = true }
-            )
-            .padding(.top, 32)
-            .sheet(isPresented: $isShowingResetSheet) {
+            ForgotPasswordText(focusedField: $focusedField) {
                 if let url = URL(string: config.getString(forKey: "PASSWORD_RESET_URL")) {
-                    SafariView(url: url)
+                    SSOManager.shared.authenticate(url: url, callbackURLScheme: "xpeapp") { callbackURL, error in
+                        if let successURL = callbackURL {
+                            print("Success SSO : \(successURL)")
+                        } else if let error = error {
+                            print("Error ou annulated SSO : \(error.localizedDescription)")
+                        }
+                    }
                 }
             }
+            .padding(.top, 32)
         }
         .preferredColorScheme(.dark)
         .trackScreen("login_page")
@@ -122,14 +124,6 @@ struct ForgotPasswordText: View {
             }
             .padding(8)
     }
-}
-
-struct SafariView: UIViewControllerRepresentable {
-    let url: URL
-    func makeUIViewController(context: Context) -> SFSafariViewController {
-        return SFSafariViewController(url: url)
-    }
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }
 
 #Preview {
