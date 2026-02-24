@@ -35,7 +35,7 @@ jobs:
           xcodebuild \
           -project XpeApp.xcodeproj/ \
           -scheme XpeApp \
-          -destination 'platform=iOS Simulator,name=iPhone Air' \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
           -derivedDataPath Build/ \
           -only-testing:XpeAppTests \
           -enableCodeCoverage YES \
