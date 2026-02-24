@@ -16,6 +16,11 @@ final class QvstRepositoryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        // Reset mock data before each test
+        qvstSource.fetchAllCampaignsReturnData = nil
+        qvstSource.fetchActiveCampaignsReturnData = nil
+        qvstSource.fetchCampaignsProgressReturnData = nil
+        userRepo.user = nil
     }
 
     override func tearDownWithError() throws {
