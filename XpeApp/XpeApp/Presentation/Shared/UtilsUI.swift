@@ -10,7 +10,7 @@ import SwiftUI
 import AuthenticationServices
 
 
-// Util function to open a pdf
+// Util function to open a pdf url
 func openPdf(url: String, toastManager: ToastManager, openMethod: OpenURLAction) {
     guard let urlObj = URL(string: url),
           let scheme = urlObj.scheme?.lowercased(),
