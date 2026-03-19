@@ -108,6 +108,7 @@
 		D73DF94C2EC6337B00ACDF48 /* AnalyticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D75675C42EB25D87002957AB /* IdeaSubmissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */; };
+		D7AA00192F6C8D1000890DDE /* IdeaStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */; };
 		D75675C62EB26227002957AB /* IdeaBoxPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C52EB26222002957AB /* IdeaBoxPageView.swift */; };
 		D75675C82EB262CE002957AB /* IdeaBoxPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C72EB262C9002957AB /* IdeaBoxPageViewModel.swift */; };
 		D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */; };
@@ -118,6 +119,11 @@
 		D7A64FD32EBE4ADE00F44201 /* CrashlyticsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A64FD22EBE4ADE00F44201 /* CrashlyticsUtils.swift */; };
 		D7A829432D9AE4A3003D0986 /* AgendaPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829422D9AE49D003D0986 /* AgendaPageView.swift */; };
 		D7A829472D9C3515003D0986 /* EventCombinedItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */; };
+		D7AA000F2F6C6EC300890DDE /* MySuggestionIdeaBoxPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA000E2F6C6EB600890DDE /* MySuggestionIdeaBoxPageView.swift */; };
+		D7AA00112F6C74A500890DDE /* MySuggestionIdeaBoxPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00102F6C749700890DDE /* MySuggestionIdeaBoxPageViewModel.swift */; };
+		D7AA00132F6C824100890DDE /* MySuggestionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00122F6C823A00890DDE /* MySuggestionCardView.swift */; };
+		D7AA00152F6C825100890DDE /* MySuggestionDetailsPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00142F6C824900890DDE /* MySuggestionDetailsPopupView.swift */; };
+		D7AA00172F6C826100890DDE /* MySuggestionStatusMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00162F6C825A00890DDE /* MySuggestionStatusMapper.swift */; };
 		D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5A92D915E09005C28F3 /* EventModel.swift */; };
 		D7BCA5AF2D916A60005C28F3 /* AgendaRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */; };
 		D7BCA5B32D916B23005C28F3 /* AgendaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */; };
@@ -238,6 +244,7 @@
 		D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSubmissionModel.swift; sourceTree = "<group>"; };
+		D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaStatusModel.swift; sourceTree = "<group>"; };
 		D75675C52EB26222002957AB /* IdeaBoxPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBoxPageView.swift; sourceTree = "<group>"; };
 		D75675C72EB262C9002957AB /* IdeaBoxPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBoxPageViewModel.swift; sourceTree = "<group>"; };
 		D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyPageView.swift; sourceTree = "<group>"; };
@@ -247,6 +254,11 @@
 		D7A64FD22EBE4ADE00F44201 /* CrashlyticsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlyticsUtils.swift; sourceTree = "<group>"; };
 		D7A829422D9AE49D003D0986 /* AgendaPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaPageView.swift; sourceTree = "<group>"; };
 		D7A829462D9C3507003D0986 /* EventCombinedItemEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCombinedItemEnum.swift; sourceTree = "<group>"; };
+		D7AA000E2F6C6EB600890DDE /* MySuggestionIdeaBoxPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionIdeaBoxPageView.swift; sourceTree = "<group>"; };
+		D7AA00102F6C749700890DDE /* MySuggestionIdeaBoxPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionIdeaBoxPageViewModel.swift; sourceTree = "<group>"; };
+		D7AA00122F6C823A00890DDE /* MySuggestionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionCardView.swift; sourceTree = "<group>"; };
+		D7AA00142F6C824900890DDE /* MySuggestionDetailsPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionDetailsPopupView.swift; sourceTree = "<group>"; };
+		D7AA00162F6C825A00890DDE /* MySuggestionStatusMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionStatusMapper.swift; sourceTree = "<group>"; };
 		D7BCA5A92D915E09005C28F3 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryImpl.swift; sourceTree = "<group>"; };
 		D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepository.swift; sourceTree = "<group>"; };
@@ -507,7 +519,7 @@
 		0EF0F8E92C91E1BE00AF5966 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D75675C52EB26222002957AB /* IdeaBoxPageView.swift */,
+				D7AA000D2F6C6E9900890DDE /* IdeaBox */,
 				D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */,
 				D7BCA5B62D917039005C28F3 /* Agenda */,
 				D7056B932D367B9500D7D8CA /* Profile */,
@@ -524,6 +536,7 @@
 		0EF0F8EA2C91E1C300AF5966 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D7AA00102F6C749700890DDE /* MySuggestionIdeaBoxPageViewModel.swift */,
 				D75675C72EB262C9002957AB /* IdeaBoxPageViewModel.swift */,
 				D7BCA5B42D916F4A005C28F3 /* AgendaPageViewModel.swift */,
 				D72C13432D2EF748002F6A14 /* UserInfosPageViewModel.swift */,
@@ -653,6 +666,19 @@
 			isa = PBXGroup;
 			children = (
 				D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */,
+				D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */,
+			);
+			path = IdeaBox;
+			sourceTree = "<group>";
+		};
+		D7AA000D2F6C6E9900890DDE /* IdeaBox */ = {
+			isa = PBXGroup;
+			children = (
+				D7AA00142F6C824900890DDE /* MySuggestionDetailsPopupView.swift */,
+				D7AA00122F6C823A00890DDE /* MySuggestionCardView.swift */,
+				D7AA00162F6C825A00890DDE /* MySuggestionStatusMapper.swift */,
+				D7AA000E2F6C6EB600890DDE /* MySuggestionIdeaBoxPageView.swift */,
+				D75675C52EB26222002957AB /* IdeaBoxPageView.swift */,
 			);
 			path = IdeaBox;
 			sourceTree = "<group>";
@@ -864,6 +890,7 @@
 				D7A64FD32EBE4ADE00F44201 /* CrashlyticsUtils.swift in Sources */,
 				0E61D2AF2C78A0AC00050F7C /* QvstThemeModel.swift in Sources */,
 				D75675C42EB25D87002957AB /* IdeaSubmissionModel.swift in Sources */,
+				D7AA00192F6C8D1000890DDE /* IdeaStatusModel.swift in Sources */,
 				0E6277A22C943FC600F26E55 /* CampaignCardView.swift in Sources */,
 				D7A64FCE2EBA5DA100F44201 /* CrashlyticsManager.swift in Sources */,
 				0E6277AD2C94907500F26E55 /* CampaignsPageViewModel.swift in Sources */,
@@ -900,6 +927,11 @@
 				0E260DC32CDA245000F8EF0C /* PageTitleView.swift in Sources */,
 				0E260DC12CD92CEA00F8EF0C /* ListFilterTitleView.swift in Sources */,
 				0E72BA622C771FC100C0583D /* RouterManager.swift in Sources */,
+				D7AA000F2F6C6EC300890DDE /* MySuggestionIdeaBoxPageView.swift in Sources */,
+				D7AA00112F6C74A500890DDE /* MySuggestionIdeaBoxPageViewModel.swift in Sources */,
+				D7AA00132F6C824100890DDE /* MySuggestionCardView.swift in Sources */,
+				D7AA00152F6C825100890DDE /* MySuggestionDetailsPopupView.swift in Sources */,
+				D7AA00172F6C826100890DDE /* MySuggestionStatusMapper.swift in Sources */,
 				0EF0F8F42C91E8C100AF5966 /* WordpressAPI.swift in Sources */,
 				0EF0F8D72C8AE69300AF5966 /* UserRepositoryImpl.swift in Sources */,
 				0E7C7CA92C9B20DE00660E75 /* MockFirebaseAPI.swift in Sources */,

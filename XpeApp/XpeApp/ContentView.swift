@@ -11,6 +11,7 @@ import xpeho_ui
 struct ContentView: View {
     var loginManager = LoginManager.instance
     var toastManager = ToastManager.instance
+    @State private var mySuggestionDetailsModalManager = MySuggestionDetailsModalManager.instance
     
     // Layout management
     @State private var isSidebarVisible: Bool = false
@@ -62,6 +63,28 @@ struct ContentView: View {
                         AboutView(isPresented: $showAboutView)
                             .transition(.opacity)
                             .zIndex(1)
+                        Spacer()
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+
+                if let selectedIdea = mySuggestionDetailsModalManager.selectedIdea {
+                    Color.black.opacity(0.3)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            mySuggestionDetailsModalManager.dismiss()
+                        }
+
+                    VStack {
+                        Spacer()
+                        MySuggestionDetailsPopup(
+                            idea: selectedIdea,
+                            onClose: {
+                                mySuggestionDetailsModalManager.dismiss()
+                            }
+                        )
+                        .transition(.opacity)
+                        .zIndex(1)
                         Spacer()
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height)

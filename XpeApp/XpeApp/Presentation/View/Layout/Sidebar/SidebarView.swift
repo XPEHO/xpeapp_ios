@@ -10,9 +10,11 @@ import xpeho_ui
 
 struct Sidebar: View {
     var featureManager = FeatureManager.instance
+    var routerManager = RouterManager.instance
 
     @Binding var isSidebarVisible: Bool
     @Binding var showAboutView: Bool 
+    @State private var isIdeaBoxExpanded: Bool = false
 
     var geometry: GeometryProxy
 
@@ -39,7 +41,7 @@ struct Sidebar: View {
                         label: "Accueil"
                     )
                     ForEach(menuItems, id: \.label) { menuItem in
-                        if featureManager.isEnabled(item: menuItem.featureFlippingId) {
+                        if menuItem.featureFlippingId != .ideaBox && featureManager.isEnabled(item: menuItem.featureFlippingId) {
                             SidebarItem(
                                 isSidebarVisible: $isSidebarVisible,
                                 navigationItem: menuItem.navigationItem,
@@ -48,6 +50,14 @@ struct Sidebar: View {
                                 action: menuItem.featureFlippingId == .about ? { showAboutView.toggle() } : nil
                             )
                         }
+                    }
+
+                    if featureManager.isEnabled(item: .ideaBox) {
+                        IdeaBoxSidebarSection(
+                            isSidebarVisible: $isSidebarVisible,
+                            isExpanded: $isIdeaBoxExpanded,
+                            routerManager: routerManager
+                        )
                     }
                     
                     SidebarItem(
@@ -84,6 +94,71 @@ struct Sidebar: View {
         .frame(width: self.isSidebarVisible ? geometry.size.width * 1 : 0)
         .background(XPEHO_THEME.XPEHO_COLOR)
         .animation(.easeInOut(duration: 0.2), value: self.isSidebarVisible)
+    }
+
+    struct IdeaBoxSidebarSection: View {
+        @Binding var isSidebarVisible: Bool
+        @Binding var isExpanded: Bool
+
+        var routerManager: RouterManager
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 12) {
+                Button(action: {
+                    withAnimation {
+                        isExpanded.toggle()
+                    }
+                }) {
+                    HStack(spacing: 10) {
+                        Assets.loadImage(named: "IdeaBulb")
+                            .renderingMode(.template)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 24)
+
+                        Text("Boite à idées")
+
+                        Assets.loadImage(named: isExpanded ? "Chevron-up" : "Chevron-down")
+                            .renderingMode(.template)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 20)
+                    }
+                }
+                .font(.raleway(.bold, size: 20))
+                .foregroundStyle(.white)
+                .accessibility(identifier: "Sidebar_Boite a idees")
+
+                if isExpanded {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Button(action: {
+                            routerManager.goTo(item: .ideaBox, parameters: ["ideaBoxSubpage": "form"])
+                            withAnimation {
+                                isSidebarVisible = false
+                            }
+                        }) {
+                            Text("- Faire une suggestion")
+                        }
+                        .font(.raleway(.medium, size: 16))
+                        .foregroundStyle(.white)
+                        .accessibility(identifier: "Sidebar_Boite a idees_Faire une suggestion")
+
+                        Button(action: {
+                            routerManager.goTo(item: .ideaBox, parameters: ["ideaBoxSubpage": "mySuggestions"])
+                            withAnimation {
+                                isSidebarVisible = false
+                            }
+                        }) {
+                            Text("- Mes suggestions")
+                        }
+                        .font(.raleway(.medium, size: 16))
+                        .foregroundStyle(.white)
+                        .accessibility(identifier: "Sidebar_Boite a idees_Mes suggestions")
+                    }
+                    .padding(.leading, 34)
+                }
+            }
+        }
     }
 
     struct CloseButton: View {

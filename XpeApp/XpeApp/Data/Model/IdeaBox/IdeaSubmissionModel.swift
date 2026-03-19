@@ -16,3 +16,4 @@ struct IdeaSubmissionModel: Codable {
         self.description = description
     }
 }
+

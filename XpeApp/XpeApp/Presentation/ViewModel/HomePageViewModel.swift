@@ -27,6 +27,7 @@ import SwiftUI
         initLastNewsletter()
         initActiveCampaigns()
         initReportConnection()
+        initIdeaStatusSync()
     }
 
     private func initReportConnection() {
@@ -72,6 +73,12 @@ import SwiftUI
             DispatchQueue.main.async {
                 self.activeCampaigns = obtainedActiveCampaigns
             }
+        }
+    }
+
+    private func initIdeaStatusSync() {
+        Task {
+            await IdeaStatusSyncManager.instance.syncAndNotifyIfNeeded()
         }
     }
 }

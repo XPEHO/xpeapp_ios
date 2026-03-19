@@ -29,6 +29,7 @@ protocol WordpressAPIProtocol {
     func fetchAllEventsTypes() async -> [EventTypeModel]?
     func fetchAllBirthdays(page: String?) async -> [BirthdayModel]?
     func submitIdea(idea: IdeaSubmissionModel) async -> Bool?
+    func fetchMyIdeas() async -> [IdeaStatusModel]?
 }
 
 class WordpressAPI: WordpressAPIProtocol {
@@ -462,6 +463,36 @@ class WordpressAPI: WordpressAPIProtocol {
             bodyObject: idea
         ) {
             return statusCode == 201
+        } else {
+            return nil
+        }
+    }
+
+    // Fetch ideas submitted by the connected user
+    func fetchMyIdeas() async -> [IdeaStatusModel]? {
+        if let (data, statusCode) = await fetchWordpressAPI(
+            endpoint: "xpeho/v1/ideas/my",
+            method: .get,
+            headers: [:]
+        ) {
+            if statusCode == 403 {
+                debugPrint("Unauthorized access in fetchMyIdeas")
+                return nil
+            }
+
+            guard (200...299).contains(statusCode) else {
+                debugPrint("Unexpected status code in fetchMyIdeas: \(statusCode)")
+                return nil
+            }
+
+            do {
+                return try JSONDecoder().decode([IdeaStatusModel].self, from: data)
+            } catch {
+                debugPrint("Failed to decode data in fetchMyIdeas : \(error)")
+                let dataString = String(data: data, encoding: .utf8) ?? ""
+                debugPrint("Data got : \(dataString)")
+                return nil
+            }
         } else {
             return nil
         }

@@ -26,6 +26,7 @@ class MockWordpressAPI: WordpressAPIProtocol {
     var fetchAllEventsTypesReturnData: [EventTypeModel]?
     var fetchAllBirthdayReturnData: [BirthdayModel]?
     var submitIdeaReturnData: Bool?
+    var fetchMyIdeasReturnData: [IdeaStatusModel]?
     
     // Mocked Methods
     func fetchUserId(email: String) async -> String? {
@@ -91,5 +92,9 @@ class MockWordpressAPI: WordpressAPIProtocol {
     
     func submitIdea(idea: IdeaSubmissionModel) async -> Bool? {
         return submitIdeaReturnData
+    }
+
+    func fetchMyIdeas() async -> [IdeaStatusModel]? {
+        return fetchMyIdeasReturnData
     }
 }

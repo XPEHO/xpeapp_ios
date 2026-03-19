@@ -11,13 +11,30 @@ import xpeho_ui
 struct HomePage: View {
     @EnvironmentObject var analytics: AnalyticsModel
     @Bindable private var homePageViewModel = HomePageViewModel.instance
+    @Bindable private var homeInfoBannerManager = HomeInfoBannerManager.instance
     @StateObject private var agendaViewModel = AgendaPageViewModel.instance
+    private var routerManager = RouterManager.instance
     private var featureManager = FeatureManager.instance
     private var userInfosViewModel = UserInfosPageViewModel.instance
     
     var body: some View {
         ScrollView {
             VStack {
+                if let bannerMessage = homeInfoBannerManager.message {
+                    HomeInfoBanner(
+                        message: bannerMessage,
+                        onTap: {
+                            var parameters: [String: Any] = ["ideaBoxSubpage": "mySuggestions"]
+                            if let targetIdeaId = homeInfoBannerManager.targetIdeaId,
+                               !targetIdeaId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                parameters["ideaId"] = targetIdeaId
+                            }
+                            routerManager.goTo(item: .ideaBox, parameters: parameters)
+                        }
+                    )
+                    Spacer().frame(height: 16)
+                }
+
                 if lastNewsletterSectionIsEnabled() {
                     PageTitleSection(title: "Dernière publication")
                     Spacer().frame(height: 16)
@@ -58,6 +75,7 @@ struct HomePage: View {
             }
         }
         .onAppear {
+            homeInfoBannerManager.refresh()
             homePageViewModel.update()
             agendaViewModel.update()
             analytics.trackEvent(
@@ -69,6 +87,7 @@ struct HomePage: View {
             )
         }
         .refreshable {
+            homeInfoBannerManager.refresh()
             homePageViewModel.update()
             agendaViewModel.update()
             featureManager.update()
@@ -94,5 +113,42 @@ struct HomePage: View {
         let hasWeeklyEvents = !(agendaViewModel.weeklyEvents?.isEmpty ?? true)
         let hasWeeklyBirthdays = !(agendaViewModel.weeklyBirthdays?.isEmpty ?? true)
         return hasActiveCampaigns || hasWeeklyEvents || hasWeeklyBirthdays
+    }
+}
+
+private struct HomeInfoBanner: View {
+    let message: String
+    let onTap: () -> Void
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image("MegaPhone")
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(XPEHO_THEME.XPEHO_COLOR)
+                .frame(height: 30)
+                .padding(.top, 2)
+
+            Text(message)
+                .font(.raleway(.regular, size: 18))
+                .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
+                .multilineTextAlignment(.leading)
+
+            Spacer(minLength: 0)
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.white)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(XPEHO_THEME.XPEHO_COLOR.opacity(0.30), lineWidth: 1)
+        )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onTap()
+        }
     }
 }
