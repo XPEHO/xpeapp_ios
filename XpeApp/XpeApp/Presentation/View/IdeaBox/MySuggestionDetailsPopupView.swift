@@ -12,8 +12,6 @@ import xpeho_ui
     static let instance = MySuggestionDetailsModalManager()
 
     private init() {
-        // This initializer is intentionally left empty to make private
-        // to prevent use without shared instance
     }
 
     var selectedIdea: IdeaStatusModel? = nil
@@ -53,14 +51,17 @@ struct MySuggestionDetailsPopup: View {
                         .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
                 }
 
-                Text("État de l'idée : \(MySuggestionStatusMapper.label(for: idea.status).lowercased())")
-                    .font(.raleway(.semiBold, size: 16))
+                (Text("État de l'idée : ")
+                    .font(.raleway(.semiBold, size: 16)) +
+                 Text(MySuggestionStatusMapper.label(for: idea.status).lowercased())
+                    .font(.raleway(.bold, size: 16)))
                     .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
 
                 if let reason = idea.reason,
                    !reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    Text("Message : \(reason)")
-                        .font(.raleway(.semiBold, size: 16))
+                    (Text("Message : ").font(.raleway(.semiBold, size: 16))
+                     + Text(reason)
+                        .font(.raleway(.bold, size: 16)))
                         .foregroundStyle(XPEHO_THEME.CONTENT_COLOR)
                 }
             }
