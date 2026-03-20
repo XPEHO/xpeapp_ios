@@ -108,7 +108,6 @@
 		D73DF94C2EC6337B00ACDF48 /* AnalyticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */; };
 		D7504B752D49303C0072E9C3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7504B742D49303C0072E9C3 /* AboutView.swift */; };
 		D75675C42EB25D87002957AB /* IdeaSubmissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */; };
-		D7AA00192F6C8D1000890DDE /* IdeaStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */; };
 		D75675C62EB26227002957AB /* IdeaBoxPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C52EB26222002957AB /* IdeaBoxPageView.swift */; };
 		D75675C82EB262CE002957AB /* IdeaBoxPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75675C72EB262C9002957AB /* IdeaBoxPageViewModel.swift */; };
 		D77CD2192E0AF6D600E5F45F /* AgencyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */; };
@@ -124,6 +123,7 @@
 		D7AA00132F6C824100890DDE /* MySuggestionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00122F6C823A00890DDE /* MySuggestionCardView.swift */; };
 		D7AA00152F6C825100890DDE /* MySuggestionDetailsPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00142F6C824900890DDE /* MySuggestionDetailsPopupView.swift */; };
 		D7AA00172F6C826100890DDE /* MySuggestionStatusMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00162F6C825A00890DDE /* MySuggestionStatusMapper.swift */; };
+		D7AA00192F6C8D1000890DDE /* IdeaStatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */; };
 		D7BCA5AA2D915E09005C28F3 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5A92D915E09005C28F3 /* EventModel.swift */; };
 		D7BCA5AF2D916A60005C28F3 /* AgendaRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */; };
 		D7BCA5B32D916B23005C28F3 /* AgendaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */; };
@@ -244,7 +244,6 @@
 		D73DF94B2EC6337100ACDF48 /* AnalyticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsModel.swift; sourceTree = "<group>"; };
 		D7504B742D49303C0072E9C3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		D75675C32EB25D80002957AB /* IdeaSubmissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaSubmissionModel.swift; sourceTree = "<group>"; };
-		D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaStatusModel.swift; sourceTree = "<group>"; };
 		D75675C52EB26222002957AB /* IdeaBoxPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBoxPageView.swift; sourceTree = "<group>"; };
 		D75675C72EB262C9002957AB /* IdeaBoxPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaBoxPageViewModel.swift; sourceTree = "<group>"; };
 		D77CD2182E0AF6D100E5F45F /* AgencyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgencyPageView.swift; sourceTree = "<group>"; };
@@ -259,6 +258,7 @@
 		D7AA00122F6C823A00890DDE /* MySuggestionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionCardView.swift; sourceTree = "<group>"; };
 		D7AA00142F6C824900890DDE /* MySuggestionDetailsPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionDetailsPopupView.swift; sourceTree = "<group>"; };
 		D7AA00162F6C825A00890DDE /* MySuggestionStatusMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySuggestionStatusMapper.swift; sourceTree = "<group>"; };
+		D7AA00182F6C8D0300890DDE /* IdeaStatusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaStatusModel.swift; sourceTree = "<group>"; };
 		D7BCA5A92D915E09005C28F3 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		D7BCA5AE2D916A5B005C28F3 /* AgendaRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepositoryImpl.swift; sourceTree = "<group>"; };
 		D7BCA5B22D916B1F005C28F3 /* AgendaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaRepository.swift; sourceTree = "<group>"; };
@@ -839,7 +839,7 @@
 		D7A64FD12EBE424100F44201 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -856,7 +856,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
