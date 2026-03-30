@@ -10,17 +10,20 @@ import SwiftUI
 import AuthenticationServices
 
 
-// Util function to open a pdf
+// Util function to open a pdf url
 func openPdf(url: String, toastManager: ToastManager, openMethod: OpenURLAction) {
-    if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
-        openMethod(url)
-    } else {
+    guard let urlObj = URL(string: url),
+          let scheme = urlObj.scheme?.lowercased(),
+          (scheme == "http" || scheme == "https")
+    else {
         toastManager.setParams(
             message: "Impossible d'ouvrir l'URL",
             error: true
         )
         toastManager.play()
+        return
     }
+    openMethod(urlObj)
 }
 
 class SSOManager: NSObject, ASWebAuthenticationPresentationContextProviding {
