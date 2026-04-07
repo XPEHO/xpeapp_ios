@@ -37,8 +37,8 @@ struct Router: View {
                 case .agenda where featureManager.isEnabled(item: .agenda):
                     AgendaPage()
                 case .ideaBox where featureManager.isEnabled(item: .ideaBox):
-                    if let subpage = routerManager.parameters["ideaBoxSubpage"] as? String,
-                       subpage == "mySuggestions" {
+                    if let subpage = routerManager.parameters[RouterParameterKey.ideaBoxSubpage] as? String,
+                       subpage == IdeaBoxSubpage.mySuggestions.rawValue {
                         MySuggestionIdeaBoxPage()
                     } else {
                         IdeaBoxPage()

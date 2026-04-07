@@ -24,7 +24,7 @@ import Foundation
                 ($0.submittedAtDate ?? .distantPast) > ($1.submittedAtDate ?? .distantPast)
             }
 
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.ideas = sortedIdeas
             }
         }

@@ -24,10 +24,12 @@ struct HomePage: View {
                     HomeInfoBanner(
                         message: bannerMessage,
                         onTap: {
-                            var parameters: [String: Any] = ["ideaBoxSubpage": "mySuggestions"]
+                            var parameters: [String: Any] = [
+                                RouterParameterKey.ideaBoxSubpage: IdeaBoxSubpage.mySuggestions.rawValue
+                            ]
                             if let targetIdeaId = homeInfoBannerManager.targetIdeaId,
                                !targetIdeaId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                parameters["ideaId"] = targetIdeaId
+                                parameters[RouterParameterKey.ideaId] = targetIdeaId
                             }
                             routerManager.goTo(item: .ideaBox, parameters: parameters)
                         }

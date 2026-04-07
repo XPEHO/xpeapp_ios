@@ -25,6 +25,16 @@ enum RouterItem: String {
     case debug = "debug"
 }
 
+enum RouterParameterKey {
+    static let ideaBoxSubpage = "ideaBoxSubpage"
+    static let ideaId = "ideaId"
+}
+
+enum IdeaBoxSubpage: String {
+    case form = "form"
+    case mySuggestions = "mySuggestions"
+}
+
 @Observable class RouterManager {
     static let instance = RouterManager()
     

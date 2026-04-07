@@ -132,7 +132,10 @@ struct Sidebar: View {
                 if isExpanded {
                     VStack(alignment: .leading, spacing: 10) {
                         Button(action: {
-                            routerManager.goTo(item: .ideaBox, parameters: ["ideaBoxSubpage": "form"])
+                            routerManager.goTo(
+                                item: .ideaBox,
+                                parameters: [RouterParameterKey.ideaBoxSubpage: IdeaBoxSubpage.form.rawValue]
+                            )
                             withAnimation {
                                 isSidebarVisible = false
                             }
@@ -144,7 +147,10 @@ struct Sidebar: View {
                         .accessibility(identifier: "Sidebar_Boite a idees_Faire une suggestion")
 
                         Button(action: {
-                            routerManager.goTo(item: .ideaBox, parameters: ["ideaBoxSubpage": "mySuggestions"])
+                            routerManager.goTo(
+                                item: .ideaBox,
+                                parameters: [RouterParameterKey.ideaBoxSubpage: IdeaBoxSubpage.mySuggestions.rawValue]
+                            )
                             withAnimation {
                                 isSidebarVisible = false
                             }

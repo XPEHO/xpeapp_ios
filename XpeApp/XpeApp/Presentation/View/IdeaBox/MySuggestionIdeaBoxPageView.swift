@@ -59,7 +59,7 @@ struct MySuggestionIdeaBoxPage: View {
 			return
 		}
 
-		guard let routeIdeaId = routerManager.parameters["ideaId"] as? String,
+		guard let routeIdeaId = routerManager.parameters[RouterParameterKey.ideaId] as? String,
 			  !routeIdeaId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
 			  let ideas = viewModel.ideas,
 			  let targetIdea = ideas.first(where: { $0.id == routeIdeaId }) else {

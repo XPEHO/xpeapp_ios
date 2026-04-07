@@ -41,9 +41,6 @@ struct MySuggestionStatusMapper {
         if normalizedStatus.contains("pending") {
             return Color(hex: "FFA500")
         }
-        if normalizedStatus.contains("implemented") {
-            return XPEHO_THEME.GREEN_DARK_COLOR
-        }
 
         return XPEHO_THEME.GREEN_DARK_COLOR
     }
