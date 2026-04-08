@@ -59,12 +59,20 @@ class XpeAppAppDelegate: NSObject, UIApplicationDelegate {
         // Add observer for willEnterForegroundNotification
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
+        Task {
+            await IdeaStatusSyncManager.instance.syncAndNotifyIfNeeded()
+        }
+
         return true
     }
 
     @objc func applicationWillEnterForeground(_ application: UIApplication) {
         if isUpdateRequired {
             checkForUpdate()
+        }
+
+        Task {
+            await IdeaStatusSyncManager.instance.syncAndNotifyIfNeeded()
         }
     }
 
